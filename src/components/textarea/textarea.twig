@@ -1,0 +1,20 @@
+{{ addCSS('textarea/textarea.css') }}
+{{ addJS('textarea/textarea.js') }}
+
+<div class="c-textarea">
+	{% if __label %}
+		<label>{{ __label }}</label>
+	{% endif %}
+	<div class="c-textarea_box">
+		{% if __icon %}
+			<div class="c-textarea_icon">
+				{% include 'icon/icon.twig' with {__icon: __icon} %}
+			</div>
+		{% endif %}
+		{% if __multiline %}
+			<textarea id="{{__id}}" class="c-textarea_input" name="{{ __name }}" id="{{ __id }}" placeholder="{{ __placeholder }}" {% if __required %} required {% endif %}>{{ __value }}</textarea>
+		{% else %}
+			<input id="{{__id}}" class="c-textarea_input" type="{{ __type ?? "text" }}" name="{{ __name }}" id="{{ __id }}" value="{{ __value }}" placeholder="{{ __placeholder }}" {% if __required %} required {% endif %}>
+		{% endif %}
+	</div>
+</div>

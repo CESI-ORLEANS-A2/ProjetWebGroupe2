@@ -1,0 +1,16 @@
+{{ addCSS('select/select.css') }}
+{{ addJS('select/select.js') }}
+
+<div class="c-select" id="{{__id}}">
+	{% if __icon or __iconBefore %}
+		{% include 'icon/icon.twig' with {
+			__icon: __icon ?? __iconBefore
+		} %}
+	{% endif %}
+	{% if __prefix %}
+		<span class="c-select_prefix">{{__prefix}}</span>
+	{% endif %}
+	{% include 'icon/icon.twig' with {
+		__icon: 'arrow_drop_down',
+	} %}
+</div>

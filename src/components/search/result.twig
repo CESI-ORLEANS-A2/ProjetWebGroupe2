@@ -1,0 +1,54 @@
+{#
+Arguments :
+  - __icon (optionnel) : string
+      URL de l'icône
+  - __iconText (optionnel) : string
+      Texte à placer à la place de l'icon
+  - __title (optionnel) : string
+      Titre
+  - __subtitle (optionnel) : string
+      Sous-titre
+  - __description (optionnel) : string
+      Description
+  - __sidebar (optionnel) : template
+      Contenu à placer dans la sidebar
+
+#}
+
+{{ addCSS('search/result.css') }}
+
+<a class="search-result" href="{{ __link ?? '#' }}">
+	{% if __icon or __iconText %}
+		<div class="search-result-icon">
+			{% if __icon %}
+				{% if __icon starts with "http" or "/" in __icon %}
+					<img src="{{ __icon }}" alt="{{ __iconText }}" data-replacement="{{ __iconText }}"/>
+				{% else %}
+					{% include "icon/icon.twig" with {
+                        __name: __icon,  
+                    } %}
+				{% endif %}
+			{% else %}
+				{{ __iconText }}
+			{% endif %}
+		</div>
+	{% endif %}
+	{% if __title or __subtitle or __description %}
+		<div class="search-result-content">
+			{% if __title %}
+				<div class="search-result-title">{{ __title }}</div>
+			{% endif %}
+			{% if __subtitle %}
+				<div class="search-result-subtitle">{{ __subtitle }}</div>
+			{% endif %}
+			{% if __description %}
+				<div class="search-result-description">{{ __description }}</div>
+			{% endif %}
+		</div>
+	{% endif %}
+	{% if __sidebar %}
+		<div class="search-result-sidebar">
+			{{ __sidebar }}
+		</div>
+	{% endif %}
+</a>

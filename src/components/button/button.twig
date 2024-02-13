@@ -1,0 +1,15 @@
+{{ addCSS('button/button.css') }}
+
+<div class="c-button" id="{{__id}}">
+	{% if __iconBefore or __icon %}
+		{% include 'icon/icon.twig' with {
+			__icon: __icon ?? __iconBefore,
+		} %}
+	{% endif %}
+	<span>{{ __text }}</span>
+	{% if __iconAfter %}
+		{% include 'icon/icon.twig' with {
+			__icon:  __iconAfter,
+		} %}
+	{% endif %}
+</div>

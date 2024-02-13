@@ -1,0 +1,29 @@
+{#
+Arguments:
+    - __name : string
+        Le nom de l'entreprise
+    - icon (optionnel) : string
+        L'icône de l'entreprise
+    - __description (optionnel) : string
+        La description de l'entreprise
+    - __location (optionnel) : string
+        La localisation de l'entreprise
+    - __link (optionnel) : string
+        Le lien vers la page de l'entreprise
+#}
+
+{% if not __icon or not __iconText %}
+	{#
+			    {% set __icon = "fa-building" %}
+			    #}
+	{% set __iconText = __name %}
+{% endif %}
+
+{% include "search/result.twig" with {
+    __title: __name,
+    __subtitle: __description,
+    __description: __location,
+    __icon: __icon,
+    __iconText: __iconText,
+    __link: "/company/" ~ __link
+} %}

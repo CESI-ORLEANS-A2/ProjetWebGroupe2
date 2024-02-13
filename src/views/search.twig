@@ -1,0 +1,108 @@
+{# 
+======================================== 
+				 Imports
+========================================
+#}
+{% extends "base.twig" %}
+
+{# 
+======================================== 
+				 Assets
+========================================
+#}
+{% block assets %}
+	{{ parent() }}
+	{{ setName('search') }}
+	{{ addCSS('css/search.css') }}
+	{{ addJS('js/search.js') }}
+{% endblock %}
+
+{# 
+======================================== 
+				 Metas
+========================================
+#}
+{% block title %}Search
+{% endblock %}
+
+{# 
+======================================== 
+			      Body
+========================================
+#}
+{% block content %}
+	<div class="search-header">
+		<div class="search-bar">
+			{% include 'textarea/textarea.twig' with {
+				__placeholder: 'Métier, mot-clé, compétence, ...',
+				__icon: "work",
+				__id: "job"
+			} %}
+			{% include 'textarea/textarea.twig' with {
+				__placeholder: 'Lieu de recherche ...',
+				__icon: "location_on",
+				__id: "location"
+			} %}
+			{% include 'button/button.twig' with {
+				__text: 'Rechercher',
+				__icon: 'search',
+				__id: 'submit'
+			} %}
+		</div>
+		<div class="filter-bar">
+			{% include 'select/select.twig' with {
+				__prefix: 'Domaine',
+				__id: 'domain'
+			} %}
+			{% include 'select/select.twig' with {
+				__prefix: 'Contrat',
+				__id: 'contract'
+			} %}
+			{% include 'select/select.twig' with {
+				__prefix: 'Type',
+				__id: 'type'
+			} %}
+			{% include 'select/select.twig' with {
+				__prefix: 'Autres critères',
+				__id: 'other'
+			} %}
+		</div>
+	</div>
+	<div class="search-body">
+		<div class="search-sort">
+			{% include 'select/select.twig' with {
+				__prefix: 'Trier par',
+				__id: 'sort'
+			} %}
+			<span class="result-counter">
+				<span class="result-count">0</span>
+				/
+				<span class="result-total">0</span>
+				Résulats trouvés
+			</span>
+		</div>
+		<div class="search-results">
+			{% include "search/company-result.twig" with {
+				__name: "Company Name",
+			} %}
+			{% include "search/company-result.twig" with {
+				__name: "Company Name",
+				__icon: "apartment"
+			} %}
+			{% include "search/company-result.twig" with {
+				__name: "Company Name",
+				__icon: "search",
+				__description: "Description",
+				__location: "Location",
+			} %}
+			{% include "search/company-result.twig" with {
+				__name: "Company Name",
+				__icon: ""
+			} %}
+			{% include "search/company-result.twig" with {
+				__name: "Company Name",
+				__icon: ""
+			} %}
+		</div>
+	</div>
+{% endblock %}

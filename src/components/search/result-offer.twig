@@ -1,0 +1,31 @@
+{#
+Arguments:
+    - __title: string
+        Nom de l'offre de stage
+    - __date: string
+        Date de publication de l'offre
+    - __location: string
+        Lieu de l'offre
+    - __link: string
+        Lien vers l'offre
+    - __icon: string
+        Nom de l'icône
+    - __iconText: string
+        Texte alternatif de l'icône
+#}
+
+{% if not __icon or not __iconText %}
+	{#
+    {% set __icon = "fa-building" %}
+    #}
+	{% set __iconText = __name %}
+{% endif %}
+
+{% include "search/result.twig" with {
+    __title: __title,
+    __subtitle: __date,
+    __description: __location,
+    __icon: __icon,
+    __iconText: __iconText,
+    __link: "/offer/" ~ __link
+} %}

@@ -31,7 +31,7 @@ class Logger {
     }
 
     public function message(string $message, string $type, string $file) {
-        $message = '[' . date('Y-m-d H:i:s') . '] [' . $this->name . '] [' . $type . '] ' . $message . PHP_EOL;
+        $message = '[' . date('Y-m-d H:i:s') . '] [' . $_SERVER['REMOTE_ADDR'] . '] [' . $this->name . '] [' . $type . '] ' . $message . PHP_EOL;
         $filePath = $this->config->get('LOGGER.LOG_PATH') . '/' . $file . '.log';
 
         if (!is_file($filePath)) {

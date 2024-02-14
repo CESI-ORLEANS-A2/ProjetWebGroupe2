@@ -322,4 +322,6 @@ html {
 	--background-primary-color: var(--color-neutral-0);
 	--background-secondary-color: var(--color-neutral-100);
 	--background-tertiary-color: var(--color-neutral-200);
+
+	--shadow-color: var(--color-neutral-dark-800);
 }

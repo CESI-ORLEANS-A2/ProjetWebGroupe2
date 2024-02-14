@@ -60,7 +60,14 @@
 			} %}
 			{% include 'select/select.twig' with {
 				__prefix: 'Type',
-				__id: 'type'
+				__id: 'type',
+				__multiple: true,
+				__options: [
+					{ value: 'stage', text: 'Stage', selected: true },
+					{ value: 'pilote', text: 'Pilotes', selected: true},
+					{ value: 'student', text: 'Étudiants', selected: true},
+					{ value: 'company', text: 'Entreprises', selected: true},
+				]
 			} %}
 			{% include 'select/select.twig' with {
 				__prefix: 'Autres critères',
@@ -82,27 +89,43 @@
 			</span>
 		</div>
 		<div class="search-results">
-			{% include "search/company-result.twig" with {
-				__name: "Company Name",
-			} %}
-			{% include "search/company-result.twig" with {
+			{% include "search/result-company.twig" with {
 				__name: "Company Name",
 				__icon: "apartment"
 			} %}
-			{% include "search/company-result.twig" with {
-				__name: "Company Name",
-				__icon: "search",
-				__description: "Description",
+			{% include "search/result-user.twig" with {
+				__name: "Jean Broche",
+				__icon: "person"
+			} %}
+			{% include "search/result-offer.twig" with {
+				__title: "CS 24 - Stage - BAC+5 - Chargé / Chargée de missions pilote d'études Superstructure (H/F)",
+				__icon: "work",
+				__date: "Publié hier",
 				__location: "Location",
 			} %}
-			{% include "search/company-result.twig" with {
+			{% include "search/result-company.twig" with {
+				__name: "Company Name"
+			} %}
+			{% include "search/result-offer.twig" with {
+				__title: "CS 24 - Stage - BAC+5 - Chargé / Chargée de missions pilote d'études Superstructure (H/F)",
+				__icon: "work",
+				__date: "Publié hier",
+				__location: "Location",
+			} %}
+			{% include "search/result-user.twig" with {
+				__name: "Jean Broche",
+				__icon: "person"
+			} %}
+			{% include "search/result-company.twig" with {
 				__name: "Company Name",
 				__icon: ""
 			} %}
-			{% include "search/company-result.twig" with {
-				__name: "Company Name",
-				__icon: ""
+			{% include "search/result-user.twig" with {
+				__name: "Jean Broche",
+				__icon: "person"
 			} %}
 		</div>
 	</div>
 {% endblock %}
+
+{% block templates append %}

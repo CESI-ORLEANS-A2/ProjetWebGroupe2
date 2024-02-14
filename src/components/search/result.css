@@ -58,7 +58,7 @@
 
 .search-result-title {
 	font-size: 1rem;
-	text-decoration: underline;
+	/* text-decoration: underline; */
 }
 .search-result-description {
 	font-size: 1rem;

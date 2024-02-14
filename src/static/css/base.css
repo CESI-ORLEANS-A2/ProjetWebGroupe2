@@ -1,9 +1,17 @@
+* {
+	box-sizing: border-box;
+}
+
 :root {
-	--transition-duration : 250ms;
+	--transition-duration: 150ms;
 	--transition-function: ease-in-out;
 	--transition: var(--transition-duration) var(--transition-function);
 }
 
 html {
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden scroll;
 }

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Nom_du_site - Inscription</title>
+        <meta name="description" content="Page d'inscription">
+        <meta name="author" content="MMR">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/style.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html"><img src="img/logo.png" alt="Logo"></a>
+                </div>
+                <nav>   
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="sign_in.html">Inscription</a></li>
+                        <li><a href="sign_up.html">Connexion</a></li>
+                    </ul>
+                </nav>
+                <!-- Header à modifier pour l'adapter à celui qui sera site-wide -->
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="form">
+                <h1 class="text-centered" id="police_audiowide">S'inscrire</h1>
+                <p class="text-centered" id="sous_titre_inscription">Pour les entreprises, veuillez contactez l’administration du site.</p>
+                <form>
+                    <div class="formulaire_inscription">
+                        <div class="module_information text-centered">
+                            <label class="text-left">Nom d'utilisateur<br><input class="blue-border" name="username" type="text" value="" size="80%" required placeholder="Nom d'utilisateur" ></label>
+                        </div>
+                        <br><br>
+                        <div class="module_information text-centered">
+                            <label class="text-left">Mot de passe<br><input class="blue-border" name="password" type="password" size="80%" value="" minlength="8" required placeholder="Mot de passe"></label>
+                        </div>
+                        <br><br>
+                            <div class="text-centered">
+                            <div class="premier_bloc_inscritpion">
+                                <div class="module_information">
+                                    <label style="text-align: left;">Prénom<br><input class="blue-border" name="firstname" type="text" value="" size="40%" required placeholder="Prénom"></label>
+                                </div>
+                                <div class="module_information">
+                                    <label class="text-left">Nom<br><input class="blue-border" name="lastname" type="text" value="" size="40%" required placeholder="Nom"></label>
+                                </div>
+                            </div>
+                            <div class="deuxieme_bloc_inscritpion">
+                                <div class="module_information">
+                                    <label class="text-left">Etablissement<br><input class="blue-border" name="establishment" type="text" size="40%" value="" required placeholder="Etablissement"></label>
+                                </div>
+                                <div class="module_information">
+                                    <label class="text-left">Promotion<br><input class="blue-border" name="promotion" type="text" size="40%" value="" required placeholder="Promotion"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="text-centered">
+                            <button type="submit" class="valider">Valider</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2024 - Nom_du_site</p>
+            <!-- Footer à modifier pour l'adapter à celui qui sera site-wide -->
+        </footer>
+
+    </body>
+</html>

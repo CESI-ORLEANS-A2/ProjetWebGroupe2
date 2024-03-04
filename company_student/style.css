@@ -3,25 +3,6 @@
     overflow-x: hidden;
     font-family: sans-serif;
 }
-header{
-    align-items: center;
-    width: 100%;
-    position: sticky;
-    top: 0.1%;
-    box-shadow: 2px 2px 2px grey;
-    background-color: #DEF7FF ;
-    display: grid;
-    grid-template-columns: 50% 45% 5%;
-   nav a{
-    color: #000;
-    margin-right: 5%;
-    text-decoration: none;
-   }
-   div{
-    display: inline-block;
-   }
-}
-
 
 body {
     margin: 0%;

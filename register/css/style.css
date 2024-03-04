@@ -1,0 +1,85 @@
+@font-face {
+    font-family: 'Audiowide';
+    src: local('Audiowide'), url('../font/Audiowide-Regular.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Montserrat';
+    src: local('Montserrat'), url('../font/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+}
+
+
+form {
+    display:grid;
+    justify-content: center;
+}
+
+.text-centered {
+  text-align: center;
+}
+
+input {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6% ;
+    width: 50%;
+}
+
+input.blue-border {
+    border: 3px solid #85d3ff;
+    border-radius: 6% ;
+}
+
+.valider {
+    background-color: #85d3ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 6% ;
+    width: 50%;
+}
+
+.premier_bloc_inscritpion {
+    display: flex;
+    justify-content: space-around;
+}
+
+.deuxieme_bloc_inscritpion {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+label.text-left {
+    text-align: left;
+}
+
+#sous_titre_inscription {
+    color:grey;
+    font-size: 0.7em;
+    font-weight:lighter;
+    margin-bottom: 2em;
+}
+
+
+h1 {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 0em;
+    font-family: 'Audiowide' ;
+}
+
+.formulaire_inscription {
+    margin-top: 0em;
+    margin-bottom: 2em;
+    display: grid;
+    justify-self: center;
+    
+}
+
+
+

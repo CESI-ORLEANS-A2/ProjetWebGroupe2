@@ -1,0 +1,88 @@
+footer{
+    background-color: #DEF7FF;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: auto;
+}
+
+.all{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* margin: auto; */
+    padding: 2rem;
+}
+
+.d{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.d ul{
+    list-style-type: none;
+  }
+
+.C ul{
+    list-style-type: none;
+  }
+
+  .C
+  {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  
+
+  .Candidature li:not(:first-child){
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  .Support li:not(:first-child){
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  .Support{
+    margin-right: 40px;
+  }
+
+
+@media screen and (min-width: 768px) {
+    .all{
+        display: flex;
+        flex-direction: row;
+    }
+    .d{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .C{
+        display: flex;
+        flex-direction: row;
+    }
+    .C li:not(:last-child)::after{
+        content: "-";
+        padding: 5px;
+      }
+      .C li{
+        display: inline-block;
+      }
+      .Candidature li:not(:first-child){
+        font-size: 16px;
+        padding: 5px;
+      }
+      .Support li:not(:first-child){
+        font-size: 16px;
+        padding: 5px;
+      }
+}

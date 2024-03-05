@@ -10,8 +10,69 @@ body {
 
 
 form {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content:center;
+    margin-top: 2em;    
+    flex-wrap: wrap;
+}
+
+.formulaire_inscription {
     display:grid;
+    grid-template : repeat(5,1fr) / repeat(2,1fr) ;
+    gap : 1em ;
+    width: 60%;
+}
+
+.flex_center {
+    display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.width_100 {
+    width: 100%;
+}
+
+.width_97 {
+    width: 97%;
+}
+
+.width_94 {
+    width: 94%;
+}
+
+.width_70 {
+    width: 70%;
+}
+
+#input_1 {
+    grid-area: 1/1/2/3;
+}
+
+#input_2 {
+    grid-area: 2/1/3/3;
+}
+
+#input_3 {
+    grid-area: 3/1/4/2;
+}
+
+#input_4 {
+    grid-area: 3/2/4/3;
+}
+
+#input_5 {
+    grid-area: 4/1/5/2;
+}
+
+#input_6 {
+    grid-area: 4/2/5/3;
+}
+
+#input_7 {
+    grid-area: 5/1/6/3;
 }
 
 .text-centered {
@@ -19,16 +80,19 @@ form {
 }
 
 input {
-    padding: 10px;
-    margin: 10px;
+    padding: 0.7em;
     border: 1px solid #ccc;
     border-radius: 6% ;
-    width: 50%;
 }
 
-input.blue-border {
+input.blue-border_1 {
     border: 3px solid #85d3ff;
-    border-radius: 6% ;
+    border-radius: 0.5em / 0.5em ;
+}
+
+input.blue-border_2 {
+    border: 3px solid #85d3ff;
+    border-radius: 0.5em / 0.5em ;
 }
 
 .valider {
@@ -40,19 +104,10 @@ input.blue-border {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    border-radius: 6% ;
+    border-radius: 1.5em / 1.5em ; 
     width: 50%;
 }
 
-.premier_bloc_inscritpion {
-    display: flex;
-    justify-content: space-around;
-}
-
-.deuxieme_bloc_inscritpion {
-    display: flex;
-    justify-content: space-evenly;
-}
 
 label.text-left {
     text-align: left;
@@ -73,13 +128,20 @@ h1 {
     font-family: 'Audiowide' ;
 }
 
-.formulaire_inscription {
-    margin-top: 0em;
-    margin-bottom: 2em;
-    display: grid;
-    justify-self: center;
+
+
+@media all and (orientation: portrait) {
+    .formulaire_inscription {
+        width: 90%;
+    }
     
+    .width_97 {
+        width: 91%;
+    }
+    
+    .width_94 {
+        width: 80%;
+    }
+   
 }
-
-
 

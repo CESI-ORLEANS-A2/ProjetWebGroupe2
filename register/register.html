@@ -12,6 +12,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
 
     <body>
@@ -37,35 +39,26 @@
                 <p class="text-centered" id="sous_titre_inscription">Pour les entreprises, veuillez contactez l’administration du site.</p>
                 <form>
                     <div class="formulaire_inscription">
-                        <div class="module_information text-centered">
-                            <label class="text-left">Nom d'utilisateur<br><input class="blue-border" name="username" type="text" value="" size="80%" required placeholder="Nom d'utilisateur" ></label>
+                        <div class="flex_center" id="input_1">
+                            <label class="text-left width_100">Nom d'utilisateur<br><input class="blue-border_1 width_97" name="username" type="text" value="" required placeholder="Nom d'utilisateur" ></label>
                         </div>
-                        <br><br>
-                        <div class="module_information text-centered">
-                            <label class="text-left">Mot de passe<br><input class="blue-border" name="password" type="password" size="80%" value="" minlength="8" required placeholder="Mot de passe"></label>
+                        <div class="flex_center" id="input_2">
+                            <label class="text-left width_100">Mot de passe<br><input class="blue-border_1 width_97" name="password" type="password" value="" minlength="8" required placeholder="Mot de passe"></label>
                         </div>
-                        <br><br>
-                            <div class="text-centered">
-                            <div class="premier_bloc_inscritpion">
-                                <div class="module_information">
-                                    <label style="text-align: left;">Prénom<br><input class="blue-border" name="firstname" type="text" value="" size="40%" required placeholder="Prénom"></label>
-                                </div>
-                                <div class="module_information">
-                                    <label class="text-left">Nom<br><input class="blue-border" name="lastname" type="text" value="" size="40%" required placeholder="Nom"></label>
-                                </div>
-                            </div>
-                            <div class="deuxieme_bloc_inscritpion">
-                                <div class="module_information">
-                                    <label class="text-left">Etablissement<br><input class="blue-border" name="establishment" type="text" size="40%" value="" required placeholder="Etablissement"></label>
-                                </div>
-                                <div class="module_information">
-                                    <label class="text-left">Promotion<br><input class="blue-border" name="promotion" type="text" size="40%" value="" required placeholder="Promotion"></label>
-                                </div>
-                            </div>
+                        <div class="flex_center" id="input_3">
+                            <label class="text-left width_100">Prénom<br><input class="blue-border_2 width_94" name="firstname" type="text" value="" required placeholder="Prénom"></label>
                         </div>
-                        <br><br>
-                        <div class="text-centered">
-                            <button type="submit" class="valider">Valider</button>
+                        <div class="flex_center" id="input_4">
+                            <label class="text-left width_100">Nom<br><input class="blue-border_2 width_94" name="lastname" type="text" value="" required placeholder="Nom"></label>
+                        </div>
+                        <div class="flex_center" id="input_5">
+                            <label class="text-left width_100">Etablissement<br><input class="blue-border_2 width_94" name="establishment" type="text" value="" required placeholder="Etablissement"></label>
+                        </div>
+                        <div class="flex_center" id="input_6">
+                            <label class="text-left width_100">Promotion<br><input class="blue-border_2 width_94" name="promotion" type="text" value="" required placeholder="Promotion"></label>
+                        </div>
+                        <div class="flex_center" id="input_7">
+                            <button type="submit" class="valider width_70">Valider</button>
                         </div>
                     </div>
                 </form>

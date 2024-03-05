@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Nom_du_site - Inscription</title>
+        <meta name="description" content="Page d'inscription">
+        <meta name="author" content="MMR">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/style.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html"><img src="img/logo.png" alt="Logo"></a>
+                </div>
+                <nav>   
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="sign_in.html">Inscription</a></li>
+                        <li><a href="sign_up.html">Connexion</a></li>
+                    </ul>
+                </nav>
+                <!-- Header à modifier pour l'adapter à celui qui sera site-wide -->
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="form">
+                <h1 class="text-centered" id="police_audiowide">S'inscrire</h1>
+                <p class="text-centered" id="sous_titre_inscription">Pour les entreprises, veuillez contactez l’administration du site.</p>
+                <form>
+                    <div class="formulaire_inscription">
+                        <div class="flex_center" id="input_1">
+                            <label class="text-left width_100">Nom d'utilisateur<br><input class="blue-border_1 width_97" name="username" type="text" value="" required placeholder="Nom d'utilisateur" ></label>
+                        </div>
+                        <div class="flex_center" id="input_2">
+                            <label class="text-left width_100">Mot de passe<br><input class="blue-border_1 width_97" name="password" type="password" value="" minlength="8" required placeholder="Mot de passe"></label>
+                        </div>
+                        <div class="flex_center" id="input_3">
+                            <label class="text-left width_100">Prénom<br><input class="blue-border_2 width_94" name="firstname" type="text" value="" required placeholder="Prénom"></label>
+                        </div>
+                        <div class="flex_center" id="input_4">
+                            <label class="text-left width_100">Nom<br><input class="blue-border_2 width_94" name="lastname" type="text" value="" required placeholder="Nom"></label>
+                        </div>
+                        <div class="flex_center" id="input_5">
+                            <label class="text-left width_100">Etablissement<br><input class="blue-border_2 width_94" name="establishment" type="text" value="" required placeholder="Etablissement"></label>
+                        </div>
+                        <div class="flex_center" id="input_6">
+                            <label class="text-left width_100">Promotion<br><input class="blue-border_2 width_94" name="promotion" type="text" value="" required placeholder="Promotion"></label>
+                        </div>
+                        <div class="flex_center" id="input_7">
+                            <button type="submit" class="valider width_70">Valider</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2024 - Nom_du_site</p>
+            <!-- Footer à modifier pour l'adapter à celui qui sera site-wide -->
+        </footer>
+
+    </body>
+</html>

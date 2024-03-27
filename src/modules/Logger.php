@@ -32,7 +32,7 @@ class Logger {
 
     public function message(string $message, string $type, string $file) {
         $message = '[' . date('Y-m-d H:i:s') . '] [' . $_SERVER['REMOTE_ADDR'] . '] [' . $this->name . '] [' . $type . '] ' . $message . PHP_EOL;
-        $filePath = $this->config->get('LOGGER.LOG_PATH') . '/' . $file . '.log';
+        $filePath = $this->config->get('LOGGER.LOG_PATH') . $file . '.log';
 
         if (!is_file($filePath)) {
             touch($filePath);
@@ -41,7 +41,7 @@ class Logger {
         $index = 0;
         while (filesize($filePath) > $this->config->get('LOGGER.MAX_LOG_SIZE')) {
             $index++;
-            $filePath = $this->config->get('LOGGER.LOG_PATH') . '/' . $file . '_' . $index .'.log';
+            $filePath = $this->config->get('LOGGER.LOG_PATH') . $file . '_' . $index .'.log';
             if (!is_file($filePath)) {
                 touch($filePath);
             }

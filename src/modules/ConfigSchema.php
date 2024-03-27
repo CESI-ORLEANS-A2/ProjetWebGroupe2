@@ -54,7 +54,7 @@ return [
         'schema' => [
             'pattern' => 'string',
             'controller' => 'string',
-            'method' => 'string',
+            'methods' => 'array',
             'params' => [
                 'type' => 'array',
                 'schema' => [

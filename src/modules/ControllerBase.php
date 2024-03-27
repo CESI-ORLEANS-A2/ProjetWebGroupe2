@@ -1,6 +1,6 @@
 <?php
 
-class Controller {
+class ControllerBase {
     protected App $app;
     protected Router $router;
     protected \Twig\Environment $twig;
@@ -23,5 +23,14 @@ class Controller {
         echo $this->twig->render($template, [
             'router' => $this->router,
         ] + $data);
+    }
+
+    protected function reply($data, $status = 200) {
+        http_response_code($status);
+        header('Content-Type: application/json');
+        echo json_encode([
+            'status' => $status,
+            'body' => $data
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_LINE_TERMINATORS);
     }
 };

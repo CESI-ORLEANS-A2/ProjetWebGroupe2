@@ -1,6 +1,21 @@
-{{ addCSS('button/button.css') }}
+{#
+Arguments : 
+	- __id : string
+		Identifiant unique du bouton
+	- __text : string
+		Texte du bouton
+	- __icon : string
+		Nom de l'icône à afficher
+	- __iconBefore : string
+		Nom de l'icône à afficher avant le texte
+	- __iconAfter : string
+		Nom de l'icône à afficher après le texte
+#}
 
-<div class="c-button" id="{{__id}}">
+{{ addCSS('button/button.css') }}
+{{ addJS('button/button.js') }}
+
+<div class="c-button" id="{{__id}}" {%if __type%} type="{{__type}}" {%endif%} c-ripple>
 	{% if __iconBefore or __icon %}
 		{% include 'icon/icon.twig' with {
 			__icon: __icon ?? __iconBefore,

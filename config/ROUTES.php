@@ -1,19 +1,25 @@
 <?php
 
 return [
-    [
-        'pattern' => '\/|\/home', // Home
-        'controller' => 'Home',
-        'method' => 'GET'
+    [ // Home
+        'pattern' => '\/|\/home', // Regular expression pattern, match / or /home
+        'controller' => '/Home.php', // Relative to CONTROLLER_PATH
+        'methods' => ['GET'] // Allowed methods
     ],
-    [
-        'pattern' => '\/|\/search', // Search
-        'controller' => 'Search',
-        'method' => 'GET'
+    [ // Search
+        'pattern' => '\/search', 
+        'controller' => '/Search.php',
+        'methods' => ['GET']
     ],
-    [
-        'pattern' => '\/|\/phpinfo', // PhpInfo
-        'controller' => 'PhpInfo',
-        'method' => 'GET'
+    [ // PhpInfo
+        'pattern' => '\/phpinfo', 
+        'controller' => '/PhpInfo.php',
+        'methods' => ['GET'],
+        'environment' => 'development' // Only available in development
+    ],
+    [ // API : Search
+        'pattern' => '\/api\/search',
+        'controller' => '/api/Search.php',
+        'methods' => ['GET']
     ]
 ];

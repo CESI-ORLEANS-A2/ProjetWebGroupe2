@@ -1,10 +1,9 @@
 <?php
 
-require_once('../src/modules/controller.php');
+require_once('../src/modules/ControllerBase.php');
 
-class Home extends Controller {
-    public function __construct($router)
-    {
+class Controller extends ControllerBase {
+    public function __construct($router) {
         parent::__construct($router);
     }
 

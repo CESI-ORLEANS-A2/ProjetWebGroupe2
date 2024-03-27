@@ -1,25 +1,60 @@
 <?php
 
+// Chargement des dépendances
 require '../vendor/autoload.php';
 
+// Chargement des librairies
 require_once('./modules/Router.php');
 require_once('./modules/TwigUtils.php');
 require_once('./modules/Config.php');
 require_once('./modules/Logger.php');
 
+// Chargement des classes
 use \Twig\Loader\FilesystemLoader;
 use \Twig\Environment;
 use \Odan\Twig\TwigAssetsExtension;
 use \Odan\Twig\TwigAssetsCache;
 
+/**
+ * Classe App représente l'application principale.
+ */
 class App {
+    /**
+     * @var Config $config Configuration de l'application.
+     */
     public Config $config;
+    
+    /**
+     * @var FilesystemLoader $loader Chargeur de fichiers pour Twig.
+     */
     public FilesystemLoader $loader;
+    
+    /**
+     * @var Environment $twig Environnement Twig.
+     */
     public Environment $twig;
+    
+    /**
+     * @var Router $router Routeur de l'application.
+     */
     public Router $router;
+    
+    /**
+     * @var LoggerManager $loggerManager Gestionnaire de loggers.
+     */
     public LoggerManager $loggerManager;
+    
+    /**
+     * @var Logger $logger Logger de l'application.
+     */
     public Logger $logger;
 
+    /**
+     * Constructeur de la classe App.
+     *
+     * @param mixed $rawConfig Configuration brute de l'application.
+     * @param string $env Environnement de l'application.
+     */
     public function __construct($rawConfig, $env) {
         $this->config = new Config($rawConfig);
 
@@ -27,13 +62,6 @@ class App {
         $this->logger = $this->loggerManager->getLogger('App');
 
         $this->logger->info('Starting application...');
-        // $this->logger->info('=========================================================================');
-        // $this->logger->info('=                          PROJET WEB GROUPE 2                          =');
-        // $this->logger->info('=========================================================================');
-        // $this->logger->info('= Environment: ' . $this->config->get('ENVIRONMENT'));
-        // $this->logger->info('= PHP Version: ' . phpversion());
-        // $this->logger->info('=========================================================================');
-
 
         $this->loader = new FilesystemLoader(array(
             $this->config->get('TEMPLATE_PATH'),
@@ -41,7 +69,7 @@ class App {
             $this->config->get('STATIC_PATH'),
         ));
         $this->twig = new Environment($this->loader, array(
-            'cache' => $this->config->get('TWIG_CACHE_PATH'),
+            'cache' => $this->config->get('ENVIRONMENT') === "production" ?? $this->config->get('TWIG_CACHE_PATH'),
             'debug' => $this->config->get('ENVIRONMENT') === "development"
         ));
 
@@ -57,7 +85,11 @@ class App {
         // Create router
         $this->router = new Router($this);
 
-        if ($this->config->get('ENVIRONMENT') === 'development') {
+        // Clear assets cache in development mode
+        if (
+            $this->config->get('ENVIRONMENT') === 'development'
+            && strpos($_SERVER['REQUEST_URI'], 'api/') === false
+        ) {
             $this->logger->info('Development mode enabled.');
             $this->clearAssets();
         }
@@ -66,18 +98,27 @@ class App {
         $this->processPath();
     }
 
+    /**
+     * Applique les en-têtes définis dans la configuration.
+     */
     private function applyHeaders() {
         foreach ($this->config->get('HEADERS') as $key => $value) {
             header("$key: $value");
         }
     }
 
+    /**
+     * Traite le chemin de la requête et exécute la route correspondante.
+     */
     private function processPath() {
         if ($this->router->findRoute()) {
-            echo $this->router->render();
+            echo $this->router->run();
         } else echo $this->router->render404();
     }
 
+    /**
+     * Efface le cache des assets en mode développement.
+     */
     private function clearAssets() {
         $cache = new TwigAssetsCache($this->config->get('PUBLIC_CACHE_PATH'));
         $cache->clearCache();
@@ -85,6 +126,11 @@ class App {
         $this->logger->info('Assets cache cleared.');
     }
 
+    /**
+     * Supprime un répertoire et son contenu récursivement.
+     *
+     * @param string $dir Chemin du répertoire à supprimer.
+     */
     private function removeDir(string $dir): void {
         $it = new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS);
         $files = new RecursiveIteratorIterator(
@@ -102,7 +148,9 @@ class App {
     }
 };
 
+// Chargement des variables d'environnement
 $env = parse_ini_file('../.env');
+// Création de l'application
 $app = new App(require_once($env['CONFIG_PATH']), $env);
 
 return true;

@@ -13,12 +13,15 @@
 	flex-direction: row;
 	gap: 0.5rem;
 	border: var(--c-textarea-border-size) solid var(--c-textarea-border-color);
-	border-radius: 0.5rem;
+	border-radius: 0.25rem;
 	padding: calc(0.5rem - var(--c-textarea-border-size)) calc(1rem - var(--c-textarea-border-size));
 }
 
 .c-textarea_icon {
 	user-select: none;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .c-textarea_box textarea {

@@ -30,12 +30,13 @@ class Router {
             $this->routes[$i]['pattern'] = '/^(' . $this->routes[$i]['pattern'] . ')$/';
 
             if (
-                strcasecmp($this->routes[$i]['method'], $_SERVER['REQUEST_METHOD']) === 0 &&
-                preg_match($this->routes[$i]['pattern'], $_SERVER['REQUEST_URI'])
+                in_array($_SERVER['REQUEST_METHOD'], $this->routes[$i]['methods']) &&
+                preg_match($this->routes[$i]['pattern'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), $matches) &&
+                (!isset($this->routes[$i]['environment']) || $this->routes[$i]['environment'] === $this->config->get('ENVIRONMENT'))
             ) {
                 $this->route = $this->routes[$i];
 
-                $this->logger->info('Route found: ' . $this->route['method'] . ' ' . $this->route['pattern']);
+                $this->logger->info('Route found: ' . $_SERVER['REQUEST_METHOD'] . ' ' . $this->route['pattern']);
 
                 return true;
             }
@@ -44,35 +45,26 @@ class Router {
         return false;
     }
 
-    public function isStatic() {
-        if (is_file($this->config->get('PUBLIC_PATH') . $_SERVER['REQUEST_URI'])) {
-            return true;
-        }
-        if (is_file($this->config->get('PUBLIC_CACHE_PATH') . $_SERVER['REQUEST_URI'])) {
-            return true;
-        }
-
-        return false;
-    }
-
     public function loadController() {
-        $controllerName = $this->route['controller'];
-        $controllerPath = $this->config->get('CONTROLLER_PATH') . '/' . $controllerName . '.php';
+        $controllerPath = 
+            $this->config->get('CONTROLLER_PATH') 
+            . $this->route['controller'];
+
         if (!is_file($controllerPath)) {
             return false;
         }
-        
+
         require($controllerPath);
 
-        if (!class_exists($controllerName)) {
+        if (!class_exists('Controller')) {
             return false;
         }
 
-        $this->route['controller'] = new $controllerName($this);
+        $this->route['controller'] = new Controller($this);
 
         $this->controllerIsLoaded = true;
 
-        $this->logger->info('Controller loaded: ' . $controllerName);
+        $this->logger->info('Controller loaded: ' . $controllerPath);
 
         return true;
     }
@@ -81,12 +73,12 @@ class Router {
         return $this->controllerIsLoaded;
     }
 
-    public function render() {
+    public function run() {
         if (!$this->controllerIsLoaded) {
             if (!$this->loadController()) return false;
         }
 
-        $this->logger->info('Rendering controller...');
+        $this->logger->info('Running controller...');
 
         return $this->route['controller']->run();
     }
@@ -96,10 +88,10 @@ class Router {
         if (!is_file($controllerPath)) {
             return false;
         }
-        
+
         require_once($controllerPath);
 
-        $controller = new Error404($this);
+        $controller = new Controller($this);
 
         $this->logger->info('Rendering 404 controller...');
 

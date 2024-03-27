@@ -14,7 +14,10 @@ class Config {
 
         $this->config = array_merge($this->config, parse_ini_file('../.env', true));
 
-        $this->validate();
+        // Ce fichier étant exécuté à chaque requête, il est préférable de ne pas valider le schéma à chaque fois
+        if ($this->get('ENVIRONMENT') === 'development' || $this->get('APP_ENV') === 'configuration') {
+            $this->validate();
+        }
 
         $this->logger = new Logger($this, 'Config');
 

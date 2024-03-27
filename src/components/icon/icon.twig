@@ -8,4 +8,4 @@ https://fonts.google.com/icons
 
 {{ addCSS('icon/icons.css') }}
 
-<span class="material-icons">{{ __icon }}</span>
+<span class="material-icons" {% if __ripple %} c-ripple {% endif %}>{{ __icon }}</span>

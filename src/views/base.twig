@@ -1,6 +1,12 @@
 {% block assets %}
 	{{ addCSS(['css/colors.css', 'css/base.css', "css/normalize.css"]) }}
-	{{ addJS('js/base.js') }}
+	{{ addJS([
+		'js/core/app.js', 
+		'js/core/request.js', 
+		'js/base.js', 
+		'js/plugins/toast.js', 
+		'js/plugins/dialog.js'
+	]) }}
 {% endblock %}
 
 <!DOCTYPE html>
@@ -20,7 +26,10 @@
 			{% block content %}{% endblock %}
 		</main>
 		{% include 'footer.twig' %}
-		<div id="templates">{% block templates %}{% endblock %}</div>
+
+		<div id="templates"> {% block templates %}{% endblock %}
+			</div>
+			<div id="toasts"></div>
 		</body>
 	</html>
 

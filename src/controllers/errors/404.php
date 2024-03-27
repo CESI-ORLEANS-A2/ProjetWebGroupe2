@@ -1,8 +1,8 @@
 <?php
 
-require_once('./modules/Controller.php');
+require_once('./modules/ControllerBase.php');
 
-class Error404 extends Controller {
+class Controller extends ControllerBase {
     public function __construct($router) {
         parent::__construct($router);
     }

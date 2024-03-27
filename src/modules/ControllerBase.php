@@ -22,6 +22,8 @@ class ControllerBase {
 
         echo $this->twig->render($template, [
             'router' => $this->router,
+            'config' => $this->config,
+            'isAuthenticated' => true
         ] + $data);
     }
 

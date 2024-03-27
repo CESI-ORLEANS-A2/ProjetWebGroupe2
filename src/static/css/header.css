@@ -133,7 +133,7 @@ header {
 		.dropdown {
 			display: none;
 			position: absolute;
-			top: 100%;
+			top: 110%;
 			right: 1rem;
 			overflow: hidden;
 			background-color: var(--accent-color);
@@ -199,6 +199,10 @@ header {
 		.close,
 		.backdrop {
 			display: none;
+
+            &.visible {
+                display: none;
+            }
 		}
 
 		nav {

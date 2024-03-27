@@ -1,0 +1,40 @@
+{#
+Arguments :
+	- __id : string
+	    Identifiant unique du textarea
+	- __label : string
+		Texte du label
+	- __icon : string
+		Nom de l'icône à afficher
+	- __name : string
+		Nom du textarea
+	- __value : string
+		Valeur du textarea
+	- __placeholder : string
+		Texte de l'attribut placeholder
+	- __required : bool
+		Indique si le textarea est requis
+	- __multiline : bool
+		Indique si le textarea est multiligne
+#}
+
+{{ addCSS('textarea/textarea.css') }}
+{{ addJS('textarea/textarea.js') }}
+
+<div class="c-textarea" id="{{__id}}">
+	{% if __label %}
+		<label>{{ __label }}</label>
+	{% endif %}
+	<div class="c-textarea_box">
+		{% if __icon %}
+			<div class="c-textarea_icon">
+				{% include 'icon/icon.twig' with {__icon: __icon} %}
+			</div>
+		{% endif %}
+		{% if __multiline %}
+			<textarea class="c-textarea_input" name="{{ __name }}" placeholder="{{ __placeholder }}" {% if __required %} required {% endif %}>{{ __value }}</textarea>
+		{% else %}
+			<input class="c-textarea_input" type="{{ __type ?? "text" }}" name="{{ __name }}" value="{{ __value }}" placeholder="{{ __placeholder }}" {% if __required %} required {% endif %}>
+		{% endif %}
+	</div>
+</div>

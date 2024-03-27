@@ -1,0 +1,11 @@
+{# 
+Pour ajouter un icon : inclure ce fichier avec le paramètre __icon.
+Cette variable doit contenir le nom de l'icône à afficher.
+
+L'ensemble des icônes disponibles est défini sur le site : 
+https://fonts.google.com/icons
+#}
+
+{{ addCSS('icon/icons.css') }}
+
+<span class="material-icons" {% if __ripple %} c-ripple {% endif %}>{{ __icon }}</span>

@@ -1,0 +1,96 @@
+.c-paginator_container:empty:after {
+	content: "Aucun résultat";
+	display: block;
+	text-align: center;
+	padding: 1rem;
+	margin-bottom: 1rem;
+}
+
+.c-paginator_container > .c-skeleton:not(:last-child) {
+	margin-bottom: 1rem;
+}
+
+.c-paginator_footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.5rem 1rem;
+	flex-wrap: wrap;
+}
+
+.c-paginator_nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+.c-paginator_nav .c-paginator_button {
+	cursor: pointer;
+	transition: var(--transition);
+	background-color: var(--accent-color);
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	width: 2.5rem;
+	height: 2.5rem;
+	font-size: 1.2rem;
+	user-select: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.c-paginator_nav .c-paginator_button:hover {
+	background-color: var(--accent-hover-color);
+}
+
+.c-paginator_page-numbers-container {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	user-select: none;
+}
+
+.c-paginator_page-number {
+	font-size: 1rem;
+	padding: 0.5rem;
+	border-radius: 100%;
+	cursor: pointer;
+	transition: var(--transition);
+	background-color: var(--background-tertiary-color);
+	width: 2.5rem;
+	height: 2.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.c-paginator_page-number-current,
+.c-paginator_page-number:hover {
+	background-color: var(--accent-color);
+}
+
+.c-paginator_page-number-first,
+.c-paginator_page-number-previous,
+.c-paginator_page-number-next,
+.c-paginator_page-number-last,
+.c-paginator_page-dots {
+	display: none;
+}
+
+@media screen and (min-width: 600px) {
+	.c-paginator_page-number-first,
+	.c-paginator_page-number-previous,
+	.c-paginator_page-number-next,
+	.c-paginator_page-number-last,
+	.c-paginator_page-dots {
+		display: flex;
+	}
+}
+
+.c-paginator .hidden {
+    display: none;
+}
+.c-paginator .disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}

@@ -1,0 +1,66 @@
+{#
+Arguments :
+	- __id : string
+	    Identifiant unique du select
+	- __icon : string
+		Nom de l'icône à afficher			
+	- __iconBefore : string
+		Nom de l'icône à afficher avant le texte, alias de __icon
+	- __prefix : string
+		Texte à afficher avant le select
+	- __options : array<{
+			text: string,
+			value: string,
+			selected: bool (optionnel)
+			disabled: bool (optionnel)
+		}>
+		Options du select
+	- __multiple : bool
+		Indique si le select est multiple
+	- __noCurrentValue : bool
+		Indique si la valeur actuelle ne doit pas être affichée
+	- __allowEmpty : bool
+		Indique si le select peut être vide
+#}
+
+{{ addCSS('select/select.css') }}
+{{ addJS('select/select.js') }}
+
+<div class="c-select" id="{{__id}}" {% if __multiple %} data-multiple {% endif %} {% if __allowEmpty %} data-allow-empty {% endif %}>
+	<div c-ripple class="c-select_button">
+		{% if __icon or __iconBefore %}
+			{% include 'icon/icon.twig' with {
+				__icon: __icon ?? __iconBefore
+			} %}
+		{% endif %}
+		{% if __prefix %}
+			<span class="c-select_prefix">{{__prefix}}</span>
+		{% endif %}
+		{% if not __noCurrentValue %}
+			<span class="c-select_current">
+				{% for option in __options ?? [] %}
+					{% if option.selected %}
+						{% if loop.index0 != 0 %},
+						{% endif %}
+						{{option.text}}
+					{% endif %}
+				{% endfor %}
+			</span>
+		{% endif %}
+		{% include 'icon/icon.twig' with {
+			__icon: 'arrow_drop_down',
+		} %}
+	</div>
+
+	{% if __options and __options|length > 0 %}
+		<div class="c-select_options">
+			{% for option in __options ?? [] %}
+				<div class="c-select_option" data-value="{{option.value}}" {% if option.selected %} data-selected {% endif %} {% if option.disabled %} data-disabled {% endif %} c-ripple>
+					{{option.text}}
+				</div>
+			{% endfor %}
+		</div>
+	{% else %}
+		<div class="c-select_options"></div>
+	{% endif %}
+</div>

@@ -1,0 +1,81 @@
+{#
+Arguments :
+    - __max : int
+        Nombre d'élément à afficher
+    - __maxCanChange : bool
+        Permet à l'utilisateur de changer le nombre d'élément à afficher
+    - __count : int
+        Nombre total d'élément
+#}
+
+{{ addCSS('paginator/paginator.css') }}
+{{ addJS('paginator/paginator.js') }}
+
+{% if not __max %}
+	{% set __max = 10 %}
+{% endif %}
+
+<div class="c-paginator" data-current="1">
+	<div class="c-paginator_container">
+		{% for item in 0..__max%}
+			{% include 'skeleton/skeleton.twig' with {
+            __styles: 'rounded-lg',
+            __width: "100%",
+            __height: "7rem" 
+        } %}
+		{% endfor %}
+	</div>
+
+	<div class="c-paginator_footer">
+		<div class="c-paginator_nav">
+            <div class="c-paginator_button c-paginator_button-first" c-ripple>
+                {% include 'icon/icon.twig' with {
+                    __icon: 'first_page'
+                } %}
+            </div>
+            <div class="c-paginator_button c-paginator_button-previous" c-ripple>
+                {% include 'icon/icon.twig' with {
+                    __icon: 'chevron_left'
+                } %}
+            </div>
+			<div class="c-paginator_page-numbers-container">
+				<div class="c-paginator_page-number c-paginator_page-number-first" c-ripple>1</div>
+				<div class="c-paginator_page-dots c-paginator_page-dots-previous">
+					{% include 'icon/icon.twig' with {
+                        __icon: 'more_horiz'
+                    } %}
+				</div>
+				<div class="c-paginator_page-number c-paginator_page-number-previous" c-ripple>3</div>
+				<div class="c-paginator_page-number c-paginator_page-number-current" c-ripple>4</div>
+				<div class="c-paginator_page-number c-paginator_page-number-next" c-ripple>5</div>
+				<div class="c-paginator_page-dots c-paginator_page-dots-next">
+					{% include 'icon/icon.twig' with {
+                        __icon: 'more_horiz'
+                    } %}
+				</div>
+				<div class="c-paginator_page-number c-paginator_page-number-last" c-ripple>23</div>
+			</div>
+            <div class="c-paginator_button c-paginator_button-next" c-ripple>
+                {% include 'icon/icon.twig' with {
+                        __icon: 'chevron_right'
+                    } %}
+            </div>
+            <div class="c-paginator_button c-paginator_button-last" c-ripple>
+                {% include 'icon/icon.twig' with {
+                        __icon: 'last_page'
+                    } %}
+            </div>
+		</div>
+		{% if __maxCanChange %}
+			{% include 'select/select.twig' with {
+                __prefix: 'Résultats : ',
+                __options: [
+                    { value: 10, text: "10", selected: __max == 10},
+                    { value: 20, text: "20", selected: __max == 20 },
+                    { value: 50, text: "50", selected: __max == 50 },
+                    { value: 100, text: "100", selected: __max == 100 },
+                ],
+            } %}
+		{% endif %}
+	</div>
+</div>

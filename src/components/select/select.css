@@ -1,0 +1,125 @@
+.c-select {
+	position: relative;
+	user-select: none;
+}
+
+.c-select_button {
+	background: var(--accent-color);
+	color: var(--accent-text-color);
+	padding: 0.5rem 1rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	vertical-align: middle;
+	align-items: center;
+	border-radius: 0.25rem;
+	cursor: pointer;
+	user-select: none;
+	transition: background-color var(--transition);
+}
+
+.c-select[data-opened] .c-select_button,
+.c-select_button:hover {
+	background: var(--accent-hover-color);
+}
+
+.c-select_prefix {
+	align-self: center;
+}
+
+.c-select_current {
+	margin-left: 0.5rem;
+}
+
+.c-select_current:empty::before {
+	content: '∅';
+}
+
+.c-select_options {
+	position: absolute;
+	flex-direction: column;
+
+	display: none;
+	height: fit-content;
+	overflow: hidden;
+
+	top: calc(100% + 0.5rem);
+	background-color: var(--accent-color);
+	padding: 0.5rem 0;
+	border-radius: 0.25rem;
+	left: 0;
+	flex-direction: column;
+	/* gap: 0.25rem; */
+
+	transition: height var(--transition), opacity var(--transition);
+
+	z-index: -1;
+	box-shadow: 0px 0px 5px 0px var(--shadow-color);
+
+	min-width: 100%;
+}
+
+.c-select[data-opened] .c-select_options {
+	z-index: 100;
+	display: flex;
+
+	animation: select-slide-down 250ms forwards ease-in-out;
+}
+
+@keyframes select-slide-down {
+	0% {
+		opacity: 0;
+		max-height: 0px;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		/* opacity: 1; */
+		max-height: min(100vh, 20rem);
+	}
+}
+
+.c-select_options:empty:after {
+	content: 'Aucune option disponible';
+	padding: 0.5rem 1rem;
+}
+
+.c-select_option {
+	cursor: pointer;
+	padding: 0.5rem 1rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 0.5rem;
+
+	transition: background-color var(--transition);
+}
+
+.c-select_option:hover {
+	background-color: var(--accent-hover-color);
+}
+
+.c-select_option:before {
+	content: 'check_box_outline_blank';
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	font-feature-settings: 'liga';
+	-webkit-font-feature-settings: 'liga';
+	-webkit-font-smoothing: antialiased;
+	width: 24px;
+}
+
+.c-select_option[data-selected]:before {
+	content: 'check_box';
+}

@@ -1,0 +1,6 @@
+{
+    "require": {
+        "odan/twig-assets": "^3.3",
+        "twig/twig": "^3.8"
+    }
+}

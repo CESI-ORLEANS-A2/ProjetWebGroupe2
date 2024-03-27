@@ -1,0 +1,22 @@
+{#
+Arguments :
+    - __styles : string
+        Liste des classes CSS à appliquer au composant
+    - __width: string
+        Largeur du composant
+    - __height: string
+        Hauteur du composant 
+#}
+
+{{ addCSS('skeleton/skeleton.css') }}
+{{ addJS('skeleton/skeleton.js') }}
+
+{% set style = '' %}
+{% if __width %}
+	{% set style = style ~ ' --skeleton-width:' ~ __width ~ ';' %}
+{% endif %}
+{% if __height %}
+	{% set style = style ~ ' --skeleton-height:' ~ __height ~ ';' %}
+{% endif %}
+
+<div class="{{ 'c-skeleton ' ~ __styles }}" style="{{ style }}"></div>

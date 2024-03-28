@@ -332,7 +332,7 @@ app &&
 						],
 						// La promesse est rejetée si la boîte de dialogue est fermée sans cliquer sur un bouton
 						onClose: reject
-					})
+					}).show()
 				);
 			}
 		};

@@ -9,8 +9,7 @@ class Controller extends ControllerBase {
 
     public function run() {
         header("HTTP/1.0 404 Not Found");
-        return $this->twig->render('errors/404.twig', array(
-            'config' => $this->config,
+        return $this->render('errors/404.twig', array(
         ));
     }
 };

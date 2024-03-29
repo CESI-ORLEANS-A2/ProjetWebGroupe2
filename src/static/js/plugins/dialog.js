@@ -84,7 +84,7 @@ app &&
 				height: 'var(--dialog-footer-height)',
 				display: 'flex',
 				alignItems: 'center',
-				justifyContent: 'flex-end',
+				justifyContent: 'space-between',
 				padding: '0.5rem 1rem 0.5rem 1rem',
 				borderRadius: '0 0 0.5rem 0.5rem',
 				fontSize: '0.8rem'
@@ -199,7 +199,8 @@ app &&
 				);
 
 				// Boutons de la boîte de dialogue
-				const buttonsElements = [];
+				const leftButtonsElements = [];
+				const rightButtonsElements = [];
 				// Crée un élément pour chaque bouton
 				for (let button of buttons) {
 					// Si le bouton est une chaîne de caractères, on le transforme en objet
@@ -234,11 +235,30 @@ app &&
 						}
 					});
 
-					buttonsElements.push($button);
+					if (button.align === 'left') {
+						leftButtonsElements.push($button);
+					} else {
+						rightButtonsElements.push($button);
+					}
 				}
 
 				// Pied de page
-				const $footer = app.createElement('div', { class: 'footer' }, ...buttonsElements);
+				const $footerLeftButtons = app.createElement(
+					'div',
+					{ class: 'footer-left-buttons' },
+					...leftButtonsElements
+				);
+				const $footerRightButtons = app.createElement(
+					'div',
+					{ class: 'footer-right-buttons' },
+					...rightButtonsElements
+				);
+				const $footer = app.createElement(
+					'div',
+					{ class: 'footer' },
+					$footerLeftButtons,
+					$footerRightButtons
+				);
 
 				// Crée la boîte de dialogue
 				const $dialog = app.createElement(

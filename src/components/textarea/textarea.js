@@ -48,6 +48,10 @@ app &&
 			// });
 		},
 		function (component, args) {
+			if (!["text", "password", "email"].includes(args.type)) {
+				args.type = "text";
+			}
+			
 			return app.createElement(
 				'div',
 				{ class: 'c-textarea', id: args.id },
@@ -74,11 +78,11 @@ app &&
 						  )
 						: app.createElement('input', {
 								class: 'c-textarea_input',
-								type: 'text',
 								name: args.name,
 								placeholder: args.placeholder,
 								value: args.value,
-								required: args.required
+								required: args.required,
+								type: args.type
 						  })
 				)
 			);

@@ -100,10 +100,10 @@ app &&
 		return {
 			/**
 			 * Affiche un message de succès.
-			 * 
+			 *
 			 * Exemple :
 			 * app.toast.success("Opération réussie !");
-			 * app.toast.success("Opération réussie !", { duration: 5000 }); 
+			 * app.toast.success("Opération réussie !", { duration: 5000 });
 			 *
 			 * @param {string} message - Le message à afficher.
 			 * @param {Object} options - Les options de configuration (facultatif).
@@ -150,9 +150,13 @@ app &&
 			 * @param {string} [options.type='success'] - Le type du toast ('success', 'error', 'warning' ou 'info').
 			 * @param {number} [options.duration=3000] - La durée d'affichage du toast en millisecondes.
 			 * @param {boolean} [options.filled=false] - Indique si la barre de progression du toast est remplie.
+			 * @param {boolean} [options.parseHTML=false] - Indique si le message est du HTML.
 			 * @returns {object} - Un objet contenant les méthodes et l'élément du toast.
 			 */
-			create(message, { type = 'success', duration = 3000, filled = false } = {}) {
+			create(
+				message,
+				{ type = 'success', duration = 3000, filled = false, parseHTML = false } = {}
+			) {
 				/** @type {IconKeywordMap} */
 				let icon;
 				let color;
@@ -179,7 +183,11 @@ app &&
 
 				// Créer l'icon, le corps, le bouton de fermeture et le contenu du toast.
 				const $icon = app.createElement('div', { class: 'icon' }, app.createIcon(icon));
-				const $body = app.createElement('div', { class: 'body' }, message);
+				const $body = app.createElement(
+					'div',
+					{ class: 'body' },
+					parseHTML ? app.parseHtml(message) : message
+				);
 				const $close = app.createElement(
 					'div',
 					{ class: 'close' },

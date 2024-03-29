@@ -355,7 +355,7 @@ app &&
 
 		app.injectCSS({
 			'.c-tooltip': {
-				pointerEvents: 'none',
+				// pointerEvents: 'none',
 				position: 'fixed',
 				// zIndex: '99', // 100 - 1 Sinon il passe par dessus le header
 				zIndex: '9999',

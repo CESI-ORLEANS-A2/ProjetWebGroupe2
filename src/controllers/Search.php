@@ -9,7 +9,6 @@ class Controller extends ControllerBase {
 
     public function run() {
         return $this->render('search.twig', array(
-            'config' => $this->config,
         ));
     }
 };

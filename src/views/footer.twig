@@ -1,0 +1,34 @@
+{{ addCSS('css/footer.css') }}
+
+<footer>
+	<div class="top">
+		<a class="logo" href="/">
+			<img src="//static.projet-web.fr/public/img/logo.svg" alt="Logo"/>
+			<span>{{ config.get("APP_NAME") }}</span>
+		</a>
+		<div class="links">
+			<div class="list">
+				<div class="title">Condidature</div>
+				<a href="/search?t=offer" class="item">Parcourir les stages</a>
+				<a href="/search?t=company" class="item">Parcourir les entreprises</a>
+				<a href="/" class="item">Publier une offre</a>
+			</div>
+			<div class="list">
+				<div class="title">Support</div>
+				<a href="/about" class="item">Mobile</a>
+				<a href="/about" class="item">À propos</a>
+				<a href="/about" class="item">Aide</a>
+			</div>
+		</div>
+	</div>
+	<div class="legals">
+		© 2024 - Tous droits réservés -&nbsp;
+		<a href="/about">Tech support</a>
+		&nbsp;-&nbsp;
+		<a href="/about">Mentions légales</a>
+		&nbsp;-&nbsp;
+		<a href="/about">Conditions d'utilisation</a>
+		&nbsp;-&nbsp;
+		<a href="/about">Cookies</a>
+	</div>
+</footer>

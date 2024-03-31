@@ -323,5 +323,7 @@ html {
 	--background-secondary-color: var(--color-neutral-100);
 	--background-tertiary-color: var(--color-neutral-200);
 
+	--background-primary-accent-color: var(--color-blue-200);
+
 	--shadow-color: var(--color-neutral-dark-800);
 }

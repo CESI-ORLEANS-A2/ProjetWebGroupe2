@@ -1,0 +1,65 @@
+{{ addCSS('css/header.css') }}
+{{ addJS('js/header.js') }}
+
+<header>
+	<a class="logo" href="/">
+		<img src="//static.projet-web.fr/public/img/logo.svg" alt="Logo"/>
+		<span>{{ config.get("APP_NAME") }}</span>
+	</a>
+	<div class="hamburger" c-ripple>
+		{% if isAuthenticated and user.firstname == 'admin' %}
+			{% include 'icon/icon.twig' with { __icon: 'lunch_dining' } %}
+		{% else %}
+			{% include 'icon/icon.twig' with { __icon: 'menu' } %}
+		{% endif %}
+	</div>
+	<div class="backdrop"></div>
+	<nav>
+		<a href="/">Home</a>
+		<a href="/search">Recherche</a>
+		{% if isAuthenticated and user %}
+			{% if user.type == 'admin' %}
+				<a href="/users">Gestion des utilisateurs</a>
+			{% endif %}
+			{% if user.type == 'admin' or user.type == 'professor' %}
+				<a href="/companies">Gestion des entreprises</a>
+			{% endif %}
+		{% endif %}
+        <div class="close">
+            {% include 'icon/icon.twig' with { __icon: 'close' } %}
+        </div>
+	</nav>
+	<div class="account">
+		{% if isAuthenticated %}
+			<div class="avatar" c-ripple>
+				{% if user %}
+					{% if user.avatar %}
+						<img src="{{ user.avatar }}" alt="Avatar"/>
+					{% else %}
+						<span>
+							{{ user.firstname|slice(0, 1) }}{{ user.lastname|slice(0, 1) }}
+						</span>
+					{% endif %}
+				{% else %}
+					{% include 'icon/icon.twig' with { __icon: 'person' } %}
+				{% endif %}
+			</div>
+			<div class="arrow">
+				{% include 'icon/icon.twig' with { __icon: 'arrow_drop_down' } %}
+			</div>
+			<div class="dropdown">
+				<a href="/profile" c-ripple>Profil</a>
+				<a href="/logout" c-ripple>Déconnexion</a>
+			</div>
+		{% else %}
+			<a href="/login">{% include 'button/button.twig' with {
+                __id: 'login',
+                __text: 'Connexion',
+            } %}</a>
+			<a href="/register">{% include 'button/button.twig' with {
+                __id: 'register',
+                __text: 'Inscription',
+            } %}</a>
+		{% endif %}
+	</div>
+</header>

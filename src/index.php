@@ -1,5 +1,11 @@
 <?php
 
+// Chargement des classes
+use \Twig\Loader\FilesystemLoader;
+use \Twig\Environment;
+use \Odan\Twig\TwigAssetsExtension;
+use \Odan\Twig\TwigAssetsCache;
+
 // Chargement des dépendances
 require '../vendor/autoload.php';
 
@@ -9,12 +15,6 @@ require_once('./modules/TwigUtils.php');
 require_once('./modules/Config.php');
 require_once('./modules/Logger.php');
 
-// Chargement des classes
-use \Twig\Loader\FilesystemLoader;
-use \Twig\Environment;
-use \Odan\Twig\TwigAssetsExtension;
-use \Odan\Twig\TwigAssetsCache;
-
 /**
  * Classe App représente l'application principale.
  */
@@ -23,27 +23,27 @@ class App {
      * @var Config $config Configuration de l'application.
      */
     public Config $config;
-    
+
     /**
      * @var FilesystemLoader $loader Chargeur de fichiers pour Twig.
      */
     public FilesystemLoader $loader;
-    
+
     /**
      * @var Environment $twig Environnement Twig.
      */
     public Environment $twig;
-    
+
     /**
      * @var Router $router Routeur de l'application.
      */
     public Router $router;
-    
+
     /**
      * @var LoggerManager $loggerManager Gestionnaire de loggers.
      */
     public LoggerManager $loggerManager;
-    
+
     /**
      * @var Logger $logger Logger de l'application.
      */
@@ -150,7 +150,21 @@ class App {
 
 // Chargement des variables d'environnement
 $env = parse_ini_file('../.env');
-// Création de l'application
-$app = new App(require_once($env['CONFIG_PATH']), $env);
 
-return true;
+try {
+    // Création de l'application
+    $app = new App(require_once($env['CONFIG_PATH']), $env);
+
+    return true;
+} catch (Exception $e) {
+    if ($env['ENVIRONMENT'] === 'development') {
+        echo '⚠️ Une erreur est survenue : </br>';
+        echo $e->getMessage();
+        echo '</br>';
+        echo str_replace('#', '</br>#', $e->getTraceAsString());
+    } else {
+        echo '⚠️ Une erreur est survenue : </br>';
+        echo $e->getMessage();
+    }
+    return false;
+}

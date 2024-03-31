@@ -28,7 +28,7 @@ document.getElementById('update').addEventListener('click', function () {
 						}
 					},
 						app.createElement('img', {
-							src: 'users.svg'
+							src: '//static.projet-web.fr/public/img/users.svg'
 						}, 'Titre'),
 
 						app.createElement('input', {
@@ -55,7 +55,7 @@ document.getElementById('update').addEventListener('click', function () {
 						}
 					},
 						app.createElement('img', {
-							src: 'key.svg'
+							src: '//static.projet-web.fr/public/img/key.svg'
 						}, 'Titre'),
 
 						app.createElement('input', {
@@ -91,7 +91,7 @@ document.getElementById('update').addEventListener('click', function () {
 							}
 						},
 							app.createElement('img', {
-								src: 'users.svg'
+								src: '//static.projet-web.fr/public/img/users.svg'
 							}, 'Titre'),
 
 							app.createElement('input', {
@@ -118,7 +118,7 @@ document.getElementById('update').addEventListener('click', function () {
 							}
 						},
 							app.createElement('img', {
-								src: 'users.svg'
+								src: '//static.projet-web.fr/public/img/users.svg'
 							}, 'Titre'),
 							app.createElement('input', {
 								Placeholder: "Nom",
@@ -153,7 +153,7 @@ document.getElementById('update').addEventListener('click', function () {
 							}
 						},
 							app.createElement('img', {
-								src: 'users.svg'
+								src: '//static.projet-web.fr/public/img/users.svg'
 							}, 'Titre'),
 
 							app.createElement('input', {
@@ -180,7 +180,7 @@ document.getElementById('update').addEventListener('click', function () {
 							}
 						},
 							app.createElement('img', {
-								src: 'users.svg'
+								src: '//static.projet-web.fr/public/img/users.svg'
 							}, 'Titre'),
 							app.createElement('input', {
 								Placeholder: "Promotion",

@@ -78,6 +78,7 @@ main {
     align-items: center;
     flex-direction: column;
     gap: 20px;
+	flex-wrap: wrap;
 }
 
 .offer{
@@ -85,6 +86,7 @@ main {
     align-items: center;
     flex-direction: column;
     gap: 20px;
+	flex-wrap: wrap;
 }
 
 .all{
@@ -102,9 +104,6 @@ main {
   margin-left: 25%;
 }
 
-.offer1 {
-    display: flex;
-}
 
 .SkillsPopUp{
     z-index: 5;

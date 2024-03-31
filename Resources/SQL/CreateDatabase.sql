@@ -37,7 +37,7 @@ CREATE TABLE Addresses(
 	ID_Address INT NOT NULL AUTO_INCREMENT,
     Number VARCHAR (50) NOT NULL,
     Street VARCHAR (50) NOT NULL,
-    Creation_Date DATETIME NOT NULL,
+    /* Creation_Date DATETIME NOT NULL, */
     ID_City INT NOT NULL,
 	PRIMARY KEY (ID_Address),
     FOREIGN KEY (ID_City) REFERENCES Cities(ID_City)
@@ -59,10 +59,10 @@ CREATE TABLE Accounts(
 	Username VARCHAR (50) NOT NULL,
 	Password VARCHAR (50) NOT NULL,
     ID_Type INT NOT NULL,
-    ID_ClassItBelongsTo INT,
+    ID_Class INT,
 	PRIMARY KEY (ID_Account),
     FOREIGN KEY(ID_Type) REFERENCES AccountTypes(ID_Type),
-    FOREIGN KEY(ID_ClassItBelongsTo) REFERENCES Classes(ID_Class)
+    FOREIGN KEY(ID_Class) REFERENCES Classes(ID_Class)
 );
 
 DROP TABLE IF EXISTS Users;
@@ -70,18 +70,18 @@ CREATE TABLE Users(
 	ID_User INT NOT NULL AUTO_INCREMENT,
 	Firstname VARCHAR (50) NOT NULL,
 	Lastname VARCHAR (50) NOT NULL,
-    ID_LinkedAccount INT NOT NULL,
+    ID_Account INT NOT NULL,
     PRIMARY KEY (ID_User),
-    FOREIGN KEY(ID_LinkedAccount) REFERENCES Accounts(ID_Account)
+    FOREIGN KEY(ID_Account) REFERENCES Accounts(ID_Account)
 );
 
 DROP TABLE IF EXISTS Sessions;
 CREATE TABLE Sessions(
 	ID_Session INT NOT NULL AUTO_INCREMENT,
-	Token VARCHAR (50) NOT NULL,
+	Token VARCHAR (255) NOT NULL,
 	Creation_Date DATETIME NOT NULL,
 	Update_Date DATETIME NOT NULL,
-    UserAgent VARCHAR (50) NOT NULL,
+    UserAgent VARCHAR (255) NOT NULL,
     Geolocation VARCHAR (50) NOT NULL,
     ID_Account INT NOT NULL,
 	PRIMARY KEY (ID_Session),
@@ -116,12 +116,12 @@ CREATE TABLE Activities(
 
 DROP TABLE IF EXISTS Locations;
 CREATE TABLE Locations(
-	ID_CompanyLocation INT NOT NULL AUTO_INCREMENT,
+	ID_Location INT NOT NULL AUTO_INCREMENT,
     Creation_Date DATETIME NOT NULL,
-    Description VARCHAR (50) NOT NULL,
+    Description TEXT NOT NULL,
     IsHeadquarters BOOL NOT NULL,
     ID_Company INT NOT NULL,
-	PRIMARY KEY (ID_CompanyLocation),
+	PRIMARY KEY (ID_Location),
     FOREIGN KEY (ID_Company) REFERENCES Companies(ID_Company)
 );
 
@@ -138,16 +138,16 @@ CREATE TABLE Offers(
     Pay VARCHAR (50) NOT NULL,
     Start_Date DATE NOT NULL,
     Places INT NOT NULL,
-    Description VARCHAR (50) NOT NULL,
+    Description TEXT NOT NULL,
     End_Date DATE NOT NULL,
     Creation_Date DATETIME NOT NULL,
     ID_Duration INT NOT NULL,
-    ID_CompanyLocation INT NOT NULL,
-    ID_Address INT NOT NULL,
+    ID_Company INT NOT NULL,
+    ID_Location INT NOT NULL,
 	PRIMARY KEY (ID_Offer),
     FOREIGN KEY (ID_Duration) REFERENCES Durations(ID_Duration),
-    FOREIGN KEY (ID_CompanyLocation) REFERENCES Locations(ID_CompanyLocation),
-    FOREIGN KEY (ID_Address) REFERENCES Addresses(ID_Address) 
+    FOREIGN KEY (ID_Company) REFERENCES Companies(ID_Company),
+    FOREIGN KEY (ID_Location) REFERENCES Locations(ID_Location) 
 );
 
 DROP TABLE IF EXISTS Study_Levels;
@@ -198,10 +198,9 @@ CREATE TABLE Applications(
 
 DROP TABLE IF EXISTS Is_responsible_for;
 CREATE TABLE Is_responsible_for(
-   ID_Classs INT,
+   ID_Class INT,
    ID_Account INT,
-   PRIMARY KEY(ID_Classs, ID_Account),
-   FOREIGN KEY(ID_Classs) REFERENCES Classes(ID_Class),
+   FOREIGN KEY(ID_Class) REFERENCES Classes(ID_Class),
    FOREIGN KEY(ID_Account) REFERENCES Accounts(ID_Account)
 );
 
@@ -209,7 +208,6 @@ DROP TABLE IF EXISTS Operates_in;
 CREATE TABLE Operates_in(
    ID_Company INT,
    ID_Activity INT,
-   PRIMARY KEY(ID_Company, ID_Activity),
    FOREIGN KEY(ID_Company) REFERENCES Companies(ID_Company),
    FOREIGN KEY(ID_Activity) REFERENCES Activities(ID_Activity)
 );
@@ -218,7 +216,6 @@ DROP TABLE IF EXISTS Live_in;
 CREATE TABLE Live_in(
    ID_City INT,
    ID_Account INT,
-   PRIMARY KEY(ID_City, ID_Account),
    FOREIGN KEY(ID_City) REFERENCES Cities(ID_City),
    FOREIGN KEY(ID_Account) REFERENCES Accounts(ID_Account)
 );
@@ -226,17 +223,15 @@ CREATE TABLE Live_in(
 DROP TABLE IF EXISTS Is_located;
 CREATE TABLE Is_located(
    ID_Address INT,
-   ID_CompanyLocation INT,
-   PRIMARY KEY(ID_Address, ID_CompanyLocation),
+   ID_Location INT,
    FOREIGN KEY(ID_Address) REFERENCES Addresses(ID_Address),
-   FOREIGN KEY(ID_CompanyLocation) REFERENCES Locations(ID_CompanyLocation)
+   FOREIGN KEY(ID_Location) REFERENCES Locations(ID_Location)
 );
 
 DROP TABLE IF EXISTS Has;
 CREATE TABLE Has(
    ID_Skill INT,
    ID_Account INT,
-   PRIMARY KEY(ID_Skill, ID_Account),
    FOREIGN KEY(ID_Skill) REFERENCES Skills(ID_Skill),
    FOREIGN KEY(ID_Account) REFERENCES Accounts(ID_Account)
 );
@@ -245,7 +240,6 @@ DROP TABLE IF EXISTS Requires;
 CREATE TABLE Requires(
    ID_Offer INT,
    ID_Skill INT,
-   PRIMARY KEY(ID_Offer, ID_Skill),
    FOREIGN KEY(ID_Offer) REFERENCES Offers(ID_Offer),
    FOREIGN KEY(ID_Skill) REFERENCES Skills(ID_Skill)
 );
@@ -254,7 +248,6 @@ DROP TABLE IF EXISTS Is_dedicated_to;
 CREATE TABLE Is_dedicated_to(
    ID_Offer INT,
    ID_Study_Level INT,
-   PRIMARY KEY(ID_Offer, ID_Study_Level),
    FOREIGN KEY(ID_Offer) REFERENCES Offers(ID_Offer),
    FOREIGN KEY(ID_Study_Level) REFERENCES Study_Levels(ID_Study_Level)
 );
@@ -263,7 +256,6 @@ DROP TABLE IF EXISTS Is_of_interest_to;
 CREATE TABLE Is_of_interest_to(
    ID_Offer INT,
    ID_Account INT,
-   PRIMARY KEY(ID_Offer, ID_Account),
    FOREIGN KEY(ID_Offer) REFERENCES Offers(ID_Offer),
    FOREIGN KEY(ID_Account) REFERENCES Accounts(ID_Account)
 );

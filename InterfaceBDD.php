@@ -12,10 +12,3 @@ try {
 } catch (PDOException $e) {
     exit("Impossible de se connecter au serveur SQL : " . $e->getMessage());
 }
-
-
-
-
-
-
-

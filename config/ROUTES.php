@@ -27,4 +27,9 @@ return [
         'controller' => '/Profil_Student.php',
         'methods' => ['GET']
     ],
+    [ // Login
+        'pattern' => '\/Login', 
+        'controller' => '/Login.php',
+        'methods' => ['GET']
+    ],
 ];

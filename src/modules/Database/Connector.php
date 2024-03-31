@@ -101,7 +101,7 @@ class Database {
      *
      * @return void
      */
-    public function close(): void {
+    private function close(): void {
         $this->dbh = null;
     }
 

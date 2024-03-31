@@ -12,6 +12,7 @@ const schema = array(
 );
 
 class Account extends Model {
+
     public function __construct(
         int $ID,
         DateTime $Creation_Date,
@@ -187,6 +188,17 @@ class Account extends Model {
         $dbh->query(
             $query,
             $params
+        );
+    }
+
+    public static function fromArray(array $data): Account {
+        return new Account(
+            $data['ID'],
+            $data['Creation_Date'],
+            $data['Username'],
+            $data['Password'],
+            $data['Type'],
+            $data['Class']
         );
     }
 }

@@ -1,0 +1,19 @@
+.star-rating {
+    display: inline-block;
+}
+
+.star-rating .star {
+    color: grey;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-rating .star:hover,
+.star-rating .star:hover ~ .star {
+    color: grey;
+}
+
+.star-rating .star.rated {
+    color: #f5a623;
+}

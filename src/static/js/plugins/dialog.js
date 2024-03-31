@@ -286,6 +286,8 @@ app &&
 						// Exécute la fonction onClose
 						if (typeof onClose === 'function') onClose();
 					}, animationDuration);
+
+					return $dialogContainer;
 				};
 
 				$close.addEventListener('click', close);
@@ -307,6 +309,7 @@ app &&
 					close,
 					show() {
 						document.body.append($dialogContainer);
+						return $dialogContainer;
 					}
 				};
 			},
@@ -318,11 +321,43 @@ app &&
 			 * @param {string} options.title - Le titre de la boîte de dialogue.
 			 * @param {string} options.content - Le contenu de la boîte de dialogue.
 			 * @param {boolean} options.parseHTML - Indique si le contenu doit être interprété comme du HTML.
-			 * @returns {Promise} Une promesse qui se résout lorsque la boîte de dialogue est fermée.
+			 * @param {function} options.onReject - La fonction à exécuter si la promesse est rejetée.
+			 * @param {function} options.onConfirm - La fonction à exécuter si la promesse est résolue.
+			 * @returns {Object} - L'objet représentant la boîte de dialogue.
 			 */
-			confirm({ title = '', content = '', parseHTML = false }) {
-				return new Promise((resolve, reject) =>
-					// Crée une boîte de dialogue avec deux boutons "Annuler" et "Confirmer"
+			confirm({
+				title = '',
+				content = '',
+				parseHTML = false,
+				onReject = () => {},
+				onConfirm = () => {},
+				onClose = () => {}
+			}) {
+				if (typeof onReject !== 'function') onReject = () => {};
+				if (typeof onConfirm !== 'function') onConfirm = () => {};
+				if (typeof onClose !== 'function') onClose = () => {};
+
+				// Crée une boîte de dialogue avec deux boutons "Annuler" et "Confirmer"
+				let popup = {
+					onConfirm,
+					onReject,
+					onClose,
+					toPromise() {
+						return new Promise((promiseResolve) => {
+							popup.onConfirm = ((resolve) => () => {
+								resolve();
+								promiseResolve(true);
+							})(popup.onConfirm);
+							popup.onReject = ((onReject) => () => {
+								onReject();
+								promiseResolve(false);
+							})(popup.onReject);
+						});
+					}
+				};
+
+				popup = Object.assign(
+					popup,
 					this.create({
 						title,
 						content,
@@ -335,7 +370,7 @@ app &&
 								// La promesse est rejetée si le bouton "Annuler" est cliqué
 								action: (close) => {
 									close();
-									reject();
+									popup.onReject();
 								}
 							},
 							{
@@ -345,15 +380,24 @@ app &&
 								// La promesse est résolue si le bouton "Confirmer" est cliqué
 								action: (close) => {
 									close();
-									resolve();
+									popup.onConfirm();
 								},
 								filled: true
 							}
 						],
 						// La promesse est rejetée si la boîte de dialogue est fermée sans cliquer sur un bouton
+<<<<<<< Updated upstream
 						onClose: reject
 					}).show()
+=======
+						onClose: () => {
+							popup.onClose();
+						}
+					})
+>>>>>>> Stashed changes
 				);
+
+				return popup;
 			}
 		};
 	});

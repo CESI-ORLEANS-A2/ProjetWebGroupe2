@@ -21,6 +21,8 @@ Arguments :
 		Indique si la valeur actuelle ne doit pas être affichée
 	- __allowEmpty : bool
 		Indique si le select peut être vide
+	- __showChips : bool
+		Indique si les valeurs sélectionnées doivent être affichées sous forme de chips
 #}
 
 {{ addCSS('select/select.css') }}
@@ -37,15 +39,28 @@ Arguments :
 			<span class="c-select_prefix">{{__prefix}}</span>
 		{% endif %}
 		{% if not __noCurrentValue %}
-			<span class="c-select_current">
-				{% for option in __options ?? [] %}
-					{% if option.selected %}
-						{% if loop.index0 != 0 %},
+			<div class="c-select_current">
+				{% if __showChips %}
+					{% for option in __options ?? [] %}
+						{% if option.selected %}
+							<div class="c-select_chip" data-value="{{option.value}}">
+								{{option.text}}
+								{% include 'icon/icon.twig' with {
+									__icon: 'close',
+								} %}
+							</div>
 						{% endif %}
-						{{option.text}}
-					{% endif %}
-				{% endfor %}
-			</span>
+					{% endfor %}
+				{% else %}
+					{% for option in __options ?? [] %}
+						{% if option.selected %}
+							{% if loop.index0 != 0 %},
+							{% endif %}
+							{{option.text}}
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			</div>
 		{% endif %}
 		{% include 'icon/icon.twig' with {
 			__icon: 'arrow_drop_down',

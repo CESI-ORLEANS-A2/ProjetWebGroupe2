@@ -21,5 +21,10 @@ return [
         'pattern' => '\/api\/search',
         'controller' => '/api/Search.php',
         'methods' => ['GET']
-    ]
+    ] ,
+    [ // Professor_Profile
+        'pattern' => '\/Professor_Profile', 
+        'controller' => '/professor_profile.php',
+        'methods' => ['GET'],
+    ],
 ];

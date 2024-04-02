@@ -423,6 +423,19 @@
 		onload(callback) {
 			this.callbacks.onload.push(callback);
 		}
+
+		click(element, callback) {
+			if (!element || element instanceof HTMLElement)
+				throw new Error('Invalid element provided');
+
+			if (!callback || typeof callback !== 'function') {
+				element.click();
+			} else {
+				element.addEventListener('click', callback);
+			}
+
+			return element;
+		}
 	}
 
 	// window.app = new App();

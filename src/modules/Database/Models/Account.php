@@ -114,6 +114,48 @@ class Account extends Model {
         return $accounts;
     }
 
+
+    static public function getByType(int $Type): array {
+        $datas = Database::getInstance()->fetch(
+            'SELECT 
+                ID_Account, 
+                Creation_Date,
+                Username, 
+                Password, 
+                AccountTypes.Name AS Type, 
+                ID_Class as Class
+            FROM accounts 
+            JOIN AccountTypes ON accounts.ID_Type = AccountTypes.ID_Type
+            WHERE ID_Type = :Type',
+            array(':Type' => $Type)
+        );
+        $accounts = []; 
+        if (is_array($datas) && isset($datas[0]) && is_array($datas[0])) {
+            foreach ($datas as $data) {
+                $accounts[] = new Account(
+                    $data['ID_Account'],
+                    new DateTime($data['Creation_Date']),
+                    $data['Username'],
+                    $data['Password'],
+                    $data['Type'],
+                    $data['Class']
+                );
+            }
+        } else if (is_array($datas)) {
+            $accounts[] = new Account(
+                $datas['ID_Account'],
+                new DateTime($datas['Creation_Date']),
+                $datas['Username'],
+                $datas['Password'],
+                $datas['Type'],
+                $datas['Class']
+            );
+        }
+    
+        return $accounts; 
+    }
+    
+
     function save() {
         if (!$this->validate())
             throw new Exception("Invalid data");

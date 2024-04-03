@@ -386,15 +386,10 @@ app &&
 							}
 						],
 						// La promesse est rejetée si la boîte de dialogue est fermée sans cliquer sur un bouton
-<<<<<<< Updated upstream
-						onClose: reject
-					}).show()
-=======
 						onClose: () => {
 							popup.onClose();
 						}
 					})
->>>>>>> Stashed changes
 				);
 
 				return popup;

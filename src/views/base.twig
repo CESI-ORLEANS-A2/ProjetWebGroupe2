@@ -11,15 +11,24 @@
 {% endblock %}
 
 <!DOCTYPE html>
-<html>
+<html is-authenticated={{isAuthenticated ? 'true' : 'false'}} lang="fr">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
 		<title>
 			{% block title %}{% endblock %}
 			-
 			{{ config.get('APP_NAME') }}
 		</title>
+
+		<link rel="manifest" href="//{{config.get('STATIC_DOMAIN')}}/public/manifest.webmanifest">
+		<meta name="theme-color" content="#cce0ff">
+		<link rel="icon" href="//{{config.get('STATIC_DOMAIN')}}/public/img/logo.svg">
+		{% block meta %}
+		
+		{% endblock %}
 	</head>
 	<body>
 		{% include "header.twig" %}
@@ -34,5 +43,5 @@
 		</body>
 	</html>
 
-	{{ assets({files: getCSS(), name: (getName() ~ '.css')}) }}
-	{{ assets({files: getJS(), name: (getName() ~ '.js')}) }}
+	{{ assets({files: getCSS(), name: getName() ~ '.css'}) }}
+	{{ assets({files: getJS(), name: getName() ~ '.js'}) }}

@@ -3,7 +3,7 @@
 require_once('../src/modules/ControllerBase.php');
 
 require_once '../src/modules/Database/Connector.php';
-require_once '../src/modules/Database/Models/Account.php';
+require_once '../src/modules/Database/Models/Offer.php';
 
 class Controller extends ControllerBase {
     public function __construct($router) {
@@ -11,22 +11,43 @@ class Controller extends ControllerBase {
     }
 
     public function run() {
-        $content = '';
+        $content = "<div>";
 
-        $database = new Database('localhost', 'ProjetWeb', 'root', 'TCqpZ4iJriGTJraT');
+        $database = new Database(
+            $this->config->get('DB_HOST'),
+            $this->config->get('DB_NAME'),
+            $this->config->get('DB_USER'),
+            $this->config->get('DB_PASS')
+        );
 
-        $account = Account::getByID(1);
+        $offer = Offer::getByID(2);
 
-        $content .= 'Account: ' . $account->get('Username');
+        $content .= 'Title : ' . $offer->get('Title') . "</br>";
+        $content .= 'Description : ' . $offer->get('Description') . '</br>';
 
-        $account->set('Username', 'test');
+        $content .= 'Study Levels : ' . $offer->getStudyLevels() . '</br>';
 
-        $content .= ' => ' . $account->get('Username');
+        $offer->addStudyLevel('Test');
 
-        $account->save();
+        $content .= 'Study Levels : ' . $offer->getStudyLevels() . '</br>';
+
+        $offer->removeStudyLevel('Test');
+
+        $content .= 'Study Levels : ' . $offer->getStudyLevels() . '</br>';
+
+        $offer->addStudyLevel('Test3');
+        $offer->save();
+
+        $content .= 'Study Levels : ' . $offer->getStudyLevels() . '</br>';
+
+        $content .= 'Skills : ' . $offer->getSkills() . '</br>';
+
+        $offer->addSkill('Test');
+
+        $content .= 'Skills : ' . $offer->getSkills() . '</br>';
 
         return $this->render('home.twig', array(
-            'content' => $content
+            'content' => $content . "</div>"
         ));
     }
 };

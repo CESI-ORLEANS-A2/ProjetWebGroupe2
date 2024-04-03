@@ -27,4 +27,19 @@ return [
         'controller' => '/professor_profile.php',
         'methods' => ['GET'],
     ],
+    [ // Login
+        'pattern' => '\/login', 
+        'controller' => '/Login.php',
+        'methods' => ['GET'],
+    ],
+    [ // Login
+        'pattern' => '\/api\/login', 
+        'controller' => '/api/Login.php',
+        'methods' => ['POST'],
+    ],
+    [ // Logout
+        'pattern' => '\/logout', 
+        'controller' => '/Logout.php',
+        'methods' => ['GET'],
+    ],    
 ];

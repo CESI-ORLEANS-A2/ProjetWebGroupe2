@@ -4,22 +4,28 @@ app.onload(() => {
 	const $hamburger = document.querySelector('header .hamburger');
 	const $navBar = document.querySelector('header nav');
 	const $backdrop = document.querySelector('header .backdrop');
-    const $close = document.querySelector('header .close');
+	const $close = document.querySelector('header .close');
 
-	const isDropdownShown = new Proxy(
-		{
-			value: $dropdown.classList.contains('visible')
-		},
-		{
-			set(target, key, value) {
-				if (key === 'value' && typeof value === 'boolean') {
-					target[key] = value;
-					$dropdown.classList.toggle('visible', value);
-					return true;
+	if ($dropdown) {
+		const isDropdownShown = new Proxy(
+			{
+				value: $dropdown.classList.contains('visible')
+			},
+			{
+				set(target, key, value) {
+					if (key === 'value' && typeof value === 'boolean') {
+						target[key] = value;
+						$dropdown.classList.toggle('visible', value);
+						return true;
+					}
 				}
 			}
-		}
-	);
+		);
+
+		$account.addEventListener('click', () => {
+			isDropdownShown.value = !isDropdownShown.value;
+		});
+	}
 
 	const isMenuShown = new Proxy(
 		{
@@ -37,16 +43,13 @@ app.onload(() => {
 		}
 	);
 
-	$account.addEventListener('click', () => {
-		isDropdownShown.value = !isDropdownShown.value;
-	});
 	$hamburger.addEventListener('click', () => {
 		isMenuShown.value = !isMenuShown.value;
 	});
 	$backdrop.addEventListener('click', () => {
 		isMenuShown.value = false;
 	});
-    $close.addEventListener('click', () => {
-        isMenuShown.value = false;
-    });
+	$close.addEventListener('click', () => {
+		isMenuShown.value = false;
+	});
 });

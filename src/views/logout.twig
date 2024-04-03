@@ -12,9 +12,9 @@
 #}
 {% block assets %}
 	{{ parent() }}
-	{{ setName('home') }}
-	{{ addCSS('css/home.css') }}
-	{{ addJS('js/home.js') }}
+	{{ setName('logout') }}
+	{{ addCSS('css/logout.css') }}
+	{{ addJS('js/logout.js') }}
 {% endblock %}
 
 {# 
@@ -22,7 +22,8 @@
 				 Metas
 ========================================
 #}
-{% block title %}Home{% endblock %}
+{% block title %}Connexion
+{% endblock %}
 
 {# 
 ======================================== 
@@ -30,5 +31,15 @@
 ========================================
 #}
 {% block content %}
-	{{content|striptags('<br>')|raw}}
+    <span>Vous êtes déconnecté !</span>
+<a href="/">
+    {% include 'button/button.twig' with {
+        __text: "Retourner à la page d'accueil"
+    } %}
+</a>
+<span>
+    Vous serez rediriger vers la page d'accueil automatiquement dans
+    <span class="seconds">5</span>
+    secondes
+</span>
 {% endblock %}

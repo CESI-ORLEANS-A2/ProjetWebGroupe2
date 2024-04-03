@@ -289,7 +289,7 @@ app &&
 
 					// On vérifie que le tooltip ne dépasse pas de la fenêtre.
 					// Si c'est le cas, on change la position du tooltip.
-					if (left < 0) left = 0;
+					if (left < 0) left = 16; // 1rem
 					// Si le tooltip est en dehors de la fenêtre, on le positionne en dessous de la cible.
 					if (top < 0 + 80) {
 						positionTooltip({ ...tooltip, position: 'bottom' });
@@ -321,7 +321,7 @@ app &&
 
 					// On vérifie que le tooltip ne dépasse pas de la fenêtre.
 					// Si c'est le cas, on change la position du tooltip.
-					if (left < 0) left = 0;
+					if (left < 0) left = 16; // 1rem
 					// Si le tooltip est en dehors de la fenêtre, on le positionne au-dessus de la cible.
 					if (top + tooltipRect.height > window.innerHeight) {
 						positionTooltip({ ...tooltip, position: 'top' });
@@ -362,7 +362,9 @@ app &&
 				borderRadius: '.25rem',
 				boxShadow: '0 0 .5rem rgba(0, 0, 0, .35)',
 				display: 'inline-block',
-				whiteSpace: 'nowrap'
+				// whiteSpace: 'nowrap'
+				textWrap: 'wrap',
+				maxWidth: 'calc(100vw - 2rem)'
 			},
 			'.c-tooltip.styled': {
 				color: '#fff',
@@ -437,6 +439,30 @@ app &&
 				}
 			});
 		});
+
+		document.addEventListener(
+			'mouseenter',
+			function (event) {
+				const target = event.target?.closest?.('[c-tooltip]');
+				if (target && !target.__tooltip) {
+					const tooltip = app.tooltip.show(target, target.getAttribute('c-tooltip'), {
+						position: target.getAttribute('c-tooltip-position') || undefined,
+						align: target.getAttribute('c-tooltip-align') || undefined,
+						offset: target.getAttribute('c-tooltip-offset') || undefined,
+						delay: target.getAttribute('c-tooltip-delay') || undefined
+					});
+
+					target.addEventListener(
+						'mouseleave',
+						function (outEvent) {
+							tooltip.remove();
+						},
+						{ once: true }
+					);
+				}
+			},
+			true
+		);
 
 		return {
 			/**

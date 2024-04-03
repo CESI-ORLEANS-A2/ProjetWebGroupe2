@@ -164,6 +164,10 @@ header {
 				animation: showDropdown var(--transition);
 			}
 		}
+
+		#register {
+			display: none;
+		}
 	}
 }
 
@@ -193,6 +197,13 @@ header {
 	}
 }
 
+html[is-authenticated='true'] header nav {
+	:nth-child(3),
+	:nth-child(4) {
+		display: inline;
+	}
+}
+
 @media screen and (min-width: 750px) {
 	header {
 		.hamburger,
@@ -200,9 +211,9 @@ header {
 		.backdrop {
 			display: none;
 
-            &.visible {
-                display: none;
-            }
+			&.visible {
+				display: none;
+			}
 		}
 
 		nav {
@@ -229,11 +240,31 @@ header {
 				}
 			}
 		}
+
+		#register {
+			display: block;
+		}
+	}
+
+	html[is-authenticated='true'] header nav {
+		:nth-child(3),
+		:nth-child(4) {
+			display: none;
+		}
 	}
 }
 
 @media screen and (min-width: 360px) {
 	header .logo span {
 		display: block;
+	}
+}
+
+@media screen and (min-width: 940px) {
+	html[is-authenticated='true'] header nav {
+		:nth-child(3),
+		:nth-child(4) {
+			display: inline;
+		}
 	}
 }

@@ -84,7 +84,7 @@ app &&
 				height: 'var(--dialog-footer-height)',
 				display: 'flex',
 				alignItems: 'center',
-				justifyContent: 'flex-end',
+				justifyContent: 'space-between',
 				padding: '0.5rem 1rem 0.5rem 1rem',
 				borderRadius: '0 0 0.5rem 0.5rem',
 				fontSize: '0.8rem'
@@ -199,7 +199,8 @@ app &&
 				);
 
 				// Boutons de la boîte de dialogue
-				const buttonsElements = [];
+				const leftButtonsElements = [];
+				const rightButtonsElements = [];
 				// Crée un élément pour chaque bouton
 				for (let button of buttons) {
 					// Si le bouton est une chaîne de caractères, on le transforme en objet
@@ -234,11 +235,30 @@ app &&
 						}
 					});
 
-					buttonsElements.push($button);
+					if (button.align === 'left') {
+						leftButtonsElements.push($button);
+					} else {
+						rightButtonsElements.push($button);
+					}
 				}
 
 				// Pied de page
-				const $footer = app.createElement('div', { class: 'footer' }, ...buttonsElements);
+				const $footerLeftButtons = app.createElement(
+					'div',
+					{ class: 'footer-left-buttons' },
+					...leftButtonsElements
+				);
+				const $footerRightButtons = app.createElement(
+					'div',
+					{ class: 'footer-right-buttons' },
+					...rightButtonsElements
+				);
+				const $footer = app.createElement(
+					'div',
+					{ class: 'footer' },
+					$footerLeftButtons,
+					$footerRightButtons
+				);
 
 				// Crée la boîte de dialogue
 				const $dialog = app.createElement(
@@ -266,6 +286,8 @@ app &&
 						// Exécute la fonction onClose
 						if (typeof onClose === 'function') onClose();
 					}, animationDuration);
+
+					return $dialogContainer;
 				};
 
 				$close.addEventListener('click', close);
@@ -287,6 +309,7 @@ app &&
 					close,
 					show() {
 						document.body.append($dialogContainer);
+						return $dialogContainer;
 					}
 				};
 			},
@@ -298,11 +321,43 @@ app &&
 			 * @param {string} options.title - Le titre de la boîte de dialogue.
 			 * @param {string} options.content - Le contenu de la boîte de dialogue.
 			 * @param {boolean} options.parseHTML - Indique si le contenu doit être interprété comme du HTML.
-			 * @returns {Promise} Une promesse qui se résout lorsque la boîte de dialogue est fermée.
+			 * @param {function} options.onReject - La fonction à exécuter si la promesse est rejetée.
+			 * @param {function} options.onConfirm - La fonction à exécuter si la promesse est résolue.
+			 * @returns {Object} - L'objet représentant la boîte de dialogue.
 			 */
-			confirm({ title = '', content = '', parseHTML = false }) {
-				return new Promise((resolve, reject) =>
-					// Crée une boîte de dialogue avec deux boutons "Annuler" et "Confirmer"
+			confirm({
+				title = '',
+				content = '',
+				parseHTML = false,
+				onReject = () => {},
+				onConfirm = () => {},
+				onClose = () => {}
+			}) {
+				if (typeof onReject !== 'function') onReject = () => {};
+				if (typeof onConfirm !== 'function') onConfirm = () => {};
+				if (typeof onClose !== 'function') onClose = () => {};
+
+				// Crée une boîte de dialogue avec deux boutons "Annuler" et "Confirmer"
+				let popup = {
+					onConfirm,
+					onReject,
+					onClose,
+					toPromise() {
+						return new Promise((promiseResolve) => {
+							popup.onConfirm = ((resolve) => () => {
+								resolve();
+								promiseResolve(true);
+							})(popup.onConfirm);
+							popup.onReject = ((onReject) => () => {
+								onReject();
+								promiseResolve(false);
+							})(popup.onReject);
+						});
+					}
+				};
+
+				popup = Object.assign(
+					popup,
 					this.create({
 						title,
 						content,
@@ -315,7 +370,7 @@ app &&
 								// La promesse est rejetée si le bouton "Annuler" est cliqué
 								action: (close) => {
 									close();
-									reject();
+									popup.onReject();
 								}
 							},
 							{
@@ -325,15 +380,19 @@ app &&
 								// La promesse est résolue si le bouton "Confirmer" est cliqué
 								action: (close) => {
 									close();
-									resolve();
+									popup.onConfirm();
 								},
 								filled: true
 							}
 						],
 						// La promesse est rejetée si la boîte de dialogue est fermée sans cliquer sur un bouton
-						onClose: reject
-					}).show()
+						onClose: () => {
+							popup.onClose();
+						}
+					})
 				);
+
+				return popup;
 			}
 		};
 	});

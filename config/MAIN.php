@@ -1,7 +1,9 @@
 <?php
 
 return [
-    'APP_NAME' => 'projet_web',
+    'APP_NAME' => 'MonStage.fr',
+    'DOMAIN' => 'projet-web.fr',
+    'STATIC_DOMAIN' => 'static.projet-web.fr',
 
     // Path
     'TEMPLATE_PATH' => __DIR__ . '/../src/views/',

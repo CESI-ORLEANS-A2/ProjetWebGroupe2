@@ -158,7 +158,7 @@ app &&
 
 					if (canceled || !items || !items.length) return;
 					container.innerHTML = '';
-					items.forEach((item) => container.appendChild(item));
+					items.forEach((item) => item instanceof Node && container.append(item));
 				} else showSkeleton();
 			};
 
@@ -230,7 +230,7 @@ app &&
 				updateButtons();
 
 				container.innerHTML = '';
-				items.forEach((item) => container.appendChild(item));
+				items.forEach((item) => item instanceof Node && container.append(item));
 			};
 
 			updateButtons();

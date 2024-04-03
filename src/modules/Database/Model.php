@@ -17,10 +17,24 @@ class Model {
             throw new Exception("Invalid data");
     }
 
+    public function equals(Model $model): bool {
+        foreach ($this->schema as $key => $value) {
+            if ($key == 'ID')
+                continue;
+            if ($this->get($key) != $model->get($key))
+                return false;
+        }
+        return true;
+    }
+
     public function getID() {
         if (isset($this->data['ID']))
             return $this->data['ID'];
         return null;
+    }
+
+    protected function setID($id) {
+        $this->data['ID'] = $id;
     }
 
     public function get(string $key) {
@@ -87,10 +101,14 @@ class Model {
 
     protected function validate(): bool {
         foreach ($this->schema as $key => $value) {
-            if ($this->isRequired($key) && !$this->isDefined($key))
+            if ($this->isRequired($key) && !$this->isDefined($key)) {
+                // echo "key $key is required but not defined";
                 return false;
-            if ($this->isDefined($key) && !$this->checkType($key, $this->data[$key]))
+            }
+            if ($this->isDefined($key) && !$this->checkType($key, $this->data[$key])) {
+                // echo "key $key has invalid type";
                 return false;
+            }
         }
         return true;
     }
@@ -101,6 +119,14 @@ class Model {
 
     protected function updateOldData() {
         $this->oldData = $this->data;
+    }
+
+    public function remove() {
+        throw new Exception("Not implemented");
+    }
+
+    public function save() {
+        throw new Exception("Not implemented");
     }
 
     // public function save() {

@@ -91,7 +91,7 @@ class Router {
 
         require_once($controllerPath);
 
-        $controller = new Controller($this);
+        $controller = new Error404Controller($this);
 
         $this->logger->info('Rendering 404 controller...');
 

@@ -2,14 +2,7 @@
 
 require_once '../src/modules/Database/Model.php';
 
-const schema = array(
-    'ID' => array('type' => 'int', 'readonly' => true),
-    'Creation_Date' => array('type' => 'datetime', 'required' => true, 'readonly' => true),
-    'Username' => array('type' => 'string', 'required' => true),
-    'Password' => array('type' => 'string', 'required' => true),
-    'Type' => array('type' => 'string', 'required' => true),
-    'Class' => array('type' => 'int')
-);
+
 
 class Account extends Model {
     public function __construct(
@@ -29,7 +22,13 @@ class Account extends Model {
                 'Type' => $Type,
                 'Class' => $Class
             ),
-            schema
+            array(
+                'ID' => array('type' => 'int', 'readonly' => true),
+                'Creation_Date' => array('type' => 'datetime', 'required' => true, 'readonly' => true),
+                'Username' => array('type' => 'string', 'required' => true),
+                'Password' => array('type' => 'string', 'required' => true),
+                'Type' => array('type' => 'string', 'required' => true),
+                'Class' => array('type' => 'int'))
         );
     }
 
@@ -124,7 +123,7 @@ class Account extends Model {
                 ID_Class as Class
             FROM accounts 
             JOIN AccountTypes ON accounts.ID_Type = AccountTypes.ID_Type
-            WHERE ID_Type = :Type',
+            WHERE accounts.ID_Type = :Type',
             array(':Type' => $Type)
         );
         $accounts = []; 

@@ -2,6 +2,10 @@
 
 require_once('../src/modules/ControllerBase.php');
 
+require_once ('../src/modules/Database/Connector.php');
+require_once ('../src/modules/Database/Models/Account.php');
+require_once ('../src/modules/Database/Models/Users.php');
+
 class Controller extends ControllerBase {
     public function __construct($router) {
         parent::__construct($router);
@@ -10,22 +14,29 @@ class Controller extends ControllerBase {
     public function run() {
         $content = '';
 
-        $database = new Database('localhost', 'ProjetWeb', 'root', 'TCqpZ4iJriGTJraT');
+        if (!isset($_GET['id'])){
+            return $this->router->render404();
+        }
 
-        $account = Account::getByType(1);
+        $database = new Database('localhost', 'ProjetWeb', 'root', 'toor');
 
-        $account = Account::getByType(2);
-        $i=0;
-        $users=[];
-        if (!$account) {
-            foreach($account as $account) {
-            $users[$i]= Users::getByID($account->get('ID'));
-            $i++;
+       
+        $account = Users::getByID($_GET['id']);
+
+        if (!$account || $account->get('Type') != 1) {
+
+            return $this->router->render404();
             }
+        
+        
         return $this->render('Profil_Student.twig', array(
-            'config' => $this->config,
+            'lastName'=> $account->get('Lastname'),
+            'firstName'=> $account->get('Firstname'),
+            'centre'=> $account->get('Classe'),
+            'classe'=> $account->get('City')
         ));
     
     }
-}
 };
+
+

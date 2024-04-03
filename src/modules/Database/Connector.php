@@ -139,7 +139,7 @@ class Database {
      * @param array $params Les paramètres de la requête (facultatif).
      * @return array Le résultat de la requête sous forme de tableau associatif.
      */
-    public function fetch(string $query, array $params = array()): array {
+    public function fetch(string $query, array $params = array()): array | false{
         $stmt = $this->query($query, $params);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -151,7 +151,7 @@ class Database {
      * @param array $params Les paramètres de la requête SQL (optionnel).
      * @return array Les lignes résultantes de la requête SQL.
      */
-    public function fetchAll(string $query, array $params = array()): array {
+    public function fetchAll(string $query, array $params = array()): array | false {
         $stmt = $this->query($query, $params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

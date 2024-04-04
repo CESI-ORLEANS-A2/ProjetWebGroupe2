@@ -32,4 +32,9 @@ return [
         'controller' => '/Login.php',
         'methods' => ['GET']
     ],
+    [ // company_profile
+        'pattern' => '\/company_student', 
+        'controller' => '/Company_Student.php',
+        'methods' => ['GET'],
+    ],
 ];

@@ -57,3 +57,8 @@ main {
 		opacity: 0;
 	}
 }
+
+@font-face {
+	font-family: 'Audiowide';
+	src: url('/public/fonts/audiowide.woff2') format('woff2');
+}

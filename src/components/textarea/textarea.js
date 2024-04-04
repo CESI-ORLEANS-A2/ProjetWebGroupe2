@@ -28,7 +28,7 @@ app &&
 					!event.ctrlKey &&
 					!event.altKey &&
 					!event.metaKey &&
-					data.value.trim().length > 3
+					data.value?.trim().length > 3
 				) {
 					const form = textarea.closest('form');
 					if (form) {

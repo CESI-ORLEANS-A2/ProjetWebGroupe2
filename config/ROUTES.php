@@ -7,12 +7,12 @@ return [
         'methods' => ['GET'] // Allowed methods
     ],
     [ // Search
-        'pattern' => '\/search', 
+        'pattern' => '\/search',
         'controller' => '/Search.php',
         'methods' => ['GET']
     ],
     [ // PhpInfo
-        'pattern' => '\/phpinfo', 
+        'pattern' => '\/phpinfo',
         'controller' => '/PhpInfo.php',
         'methods' => ['GET'],
         'environment' => 'development' // Only available in development
@@ -21,16 +21,30 @@ return [
         'pattern' => '\/api\/search',
         'controller' => '/api/Search.php',
         'methods' => ['GET']
-    ] ,
+    ],
     [ // Professor_Profile
-        'pattern' => '\/Professor_Profile', 
+        'pattern' => '\/Professor_Profile',
         'controller' => '/professor_profile.php',
         'methods' => ['GET'],
     ],
-    
     [ // User
         'pattern' => '\/user', 
         'controller' => '/../../modules/database/Models/User.php',
         'methods' => ['GET', 'POST'], // Adjust methods as needed
     ],
+    [ // Login
+        'pattern' => '\/login',
+        'controller' => '/Login.php',
+        'methods' => ['GET'],
+    ],
+    [ // Login
+        'pattern' => '\/api\/login',
+        'controller' => '/api/Login.php',
+        'methods' => ['POST'],
+    ],
+    [ // Logout
+        'pattern' => '\/logout',
+        'controller' => '/Logout.php',
+        'methods' => ['GET'],
+    ]
 ];

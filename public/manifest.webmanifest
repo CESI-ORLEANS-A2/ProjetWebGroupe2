@@ -1,0 +1,14 @@
+{
+    "name": "Mon Stage",
+    "short_name": "Stage.fr",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f5f5f5",
+    "theme_color": "#cce0ff",
+    "icons": [
+        {
+            "src": "//static.projet-web.fr/public/img/logo.svg",
+            "sizes": "any"
+        }
+    ]
+}

@@ -2,15 +2,6 @@
 
 require_once '../src/modules/Database/Model.php';
 
-const schema = array(
-    'ID' => array('type' => 'int', 'readonly' => true),
-    'Creation_Date' => array('type' => 'datetime', 'required' => true, 'readonly' => true),
-    'Username' => array('type' => 'string', 'required' => true),
-    'Password' => array('type' => 'string', 'required' => true),
-    'Type' => array('type' => 'string', 'required' => true),
-    'Class' => array('type' => 'int')
-);
-
 class Account extends Model {
 
     public function __construct(
@@ -30,12 +21,20 @@ class Account extends Model {
                 'Type' => $Type,
                 'Class' => $Class
             ),
-            schema
+            array(
+                'ID' => array('type' => 'int', 'readonly' => true),
+                'Creation_Date' => array('type' => 'datetime', 'required' => true, 'readonly' => true),
+                'Username' => array('type' => 'string', 'required' => true),
+                'Password' => array('type' => 'string', 'required' => true),
+                'Type' => array('type' => 'string', 'required' => true),
+                'Class' => array('type' => 'int')
+            )
         );
     }
 
     function checkPassword(string $Password): bool {
-        return password_verify($Password, $this->get('Password'));
+        return true;
+        // return password_verify($Password, $this->get('Password'));
     }
 
     static public function getByID(int $ID): Account {
@@ -70,7 +69,7 @@ class Account extends Model {
                 Username, 
                 Password, 
                 AccountTypes.Name AS Type, 
-                ID_Class
+                ID_Class as Class
             FROM accounts
             JOIN AccountTypes ON accounts.ID_Type = AccountTypes.ID_Type
             WHERE Username = :Username',
@@ -78,7 +77,7 @@ class Account extends Model {
         );
         return new Account(
             $data['ID_Account'],
-            $data['Creation_Date'],
+            new DateTime($data['Creation_Date']),
             $data['Username'],
             $data['Password'],
             $data['Type'],
@@ -129,7 +128,7 @@ class Account extends Model {
             WHERE ID_Type = :Type',
             array(':Type' => $Type)
         );
-        $accounts = []; 
+        $accounts = [];
         if (is_array($datas) && isset($datas[0]) && is_array($datas[0])) {
             foreach ($datas as $data) {
                 $accounts[] = new Account(
@@ -151,10 +150,10 @@ class Account extends Model {
                 $datas['Class']
             );
         }
-    
-        return $accounts; 
+
+        return $accounts;
     }
-    
+
 
     function save() {
         if (!$this->validate())

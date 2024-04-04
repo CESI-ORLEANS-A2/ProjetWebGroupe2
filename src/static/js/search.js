@@ -19,17 +19,21 @@ const $form = document.querySelector('form.search-header');
  * @returns {HTMLElement} L'élément rendu.
  */
 function renderItem(item) {
-	switch (item.type) {
+	switch (item.Type) {
 		case 'student':
 			return app.createElement(
-				'div',
+				'a',
 				{
 					class: 'student',
+					href: `/student?id=${item.ID}`,
 					style: {
 						height: '7rem',
 						width: '100%',
 						backgroundColor: 'var(--background-primary-color)',
-						marginBottom: '1rem'
+						marginBottom: '1rem',
+						textDecoration: 'none',
+						color: 'black',
+						display: 'block'
 					}
 				},
 				app.createElement('div', {
@@ -52,14 +56,18 @@ function renderItem(item) {
 			);
 		case 'compagny':
 			return app.createElement(
-				'div',
+				'a',
 				{
 					class: 'compagny',
+					href: `/compagny?id=${item.ID}`,
 					style: {
 						height: '7rem',
 						width: '100%',
 						backgroundColor: 'var(--background-primary-color)',
-						marginBottom: '1rem'
+						marginBottom: '1rem',
+						textDecoration: 'none',
+						color: 'black',
+						display: 'block'
 					}
 				},
 				app.createElement('div', {
@@ -82,14 +90,18 @@ function renderItem(item) {
 			);
 		case 'offer':
 			return app.createElement(
-				'div',
+				'a',
 				{
 					class: 'offer',
+					href: `/offer?id=${item.ID}`,
 					style: {
 						height: '7rem',
 						width: '100%',
 						backgroundColor: 'var(--background-primary-color)',
-						marginBottom: '1rem'
+						marginBottom: '1rem',
+						textDecoration: 'none',
+						color: 'black',
+						display: 'block'
 					}
 				},
 				app.createElement('div', {
@@ -105,10 +117,15 @@ function renderItem(item) {
 				app.createElement(
 					'div',
 					{ class: 'name', style: { marginTop: '1rem' } },
-					item.name
+					item.Title
 				),
-				app.createElement('div', { class: 'published' }, item.published_at),
-				app.createElement('div', { class: 'location' }, item.location)
+				app.createElement(
+					'div',
+					{ class: 'descript', style: { marginTop: '1rem' } },
+					item.Description
+				),
+				app.createElement('div', { class: 'published' }, item.Creation_Date),
+				app.createElement('div', { class: 'location' }, item.Location)
 			);
 	}
 }
@@ -126,7 +143,7 @@ app.onload(function () {
 		});
 
 		// Mettre à jour les statistiques de la recherche
-		$resultCount.textContent = response.body.count;
+		$resultCount.textContent = response.body.match_count;
 		$resultTotal.textContent = response.body.total_count;
 
 		// Mettre à jour les résultats de la recherche

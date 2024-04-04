@@ -1,0 +1,60 @@
+{# 
+======================================== 
+				 Imports
+========================================
+#}
+{% extends "base.twig" %}
+
+{# 
+======================================== 
+				 Assets
+========================================
+#}
+{% block assets %}
+	{{ parent() }}
+	{{ setName('login') }}
+	{{ addCSS('css/login.css') }}
+	{{ addJS('js/login.js') }}
+{% endblock %}
+
+{# 
+======================================== 
+				 Metas
+========================================
+#}
+{% block title %}Connexion
+{% endblock %}
+
+{# 
+======================================== 
+			      Body
+========================================
+#}
+{% block content %}
+<div class="title">Se connecter</div>
+<form action="/login" method="post">
+	{% include 'textarea/textarea.twig' with {
+        __placeholder: 'Nom d\'utilisateur',
+        __icon: "person",
+        __id: "username",
+        __label: "Nom d\'utilisateur",
+    } %}
+	{% include 'textarea/textarea.twig' with {
+        __placeholder: 'Mot de passe',
+        __icon: "key",
+        __id: "password",
+        __label: "Mot de passe",
+        __type: "password",
+    } %}
+    {% include 'button/button.twig' with {
+        __text: 'Se connecter',
+        __icon: 'login',
+        __type: 'submit',
+        __class: 'login',
+    } %} 
+</form>
+<div class="footer">
+    <a href="/recovery">Mot de passe oublié ?</a>
+    <a href="/register">Créer un compte</a>
+</div>
+{% endblock %}

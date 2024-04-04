@@ -6,12 +6,16 @@ class ControllerBase {
     protected \Twig\Environment $twig;
     protected mixed $config;
     protected Logger $logger;
+    protected Session|null $session;
+    protected Account|null $connectedAccount;
 
     protected function __construct(Router $router) {
         $this->app = $router->app;
         $this->router = $router;
         $this->twig = $router->twig;
         $this->config = $router->config;
+        $this->connectedAccount = $this->app->connectedAccount;
+        $this->session = $this->app->session;
 
         $this->logger = $this->app->loggerManager->getLogger('Controller');
     }
@@ -23,7 +27,9 @@ class ControllerBase {
         echo $this->twig->render($template, [
             'router' => $this->router,
             'config' => $this->config,
-            'isAuthenticated' => true
+            'isAuthenticated' => isset($this->connectedAccount),
+            'connectedAccount' => $this->connectedAccount,
+            'session' => $this->session,
         ] + $data);
     }
 

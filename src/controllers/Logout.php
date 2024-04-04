@@ -8,13 +8,12 @@ class Controller extends ControllerBase {
     }
 
     public function run() {
-        // if ($this->session) {
-        //     $this->session->remove();
-        //     $this->render('logout.twig');
-        // } else {
-        //     header("Location: /login");
-        //     die();
-        // }
-        $this->render('logout.twig');
+        if ($this->session) {
+            $this->session->remove();
+            $this->render('logout.twig');
+        } else {
+            header("Location: /login");
+            die();
+        }
     }
 };

@@ -42,4 +42,19 @@ return [
         'controller' => '/Logout.php',
         'methods' => ['GET'],
     ],
+    [ // Offer
+        'pattern' => '\/offer',
+        'controller' => '/Offer.php',
+        'methods' => ['GET'],
+    ],
+    [ // API : WishList
+        'pattern' => '\/api\/wishlist',
+        'controller' => '/api/WishList.php',
+        'methods' => ['POST'],
+    ],
+    [ // API : Apply
+        'pattern' => '\/api\/apply',
+        'controller' => '/api/Apply.php',
+        'methods' => ['POST'],
+    ]
 ];

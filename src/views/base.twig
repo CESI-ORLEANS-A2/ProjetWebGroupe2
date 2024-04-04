@@ -26,8 +26,9 @@
 		<link rel="manifest" href="//{{config.get('STATIC_DOMAIN')}}/public/manifest.webmanifest">
 		<meta name="theme-color" content="#cce0ff">
 		<link rel="icon" href="//{{config.get('STATIC_DOMAIN')}}/public/img/logo.svg">
+		<link rel="preconnect" href="http://static.projet-web.fr">
 		{% block meta %}
-		
+			<meta name="description" content="{{config.get('APP_DESC')}}">
 		{% endblock %}
 	</head>
 	<body>

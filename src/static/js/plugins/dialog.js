@@ -89,6 +89,12 @@ app &&
 				borderRadius: '0 0 0.5rem 0.5rem',
 				fontSize: '0.8rem'
 			},
+			'.dialog-container .footer .footer-left-buttons, \
+			.dialog-container .footer .footer-right-buttons': {
+				display: 'flex',
+				flexDirection: 'row',
+				alignItems: 'center'
+			},
 			'.dialog-container .button': {
 				padding: '0.5rem 1rem',
 				borderRadius: '0.5rem',
@@ -326,8 +332,8 @@ app &&
 			 * @returns {Object} - L'objet représentant la boîte de dialogue.
 			 */
 			confirm({
-				title = '',
-				content = '',
+				title = 'Confirmation',
+				content = 'Voulez-vous continuer ?',
 				parseHTML = false,
 				onReject = () => {},
 				onConfirm = () => {},

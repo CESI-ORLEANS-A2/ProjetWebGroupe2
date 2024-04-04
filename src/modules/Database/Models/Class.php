@@ -2,12 +2,6 @@
 
 require_once '../src/modules/Database/Model.php';
 
-const schema = array(
-    'ID_Class' => array('type' => 'int', 'readonly' => true),
-    'Name' => array('type' => 'string', 'required' => true),
-    'ID_Address' => array('type' => 'int', )
-);
-
 class Classes extends Model {
     public function __construct(
         int $ID_Class,
@@ -20,7 +14,11 @@ class Classes extends Model {
                 'Name' => $Name,
                 'ID_Address' => $ID_Address,
             ),
-            schema
+            array(
+                'ID_Class' => array('type' => 'int', 'readonly' => true),
+                'Name' => array('type' => 'string', 'required' => true),
+                'ID_Address' => array('type' => 'int', )
+            )
         );
     }
     static public function getByIDAccount(int $ID): Classes {
@@ -78,4 +76,3 @@ class Classes extends Model {
         );
     }
 }
-?>

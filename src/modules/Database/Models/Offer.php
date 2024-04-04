@@ -4,6 +4,8 @@ require_once '../src/modules/Database/Model.php';
 
 require_once '../src/modules/Database/Models/Study_Level.php';
 require_once '../src/modules/Database/Models/Skill.php';
+require_once '../src/modules/Database/Models/Location.php';
+require_once '../src/modules/Database/Models/Company.php';
 
 class Offer extends Model {
     private Study_LevelManager | null $studyLevels = null;
@@ -173,6 +175,146 @@ class Offer extends Model {
             if ($i != null)
                 $this->skills->remove($i);
         }
+    }
+
+    public function getLocation() {
+        return Location::getById($this->get('ID_Location'));
+    }
+
+    public function getCompany() {
+        return Company::getById($this->get('ID_Company'));
+    }
+
+    public function getAge($format = '%a jours') {
+        return $this->get('Start_Date')->diff(new DateTime())->format($format);
+    }
+
+    public function getDuration($format = '%a jours') {
+        return $this->get('Start_Date')->diff($this->get('End_Date'))->format($format);
+    }
+
+    public function getInterestedCount() {
+        return Database::getInstance()->fetchColumn(
+            'SELECT COUNT(*) 
+            FROM Is_of_interest_to
+            WHERE ID_Offer = :ID',
+            array(':ID' => $this->getID())
+        );
+    }
+
+    public function addInterest($accountId) {
+        Database::getInstance()->insert(
+            'Is_of_interest_to',
+            array(
+                'ID_Account' => $accountId,
+                'ID_Offer' => $this->getID()
+            )
+        );
+    }
+
+    public function removeInterest($accountId) {
+        Database::getInstance()->delete(
+            'Is_of_interest_to',
+            'ID_Account = :ID_Account AND ID_Offer = :ID_Offer',
+            array(
+                ':ID_Account' => $accountId,
+                ':ID_Offer' => $this->getID()
+            )
+        );
+    }
+
+    public function isInterested($accountId) {
+        return Database::getInstance()->fetchColumn(
+            'SELECT COUNT(*) 
+            FROM Is_of_interest_to
+            WHERE ID_Account = :ID_Account AND ID_Offer = :ID_Offer',
+            array(
+                ':ID_Account' => $accountId,
+                ':ID_Offer' => $this->getID()
+            )
+        ) > 0;
+    }
+
+    public function addApplication($accountId) {
+        $dbh = Database::getInstance();
+
+        $dbh->insert(
+            'MotivationLetters',
+            array(
+                'FileName' => ''
+            )
+        );
+        $MotivationLetterID = $dbh->lastInsertId();
+
+        $dbh->insert(
+            'CVs',
+            array(
+                'FileName' => ''
+            )
+        );
+        $CV_ID = $dbh->lastInsertId();
+
+        $dbh->insert(
+            'Applications',
+            array(
+                'ID_Account' => $accountId,
+                'ID_Offer' => $this->getID(),
+                'Creation_Date' => date('Y-m-d H:i:s'),
+                'ID_MotivationLetter' => $MotivationLetterID,
+                'ID_CV' => $CV_ID
+            )
+        );
+    }
+
+    public function removeApplication($accountId) {
+        $dbh = Database::getInstance();
+
+        ['ID_MotivationLetter' => $MotivationLetterID, 'ID_CV' => $CV_ID] = $dbh->fetch(
+            'SELECT ID_MotivationLetter, ID_CV
+            FROM Applications
+            WHERE ID_Account = :ID_Account AND ID_Offer = :ID_Offer',
+            array(
+                ':ID_Account' => $accountId,
+                ':ID_Offer' => $this->getID()
+            )
+        );
+
+        $dbh->delete(
+            'Applications',
+            'ID_Account = :ID_Account AND ID_Offer = :ID_Offer',
+            array(
+                ':ID_Account' => $accountId,
+                ':ID_Offer' => $this->getID()
+            )
+        );
+
+        $dbh->delete(
+            'MotivationLetters',
+            'ID_MotivationLetter = :ID_MotivationLetter',
+            array(
+                ':ID_MotivationLetter' => $MotivationLetterID
+            )
+        );
+
+        $dbh->delete(
+            'CVs',
+            'ID_CV = :ID_CV',
+            array(
+                ':ID_CV' => $CV_ID
+            )
+        );
+    }
+
+    public function isApplied($accountId) {
+        return Database::getInstance()->fetchColumn(
+            'SELECT COUNT(*) 
+            FROM Applications
+            WHERE ID_Account = :ID_Account AND ID_Offer = :ID_Offer',
+            array(
+                ':ID_Account' => $accountId,
+                ':ID_Offer' => $this->getID()
+            )
+        ) > 0;
     }
 
     public static function getById($id) {
@@ -404,5 +546,54 @@ class Offer extends Model {
             'ID_Location' => $data['ID_Location'],
             'ID_Company' => $data['ID_Company']
         ));
+    }
+
+    public static function getRandom(int $count): array {
+        $data = Database::getInstance()->fetchAll(
+            'SELECT
+                ID_Offer as ID,
+                Title,
+                Pay,
+                Start_Date,
+                End_Date,
+                Places,
+                Description,
+                Creation_Date,
+                Durations.Duration as Duration,
+                ID_Location,
+                ID_Company
+            FROM offers 
+            JOIN Durations ON offers.ID_Duration = Durations.ID_Duration
+            ORDER BY RAND()
+            LIMIT ' . $count
+        );
+        return array_map(function ($item) {
+            return Offer::fromData($item);
+        }, $data);
+    }
+
+    public static function getWishList(int $accountId): array {
+        $data = Database::getInstance()->fetchAll(
+            'SELECT
+                ID_Offer as ID,
+                Title,
+                Pay,
+                Start_Date,
+                End_Date,
+                Places,
+                Description,
+                Creation_Date,
+                Durations.Duration as Duration,
+                ID_Location,
+                ID_Company
+            FROM offers 
+            JOIN Durations ON offers.ID_Duration = Durations.ID_Duration
+            JOIN Is_of_interest_to ON offers.ID_Offer = Is_of_interest_to.ID_Offer
+            WHERE Is_of_interest_to.ID_Account = :ID',
+            array(':ID' => $accountId)
+        );
+        return array_map(function ($item) {
+            return Offer::fromData($item);
+        }, $data);
     }
 }

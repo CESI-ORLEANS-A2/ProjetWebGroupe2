@@ -135,10 +135,7 @@ class Database
                 $value = $value->format('Y-m-d H:i:s');
             }
 
-            if (str_starts_with($k, ':'))
-                $params[$k] = htmlspecialchars($value ?? '');
-            else
-                $params[':' + $k] = htmlspecialchars($value ?? '');
+            $params[str_starts_with($k, ':') ? $k : ':' . $k] = htmlspecialchars($value ?? '');
         }
 
         $stmt->execute($params);

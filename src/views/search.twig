@@ -57,28 +57,34 @@
 		</div>
 		<div class="filter-bar">
 			{% include 'select/select.twig' with {
-				__prefix: 'Domaine',
-				__id: 'domain',
-				__noCurrentValue: true
+				__prefix: 'Compétences',
+				__id: 'skills',
+				__noCurrentValue: true,
+				__multiple: true,
+				__allowEmpty: true,
+				__options: skills
 			} %}
 			{% include 'select/select.twig' with {
-				__prefix: 'Contrat',
-				__id: 'contract',
+				__prefix: 'Niveau d\'études',
+				__id: 'study-level',
 				__noCurrentValue: true,
+				__allowEmpty: true,
+				__multiple: true,
+				__options: studyLevels
 			} %}
 			{% include 'select/select.twig' with {
 				__prefix: 'Type',
 				__id: 'type',
-				__multiple: true,
+				__multiple: false,
 				__options: [
 					{ value: 'stage', text: 'Stage', selected: true },
-					{ value: 'pilote', text: 'Pilotes', selected: true },
-					{ value: 'student', text: 'Étudiants', selected: true },
-					{ value: 'company', text: 'Entreprises', selected: true },
+					{ value: 'pilote', text: 'Pilotes', selected: false },
+					{ value: 'student', text: 'Étudiants', selected: false },
+					{ value: 'company', text: 'Entreprises', selected: false },
 				],
 				__noCurrentValue: true
 			} %}
-			{% include 'select/select.twig' with {
+			{# {% include 'select/select.twig' with {
 				__prefix: 'Autres critères',
 				__id: 'other',
 				__multiple: true,
@@ -88,7 +94,7 @@
 				],
 				__noCurrentValue: true,
 				__allowEmpty: true
-			} %}
+			} %} #}
 		</div>
 	</form>
 	<div class="search-body">

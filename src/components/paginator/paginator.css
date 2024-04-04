@@ -40,7 +40,7 @@
 	justify-content: center;
 	align-items: center;
 }
-.c-paginator_nav .c-paginator_button:hover {
+.c-paginator_nav .c-paginator_button:not(.hidden):hover {
 	background-color: var(--accent-hover-color);
 }
 
@@ -65,7 +65,7 @@
 	align-items: center;
 }
 .c-paginator_page-number-current,
-.c-paginator_page-number:hover {
+.c-paginator_page-number:not(.hidden):hover {
 	background-color: var(--accent-color);
 }
 

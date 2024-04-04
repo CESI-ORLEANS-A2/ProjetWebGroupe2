@@ -1,6 +1,7 @@
 <?php
 
 require_once '../src/modules/Database/Model.php';
+require_once '../src/modules/Database/ModelManager.php';
 
 class Skill extends Model {
     public function __construct($data) {

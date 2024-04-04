@@ -61,4 +61,5 @@ main {
 @font-face {
 	font-family: 'Audiowide';
 	src: url('/public/fonts/audiowide.woff2') format('woff2');
+	font-display: swap;
 }

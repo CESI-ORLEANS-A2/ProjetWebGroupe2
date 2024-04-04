@@ -2,6 +2,9 @@
 
 return [
     'APP_NAME' => 'MonStage.fr',
+    'APP_VERSION' => '1.0.0',
+    'APP_DESC' => 'MonStage.fr est une plateforme de recherche de stage pour les étudiants et les entreprises.',
+
     'DOMAIN' => 'projet-web.fr',
     'STATIC_DOMAIN' => 'static.projet-web.fr',
 

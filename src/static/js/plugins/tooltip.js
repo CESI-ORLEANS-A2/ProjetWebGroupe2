@@ -268,7 +268,7 @@ app &&
 		 * @param {Tooltip} tooltip
 		 * @return {void}
 		 */
-		function positionTooltip(tooltip) {
+		function positionTooltip(tooltip, force = false) {
 			if (!tooltip.target) return;
 
 			// On récupère les dimensions et les positions de la cible et du tooltip.
@@ -291,8 +291,8 @@ app &&
 					// Si c'est le cas, on change la position du tooltip.
 					if (left < 0) left = 16; // 1rem
 					// Si le tooltip est en dehors de la fenêtre, on le positionne en dessous de la cible.
-					if (top < 0 + 80) {
-						positionTooltip({ ...tooltip, position: 'bottom' });
+					if (top < 0 + 80 && !force) {
+						positionTooltip({ ...tooltip, position: 'bottom' }, true);
 						return;
 					}
 
@@ -306,8 +306,8 @@ app &&
 
 					// On vérifie que le tooltip ne dépasse pas de la fenêtre.
 					// Si c'est le cas, on change la position du tooltip.
-					if (left + tooltipRect.width > window.innerWidth) {
-						positionTooltip({ ...tooltip, position: 'left' });
+					if (left + tooltipRect.width > window.innerWidth && !force) {
+						positionTooltip({ ...tooltip, position: 'left' }, true);
 						return;
 					}
 
@@ -323,8 +323,8 @@ app &&
 					// Si c'est le cas, on change la position du tooltip.
 					if (left < 0) left = 16; // 1rem
 					// Si le tooltip est en dehors de la fenêtre, on le positionne au-dessus de la cible.
-					if (top + tooltipRect.height > window.innerHeight) {
-						positionTooltip({ ...tooltip, position: 'top' });
+					if (top + tooltipRect.height > window.innerHeight && !force) {
+						positionTooltip({ ...tooltip, position: 'top' }, true);
 						return;
 					}
 
@@ -338,8 +338,8 @@ app &&
 
 					// On vérifie que le tooltip ne dépasse pas de la fenêtre.
 					// Si c'est le cas, on change la position du tooltip.
-					if (left < 0) {
-						positionTooltip({ ...tooltip, position: 'right' });
+					if (left < 0 && !force) {
+						positionTooltip({ ...tooltip, position: 'right' }, true);
 						return;
 					}
 

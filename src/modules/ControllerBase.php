@@ -21,6 +21,9 @@ class ControllerBase {
     }
 
     protected function render($template, $data = array()) {
+        if (!str_ends_with($template, '.twig')) {
+            $template .= '.twig';
+        }
 
         $this->logger->info('Rendering template: ' . $template . ' with data: ' . json_encode($data));
 

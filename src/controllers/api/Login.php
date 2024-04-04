@@ -21,7 +21,7 @@ class Controller extends ControllerBase
     public function run()
     {
         try {
-            // var_dump($_POST); // Debugging (1/2)
+            // var_dump($_POST);
             // $username = $_POST['username'] ?? '';
             // $password = $_POST['password'] ?? '';
             $data = json_decode(file_get_contents('php://input'), true);

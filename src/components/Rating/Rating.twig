@@ -1,0 +1,7 @@
+{{ addCSS('rating/rating.css') }}
+{{ addJS('rating/rating.js') }}
+<div class="star-rating">
+    {% for i in 1..5 %}
+        <span class="star">&#9733;</span>
+    {% endfor %}
+</div>

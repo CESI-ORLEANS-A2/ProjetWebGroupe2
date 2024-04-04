@@ -1,8 +1,6 @@
 <?php
 
 require_once('../src/modules/ControllerBase.php');
-require_once '../src/modules/Database/Models/Account.php';
-require_once '../src/modules/Database/Models/User.php';
 require_once '../src/modules/Database/Connector.php';
 class Controller extends ControllerBase {
     public function __construct($router) {
@@ -12,7 +10,7 @@ class Controller extends ControllerBase {
     public function run() {
         $content = '';
 
-        $database = new Database('localhost', 'ProjetWeb', 'root', '');
+        $database = new Database('localhost', 'ProjetWeb', 'root', 'toor');
 
        
          return $this->render('Company_Student.twig');

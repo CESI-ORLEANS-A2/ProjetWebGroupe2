@@ -14,7 +14,7 @@
 	{{ parent() }}
 	{{ setName('Company_Student') }}
 	{{ addCSS('css/Company_Student.css') }}
-	{{ addJS('js/Company_Student.js') }}
+	{#{{ addJS('js/Company_Student.js') }}#}
 {% endblock %}
 
 {# 
@@ -36,12 +36,19 @@
 <div>
 
     <div id="background" class="wrapper" >
+    <div class="background">
+                    <img src="//static.projet-web.fr/public/img/BackgroundShape.svg">
+                    <img src="//static.projet-web.fr/public/img/BackgroundShape.svg">
+                    <img src="//static.projet-web.fr/public/img/BackgroundShape.svg">
+    </div>
         <div class="one">
-            <img src="./entreprise.jpg" alt="entreprise">
+        <div class="box">
+        <img src="./entreprise.jpg" alt="entreprise">
             <div class="infos">
                 <h3>Nom de l'entreprise</h3>
                 <h4>Localisation</h4>
                 <h5>Secteur d'activité</h5>
+        </div>
             </div>
         </div>
 
@@ -78,7 +85,7 @@
             <p>2.5/5</p> #}
         </div>
 </div>
-<div class="wrapper">
+<div class="wrapper2">
         <div class="three">
             <div class="statistiques">
                 <h3>Statistiques</h3>

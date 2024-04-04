@@ -27,6 +27,11 @@ return [
         'controller' => '/professor_profile.php',
         'methods' => ['GET'],
     ],
+    [ // User
+        'pattern' => '\/user', 
+        'controller' => '/../../modules/database/Models/User.php',
+        'methods' => ['GET', 'POST'], // Adjust methods as needed
+    ],
     [ // Login
         'pattern' => '\/login',
         'controller' => '/Login.php',
@@ -41,5 +46,5 @@ return [
         'pattern' => '\/logout',
         'controller' => '/Logout.php',
         'methods' => ['GET'],
-    ],
+    ]
 ];

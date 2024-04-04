@@ -1,152 +1,239 @@
-const elementsArray = [
-    { label: "Label 1", value: "Value 1" },
-    { label: "Label 2", value: "Value 2" },
-    { label: "Label 3", value: "Value 3" },
-    { label: "Label 3", value: "Value 3" },
-];
-function openDialog() {
-   
-            app.dialog.create({
-                
-                title: 'Modifier l’entreprise',
-                content: [
-                    
-                    app.createElement('label', { for: 'entreprise', style: { display: 'block', } }, 'Nom de l\'entreprise'),
-                     
-                    app.createElement('div',{
-                        style : {
-                         
-                            display :'flex',
-                            border: '3px solid #85D3FF',
-                            borderRadius: '10px',
-                            overflow: 'hidden',
-                            height : '40px',
-                            width:'100%',
-                            marginBottom: '20px',
-                        }
-                    },
-                    app.createElement('img', {
-                        src : '//static.projet-web.fr/public/img/Organization.svg'
-                     }, 'Titre'),
-                       app.createElement('input',{
-                        Name: 'entreprise',
-                            Placeholder : "Nom de l'entreprise",
-                            style : {
-                                border : 'none',
-                                
-                            }
-                        }, 'Titre')),
 
 
-                    app.createElement('div',{style:{display: 'grid', /* Utilisation de CSS Grid */
-                    gridTemplateColumns: '70% 20%',/* Crée deux colonnes de taille automatique */
-                    }},  
-                     app.createElement('h3', { }, "Liste des adresses",),  
-                    app.createElement('button', {  }, 'Ajouter +'),),
-                     
+document.getElementById('update').addEventListener('click', function () {
+	app.dialog.create({
+		title: "Modifier l'utilisateur",
+		content: [
+			app.createElement('div', {
+				id: 'container',
+				style: {
+					display: 'flex',
+					flexDirection: 'column',
+					gap: '20px',
+					fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+				}
+			},
+				app.createElement('div', {
+					style: {
+						display: 'flex',
+						flexDirection: 'column'
+					}
+				},
+					app.createElement('label', {}, "Nom d'utilisateur"),
+					app.createElement('div', {
+						style: {
+							display: 'flex',
+							border: '3px solid #85D3FF',
+							borderRadius: '10px',
+							overflow: 'hidden',
+							height: '40px'
+						}
+					},
+						app.createElement('img', {
+							src: '//static.projet-web.fr/public/img/users.svg'
+						}, 'Titre'),
 
+						app.createElement('input', {
+							Placeholder: "Nom d'utilisateur",
+							class: 'PopUpInput',
+							style: {
+								border: 'none'
+							}
+						},))),
+				app.createElement('div', {
+					style: {
+						display: 'flex',
+						flexDirection: 'column'
+					}
+				},
+					app.createElement('label', {}, "Mot de passe"),
+					app.createElement('div', {
+						style: {
+							display: 'flex',
+							border: '3px solid #85D3FF',
+							borderRadius: '10px',
+							overflow: 'hidden',
+							height: '40px'
+						}
+					},
+						app.createElement('img', {
+							src: '//static.projet-web.fr/public/img/key.svg'
+						}, 'Titre'),
 
+						app.createElement('input', {
+							Placeholder: 'Mot de passe',
+							class: 'PopUpInput',
+							style: {
+								border: 'none'
+							}
+						}, 'Titre'))),
+				app.createElement('div', {
+					style: {
+						display: 'flex',
+						flexDirection: 'row',
+						gap: '20px'
+					}
 
-                    ...elementsArray.map(element => {
-                       return app.createElement('div', { style:{display:'flex',justifyContent: 'space-between',}}, "",  
-                        app.createElement('div',{
-                       style : {
-                           display :'flex',
-                           borderRadius: '10px',
-                           overflow: 'hidden',
-                           height : '40px',
-                           borderBottom: '2px solid #85D3FF',
-                           width:'60%',
-                           marginRight: '15px',
-                       }
-                   },
-                  
-                       app.createElement('input', {
-                           value : "12 Rue des Cramptés",
-                           style : {
-                               border : 'none',
-                           }
-                       }, 'Titre')),
-                       app.createElement('div',{
-                       style : {
-                           display :'flex',
-                           borderRadius: '10px',
-                           overflow: 'hidden',
-                           height : '40px',
-                           borderBottom: '2px solid #85D3FF',
-                           width:'15%',
-                           marginRight: '15px',
-                        
-                       }
-                   },
+				},
+					app.createElement('div', {
+						style: {
+							display: 'flex',
+							flexDirection: 'column'
+						}
+					},
+						app.createElement('label', {}, "Prénom"),
 
-                       app.createElement('input', {
-                           value : "45700",
-                           style : {
-                               border : 'none',
+						app.createElement('div', {
+							style: {
+								display: 'flex',
+								border: '3px solid #85D3FF',
+								borderRadius: '10px',
+								overflow: 'hidden',
+								height: '40px'
+							}
+						},
+							app.createElement('img', {
+								src: '//static.projet-web.fr/public/img/users.svg'
+							}, 'Titre'),
 
-                           }
-                       }, 'Titre')),
-                       app.createElement('div',{
-                       style : {
-                           display :'flex',
-                           borderRadius: '10px',
-                           overflow: 'hidden',
-                           height : '40px',
-                           borderBottom: '2px solid #85D3FF',
-                           width:'15%',
-                           marginRight: '15px',
-                       }
-                   },
+							app.createElement('input', {
+								Placeholder: "Prénom",
+								class: 'PopUpInput',
+								style: {
+									border: 'none',
+								}
+							}, 'Titre'))),
+					app.createElement('div', {
+						style: {
+							display: 'flex',
+							flexDirection: 'column'
+						}
+					},
+						app.createElement('label', {}, "Nom"),
+						app.createElement('div', {
+							style: {
+								display: 'flex',
+								border: '3px solid #85D3FF',
+								borderRadius: '10px',
+								overflow: 'hidden',
+								height: '40px'
+							}
+						},
+							app.createElement('img', {
+								src: '//static.projet-web.fr/public/img/users.svg'
+							}, 'Titre'),
+							app.createElement('input', {
+								Placeholder: "Nom",
+								class: 'PopUpInput',
+								style: {
+									border: 'none',
+								}
+							}, 'Titre')))),
 
-                       app.createElement('input', {
-                           value : "la source ",
-                           style : {
-                               border : 'none',
+				app.createElement('div', {
+					style: {
+						display: 'flex',
+						flexDirection: 'row',
+						gap: '20px'
+					}
 
-                           }
-                       }, 'Titre')),
-                       
-                       app.createElement('div',{
-                       style : {
-                           display :'flex',
-                           borderRadius: '10px',
-                           overflow: 'hidden',
-                           height : '40px',
-                           borderBottom: '2px solid #85D3FF',
-                           width:'15%'
-                       }
-                   },
+				},
+					app.createElement('div', {
+						style: {
+							display: 'flex',
+							flexDirection: 'column'
+						}
+					},
+						app.createElement('label', {}, "Etablissement"),
+						app.createElement('div', {
+							style: {
+								display: 'flex',
+								border: '3px solid #85D3FF',
+								borderRadius: '10px',
+								overflow: 'hidden',
+								height: '40px'
+							}
+						},
+							app.createElement('img', {
+								src: '//static.projet-web.fr/public/img/users.svg'
+							}, 'Titre'),
 
-                       app.createElement('input', {
-                           value : "France ",
-                           style : {
-                               border : 'none',
+							app.createElement('input', {
+								Placeholder: "Etablissement",
+								class: 'PopUpInput',
+								style: {
+									border: 'none',
+								}
+							}, 'Titre'))),
+					app.createElement('div', {
+						style: {
+							display: 'flex',
+							flexDirection: 'column'
+						}
+					},
+						app.createElement('label', {}, "Promotion"),
+						app.createElement('div', {
+							style: {
+								display: 'flex',
+								border: '3px solid #85D3FF',
+								borderRadius: '10px',
+								overflow: 'hidden',
+								height: '40px'
+							}
+						},
+							app.createElement('img', {
+								src: '//static.projet-web.fr/public/img/users.svg'
+							}, 'Titre'),
+							app.createElement('input', {
+								Placeholder: "Promotion",
+								class: 'PopUpInput',
+								style: {
+									border: 'none',
+								}
+							}, 'Titre')))),
+			),
+		],
+		buttons: [
+			{
+				text: 'Supprimer le compte', color: '#FF6262', filled: true, action: (close) => {
+					app.dialog.confirm({
+						title: "Supprimer un utilisateur",
+						content: [
+							'Voulez vous vraiment supprimer cet utilisateur ?'
+						]
+					}).then(() => close()).catch(() => { })
+				}
+			},
 
-                           }
-                       }, 'Titre')),
-                       app.createElement('a', {
-                        href:"page-cible.html",
-                        style:{
-                            marginLeft: '15px',
-                        }
-                    
-                 },  app.createElement('img', {
-                    src : '//static.projet-web.fr/public/img/trash.svg'
-                 }, 'Titre'),),)
-                    }),
-
-
-
-          
-
-                    
-                ],
-                buttons: [
-                    { text: 'Annuler', action: 'close' },
-                    { text: 'Valider', action: (close) => { close(); } }
-                ]
-            }).show();
-        }
-
-
+			{ text: 'Annuler', action: 'close' },
+			{
+				text: 'Valider', color: 'var(--color-blue-600)', filled: true, action: (close) => {
+					app.dialog.confirm({
+						title: "Ajouter un utilisateur",
+						content: [
+							'Voulez vous vraiment ajouter cet utilisateur ?'
+						],
+					}).then(() =>{var userData = {
+						Firstname: 'John',
+						Lastname: 'Doe',
+						Account: 123
+					};
+				
+					// AJAX request
+					var xhr = new XMLHttpRequest();
+					xhr.open('POST','http://www.projet-web.fr/user', true);
+					xhr.setRequestHeader('Content-Type', 'application/json');
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState === 4 && xhr.status === 200) {
+							console.log(xhr.responseText); 
+						}
+					};
+					xhr.send(JSON.stringify(userData));
+					console.log(userData); 
+				}).catch(() => { })
+				}
+			},
+			
+		]
+	}).show();
+});

@@ -112,11 +112,7 @@ app.onload(function () {
 			$paginator.__component.setCount(response.body.total_count);
 		});
 
-	// Mettre à jour les résultats de la recherche en fonction de la recherche
-	$form.addEventListener('submit', function (event) {
-		event.preventDefault();
-		event.stopPropagation();
-
+	function submitted() {
 		// Revient à la première page et affiche l'indicateur de chargement
 		$paginator.__component.data.current = 1;
 		$paginator.__component.showLoading();
@@ -147,7 +143,44 @@ app.onload(function () {
 					response.body.data.map(renderItem)
 				);
 			});
+	}
+
+	// Mettre à jour les résultats de la recherche en fonction de la recherche
+	$form.addEventListener('submit', function (event) {
+		event.preventDefault();
+		event.stopPropagation();
+
+		submitted();
 	});
+
+	const params = new URLSearchParams(location.search);
+	let edited = false;
+
+	if (params.has('query')) {
+		$searchInput.__component.data.value = params.get('query');
+		(t = $searchInput.querySelector('input, textarea')) && (t.value = params.get('query'));
+		edited = true;
+	}
+	if (params.has('type')) {
+		$type.__component.data.selectedOptions = [params.get('type')];
+		edited = true;
+	}
+	if (params.has('skills')) {
+		$skills.__component.data.selectedOptions = params.get('skills').split(',');
+		edited = true;
+	}
+	if (params.has('studyLevel')) {
+		$studyLevel.__component.data.selectedOptions = params.get('studyLevel').split(',');
+		edited = true;
+	}
+	if (params.has('location')) {
+		$locationInput.__component.data.value = params.get('location');
+		edited = true;
+	}
+
+	if (edited) {
+		submitted();
+	}
 });
 
 // Effacer les champs de recherche
@@ -160,5 +193,5 @@ $clearButton.addEventListener('click', function () {
 
 	$paginator.__component.go.first();
 
-	$form.submit();
+	submitted();
 });

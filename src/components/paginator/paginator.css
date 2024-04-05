@@ -1,3 +1,9 @@
+.c-paginator {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
 .c-paginator_container:empty:after {
 	content: "Aucun résultat";
 	display: block;

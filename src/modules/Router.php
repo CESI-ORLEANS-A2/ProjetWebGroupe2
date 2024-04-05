@@ -31,7 +31,7 @@ class Router {
 
             if (
                 in_array($_SERVER['REQUEST_METHOD'], $this->routes[$i]['methods']) &&
-                preg_match($this->routes[$i]['pattern'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), $matches) &&
+                preg_match(strtolower($this->routes[$i]['pattern']), strtolower(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)), $matches) &&
                 (!isset($this->routes[$i]['environment']) || $this->routes[$i]['environment'] === $this->config->get('ENVIRONMENT'))
             ) {
                 $this->route = $this->routes[$i];
@@ -46,8 +46,8 @@ class Router {
     }
 
     public function loadController() {
-        $controllerPath = 
-            $this->config->get('CONTROLLER_PATH') 
+        $controllerPath =
+            $this->config->get('CONTROLLER_PATH')
             . $this->route['controller'];
 
         if (!is_file($controllerPath)) {

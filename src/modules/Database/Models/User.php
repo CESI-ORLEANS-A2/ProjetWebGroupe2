@@ -27,6 +27,7 @@ class Users extends Model {
             schema
         );
     }
+
     static public function getByID(int $ID): Users {
         $data = Database::getInstance()->fetch(
             'SELECT 
@@ -87,11 +88,56 @@ class Users extends Model {
             $data['Account']
         );
     }
+
+    static public function getByType(string $type) {
+        $data = Database::getInstance()->fetchAll(
+            'SELECT 
+                ID_Account,
+                ID_User, 
+                Firstname,
+                Lastname,
+                Username
+            FROM users 
+            JOIN accounts ON users.ID_Account = accounts.ID_Account
+            WHERE Type = :type',
+            array(':type' => $type)
+        );
+
+        $users = array();
+        foreach ($data as $user) {
+            $users[] = new Users(
+                $user['ID_User'],
+                $user['Firstname'],
+                $user['Lastname'],
+                $user['ID_Account']
+            );
+        }
+        return $users;
+    }
+
+    public static function getByAccountID(int $ID): Users {
+        $data = Database::getInstance()->fetch(
+            'SELECT 
+                ID_User, 
+                Firstname,
+                Lastname,
+                ID_Account
+            FROM users 
+            WHERE ID_Account = :ID',
+            array(':ID' => $ID)
+        );
+        return new Users(
+            $data['ID_User'],
+            $data['Firstname'],
+            $data['Lastname'],
+            $data['ID_Account']
+        );
+    }
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
-    // Call AddUser function with data received from client-side
-    $result = Users::AddUser($data['Firstname'], $data['Lastname'], $data['Account']);
-    // Return response to client-side
-    echo json_encode($result);}
-?>
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//     $data = json_decode(file_get_contents('php://input'), true);
+//     // Call AddUser function with data received from client-side
+//     $result = Users::AddUser($data['Firstname'], $data['Lastname'], $data['Account']);
+//     // Return response to client-side
+//     echo json_encode($result);}
+//

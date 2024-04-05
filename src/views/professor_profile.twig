@@ -15,6 +15,9 @@
 	{{ setName('Professor_Profile') }}
 	{{ addCSS('css/Professor_Profile.css') }}
 	{{ addJS('js/Professor_Profile.js') }}
+
+	{{ addCSS('textarea/textarea.css') }}
+	{{ addJS('textarea/textarea.js') }}
 {% endblock %}
 
 {# 
@@ -22,7 +25,8 @@
 				 Metas
 ========================================
 #}
-{% block title %}Profil-Professor{% endblock %}
+{% block title %}Profil-Professor
+{% endblock %}
 
 {# 
 ======================================== 
@@ -31,68 +35,38 @@
 #}
 
 {% block content %}
-	
-<div>
-    <div id="background" class ="profile-container" >
-            <div class="avatar-container">
-                    <div class="avatar">Avatar</div>
-                    <div class="name-center">
-                      <div class="name">Nom Prénom</div>
-                      <div class="center">Centre</div>
-                    </div>
-             </div>
-           
-            <div class="containerButton">
-                <button onclick="openDialog()">modifier</button>
-            </div>
 
-       
-</div>
-<h2 class="center">Promotions asssignés</h2>
-<div class="wrapper">
-        <div class="three">
-         {% for i in range(0, 3) %}
-             {% include "search/result-user.twig" with {
-				        __name: "Quentin ",
-				        __class: "CPIA2",
-				        __date: "Publié hier",
-				        __location: "Orléans",
-                        __icon: "fas fa-user",
-			            } %}
-        {% endfor %}
-</div>
+	<div>
+		<div id="background" class="profile-container">
+			<div class="avatar-container">
+				<div class="avatar">
+					{% include 'icon/icon.twig' with {
+						__icon: "person",
+					} %}
+				</div>
+				<div class="name-center">
+					<div class="name">{{Lastname}} {{Firstname}}</div>
+					{# <div class="center">Centre</div> #}
+				</div>
+				<div
+					class="containerButton">
+					{# <button onclick="openDialog()">modifier</button> #}
+					{% include 'button/button.twig' with {
+                    __text: "Modifier",
+					__id: "edit-button"
+                } %}
+				</div>
+			</div>
 
-        <div class="four">
-       
-             {% for i in range(0, 3) %}
-             {% include "search/result-user.twig" with {
-				        __name: "Quentin ",
-				        __class: "CPIA2",
-				        __date: "Publié hier",
-				        __location: "Orléans",
-                        __icon: "fas fa-user",
-			            } %}
-        {% endfor %}
-            </div>
-        </div>
-  
-      {# {% include 'paginator/paginator.twig' with {
-        '__max': 0,
-        '__maxCanChange': true,
-        '__count': 6,
-    } %} #}
-                        
-        {# <div id="pagination" class="center">
-            <a href="#" class="prev">&laquo; </a>
-            <a href="#" class="active">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#" class="next"> &raquo;</a>
-        </div> #}
-   
-</div>
+
+		</div>
+		<h2 class="center">Promotions asssignés</h2>
+		<div
+			class="wrapper">
+			{% include 'paginator/paginator.twig' with {
+            } %}
+		</div>
+	</div>
 {% endblock %}
 
 {% block templates append %}

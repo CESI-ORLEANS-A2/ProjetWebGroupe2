@@ -22,7 +22,8 @@
 				 Metas
 ========================================
 #}
-{% block title %}Home{% endblock %}
+{% block title %}Home
+{% endblock %}
 
 {# 
 ======================================== 
@@ -30,5 +31,41 @@
 ========================================
 #}
 {% block content %}
-	{{content|striptags('<br>')|raw}}
+	<div class="section welcome">
+		<span class="introduction">Bienvenue sur</span>
+		<span class="title">{{config.get('APP_NAME')}}</span>
+		<span class="description">Sur ce site vous pourrez rechercher des stages et y postuler</span>
+	</div>
+	<div class="section search">
+		<span class="title">Rechercher un stage</span>
+		<div class="search-bar">
+			{% include 'textarea/textarea.twig' with {
+				__placeholder: 'Exemple : Développeur',
+				__icon: 'search'	
+			} %}
+			{% include 'button/button.twig' with {
+				__text: 'Rechercher',
+				__icon: 'search'
+			} %}
+		</div>
+	</div>
+	<div class="section offers">
+		<span class="title">Les offres du moment</span>
+		<div class="offers-container">
+			{% for offer in offers %}
+				<a class="card" href="/offer?id={{offer.getID()}}">
+					<div class="icon">
+						{% include 'icon/icon.twig' with {
+							__icon: 'work',
+						} %}
+					</div>
+					<div class="infos">
+						<div class="title">{{offer.get('Title')}}</div>
+						<div class="description">{{offer.get('Description')}}</div>
+						<div class="published_at">Publié le {{offer.get('Creation_Date').format('d/m/Y à h:m')}}</div>
+					</div>
+				</a>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

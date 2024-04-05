@@ -23,11 +23,11 @@ return [
         'methods' => ['GET']
     ],
     [ // Professor_Profile
-        'pattern' => '\/Professor_Profile',
+        'pattern' => '\/Professor_Profile|\/pilote',
         'controller' => '/professor_profile.php',
         'methods' => ['GET'],
     ],
-    [ // User
+    [ // User // FIXME le contrôleur n'est pas bon
         'pattern' => '\/user', 
         'controller' => '/../../modules/database/Models/User.php',
         'methods' => ['GET', 'POST'], // Adjust methods as needed
@@ -61,5 +61,10 @@ return [
         'pattern' => '\/api\/apply',
         'controller' => '/api/Apply.php',
         'methods' => ['POST'],
+    ],
+    [ // API : Classes
+        'pattern' => '\/api\/classes',
+        'controller' => '/api/classes.php',
+        'methods' => ['GET'],
     ]
 ];

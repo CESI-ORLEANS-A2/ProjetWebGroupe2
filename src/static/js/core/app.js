@@ -61,7 +61,7 @@
 			const component = {
 				components: this.components[name],
 				element: null,
-				data: Object.assign({}, this.components[name].defaultData, data)
+				data: Object.assign({}, this.components[name]?.defaultData || {}, data)
 			};
 
 			// Crée l'élément du composant en utilisant la fonction de création du composant

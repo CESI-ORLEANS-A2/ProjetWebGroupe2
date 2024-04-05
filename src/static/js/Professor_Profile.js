@@ -18,7 +18,7 @@ app.onload(function () {
 			app.createElement(
 				'div',
 				{
-					class: "icon"
+					class: 'icon'
 				},
 				app.createIcon('group')
 			),
@@ -29,7 +29,7 @@ app.onload(function () {
 				},
 				item.Name
 			)
-		)
+		);
 	}
 
 	fetch('/api/classes?pilote=' + params.get('id'))
@@ -73,177 +73,102 @@ app.onload(function () {
 								fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
 							}
 						},
-						app.createElement(
-							'div',
+						// app.createElement(
+						// 	'div',
+						// 	{
+						// 		style: {
+						// 			display: 'flex',
+						// 			flexDirection: 'column'
+						// 		}
+						// 	},
+						// 	app.createElement('label', {}, "Nom d'utilisateur"),
+						// 	app.createElement(
+						// 		'div',
+						// 		{
+						// 			style: {
+						// 				display: 'flex',
+						// 				border: '3px solid #85D3FF',
+						// 				borderRadius: '10px',
+						// 				overflow: 'hidden',
+						// 				height: '40px'
+						// 			}
+						// 		},
+						// 		app.createElement(
+						// 			'img',
+						// 			{
+						// 				src: '//static.projet-web.fr/public/img/users.svg'
+						// 			},
+						// 			'Titre'
+						// 		),
+
+						// 		app.createElement('input', {
+						// 			Placeholder: "Nom d'utilisateur",
+						// 			class: 'PopUpInput',
+						// 			style: {
+						// 				border: 'none'
+						// 			}
+						// 		})
+						// 	)
+						// ),
+						// app.createElement(
+						// 	'div',
+						// 	{
+						// 		style: {
+						// 			display: 'flex',
+						// 			flexDirection: 'column'
+						// 		}
+						// 	},
+						// 	app.createElement('label', {}, 'Mot de passe'),
+						// 	app.createElement(
+						// 		'div',
+						// 		{
+						// 			style: {
+						// 				display: 'flex',
+						// 				border: '3px solid #85D3FF',
+						// 				borderRadius: '10px',
+						// 				overflow: 'hidden',
+						// 				height: '40px'
+						// 			}
+						// 		},
+						// 		app.createElement(
+						// 			'img',
+						// 			{
+						// 				src: '//static.projet-web.fr/public/img/key.svg'
+						// 			},
+						// 			'Titre'
+						// 		),
+
+						// 		app.createElement(
+						// 			'input',
+						// 			{
+						// 				Placeholder: 'Mot de passe',
+						// 				class: 'PopUpInput',
+						// 				style: {
+						// 					border: 'none'
+						// 				}
+						// 			},
+						// 			'Titre'
+						// 		)
+						// 	)
+						// ),
+						app.createComponent(
+							'textarea',
 							{
-								style: {
-									display: 'flex',
-									flexDirection: 'column'
-								}
+								placeholder: "Nom d'utilisateur",
+								label: "Nom d'utilisateur",
+								icon: 'person'
 							},
-							app.createElement('label', {}, "Nom d'utilisateur"),
-							app.createElement(
-								'div',
-								{
-									style: {
-										display: 'flex',
-										border: '3px solid #85D3FF',
-										borderRadius: '10px',
-										overflow: 'hidden',
-										height: '40px'
-									}
-								},
-								app.createElement(
-									'img',
-									{
-										src: '//static.projet-web.fr/public/img/users.svg'
-									},
-									'Titre'
-								),
-
-								app.createElement('input', {
-									Placeholder: "Nom d'utilisateur",
-									class: 'PopUpInput',
-									style: {
-										border: 'none'
-									}
-								})
-							)
-						),
-						app.createElement(
-							'div',
+							{}
+						).element,
+						app.createComponent(
+							'textarea',
 							{
-								style: {
-									display: 'flex',
-									flexDirection: 'column'
-								}
+								placeholder: 'Mot de passe',
+								label: 'Mot de passe',
+								icon: 'lock'
 							},
-							app.createElement('label', {}, 'Mot de passe'),
-							app.createElement(
-								'div',
-								{
-									style: {
-										display: 'flex',
-										border: '3px solid #85D3FF',
-										borderRadius: '10px',
-										overflow: 'hidden',
-										height: '40px'
-									}
-								},
-								app.createElement(
-									'img',
-									{
-										src: '//static.projet-web.fr/public/img/key.svg'
-									},
-									'Titre'
-								),
-
-								app.createElement(
-									'input',
-									{
-										Placeholder: 'Mot de passe',
-										class: 'PopUpInput',
-										style: {
-											border: 'none'
-										}
-									},
-									'Titre'
-								)
-							)
-						),
-						app.createElement(
-							'div',
-							{
-								style: {
-									display: 'flex',
-									flexDirection: 'row',
-									gap: '20px'
-								}
-							},
-							app.createElement(
-								'div',
-								{
-									style: {
-										display: 'flex',
-										flexDirection: 'column'
-									}
-								},
-								app.createElement('label', {}, 'Prénom'),
-
-								app.createElement(
-									'div',
-									{
-										style: {
-											display: 'flex',
-											border: '3px solid #85D3FF',
-											borderRadius: '10px',
-											overflow: 'hidden',
-											height: '40px'
-										}
-									},
-									app.createElement(
-										'img',
-										{
-											src: '//static.projet-web.fr/public/img/users.svg'
-										},
-										'Titre'
-									),
-
-									app.createElement(
-										'input',
-										{
-											Placeholder: 'Prénom',
-											class: 'PopUpInput',
-											style: {
-												border: 'none'
-											}
-										},
-										'Titre'
-									)
-								)
-							),
-							app.createElement(
-								'div',
-								{
-									style: {
-										display: 'flex',
-										flexDirection: 'column'
-									}
-								},
-								app.createElement('label', {}, 'Nom'),
-								app.createElement(
-									'div',
-									{
-										style: {
-											display: 'flex',
-											border: '3px solid #85D3FF',
-											borderRadius: '10px',
-											overflow: 'hidden',
-											height: '40px'
-										}
-									},
-									app.createElement(
-										'img',
-										{
-											src: '//static.projet-web.fr/public/img/users.svg'
-										},
-										'Titre'
-									),
-									app.createElement(
-										'input',
-										{
-											Placeholder: 'Nom',
-											class: 'PopUpInput',
-											style: {
-												border: 'none'
-											}
-										},
-										'Titre'
-									)
-								)
-							)
-						),
-
+							{}
+						).element,
 						app.createElement(
 							'div',
 							{
@@ -253,87 +178,217 @@ app.onload(function () {
 									gap: '20px'
 								}
 							},
-							app.createElement(
-								'div',
-								{
-									style: {
-										display: 'flex',
-										flexDirection: 'column'
-									}
-								},
-								app.createElement('label', {}, 'Etablissement'),
-								app.createElement(
-									'div',
-									{
-										style: {
-											display: 'flex',
-											border: '3px solid #85D3FF',
-											borderRadius: '10px',
-											overflow: 'hidden',
-											height: '40px'
-										}
-									},
-									app.createElement(
-										'img',
-										{
-											src: '//static.projet-web.fr/public/img/users.svg'
-										},
-										'Titre'
-									),
+							// app.createElement(
+							// 	'div',
+							// 	{
+							// 		style: {
+							// 			display: 'flex',
+							// 			flexDirection: 'column'
+							// 		}
+							// 	},
+							// 	app.createElement('label', {}, 'Prénom'),
 
-									app.createElement(
-										'input',
-										{
-											Placeholder: 'Etablissement',
-											class: 'PopUpInput',
-											style: {
-												border: 'none'
-											}
-										},
-										'Titre'
-									)
-								)
-							),
-							app.createElement(
-								'div',
+							// 	app.createElement(
+							// 		'div',
+							// 		{
+							// 			style: {
+							// 				display: 'flex',
+							// 				border: '3px solid #85D3FF',
+							// 				borderRadius: '10px',
+							// 				overflow: 'hidden',
+							// 				height: '40px'
+							// 			}
+							// 		},
+							// 		app.createElement(
+							// 			'img',
+							// 			{
+							// 				src: '//static.projet-web.fr/public/img/users.svg'
+							// 			},
+							// 			'Titre'
+							// 		),
+
+							// 		app.createElement(
+							// 			'input',
+							// 			{
+							// 				Placeholder: 'Prénom',
+							// 				class: 'PopUpInput',
+							// 				style: {
+							// 					border: 'none'
+							// 				}
+							// 			},
+							// 			'Titre'
+							// 		)
+							// 	)
+							// ),
+							// app.createElement(
+							// 	'div',
+							// 	{
+							// 		style: {
+							// 			display: 'flex',
+							// 			flexDirection: 'column'
+							// 		}
+							// 	},
+							// 	app.createElement('label', {}, 'Nom'),
+							// 	app.createElement(
+							// 		'div',
+							// 		{
+							// 			style: {
+							// 				display: 'flex',
+							// 				border: '3px solid #85D3FF',
+							// 				borderRadius: '10px',
+							// 				overflow: 'hidden',
+							// 				height: '40px'
+							// 			}
+							// 		},
+							// 		app.createElement(
+							// 			'img',
+							// 			{
+							// 				src: '//static.projet-web.fr/public/img/users.svg'
+							// 			},
+							// 			'Titre'
+							// 		),
+							// 		app.createElement(
+							// 			'input',
+							// 			{
+							// 				Placeholder: 'Nom',
+							// 				class: 'PopUpInput',
+							// 				style: {
+							// 					border: 'none'
+							// 				}
+							// 			},
+							// 			'Titre'
+							// 		)
+							// 	)
+							// )
+							app.createComponent(
+								'textarea',
 								{
-									style: {
-										display: 'flex',
-										flexDirection: 'column'
-									}
+									placeholder: 'Prénom',
+									label: 'Prénom',
+									icon: 'person'
 								},
-								app.createElement('label', {}, 'Promotion'),
-								app.createElement(
-									'div',
-									{
-										style: {
-											display: 'flex',
-											border: '3px solid #85D3FF',
-											borderRadius: '10px',
-											overflow: 'hidden',
-											height: '40px'
-										}
-									},
-									app.createElement(
-										'img',
-										{
-											src: '//static.projet-web.fr/public/img/users.svg'
-										},
-										'Titre'
-									),
-									app.createElement(
-										'input',
-										{
-											Placeholder: 'Promotion',
-											class: 'PopUpInput',
-											style: {
-												border: 'none'
-											}
-										},
-										'Titre'
-									)
-								)
-							)
+								{}
+							).element,
+							app.createComponent(
+								'textarea',
+								{
+									placeholder: 'Nom',
+									label: 'Nom',
+									icon: 'person'
+								},
+								{}
+							).element,
+						),
+
+						app.createElement(
+							'div',
+							{
+								style: {
+									display: 'flex',
+									flexDirection: 'row',
+									gap: '20px'
+								}
+							},
+							// app.createElement(
+							// 	'div',
+							// 	{
+							// 		style: {
+							// 			display: 'flex',
+							// 			flexDirection: 'column'
+							// 		}
+							// 	},
+							// 	app.createElement('label', {}, 'Etablissement'),
+							// 	app.createElement(
+							// 		'div',
+							// 		{
+							// 			style: {
+							// 				display: 'flex',
+							// 				border: '3px solid #85D3FF',
+							// 				borderRadius: '10px',
+							// 				overflow: 'hidden',
+							// 				height: '40px'
+							// 			}
+							// 		},
+							// 		app.createElement(
+							// 			'img',
+							// 			{
+							// 				src: '//static.projet-web.fr/public/img/users.svg'
+							// 			},
+							// 			'Titre'
+							// 		),
+
+							// 		app.createElement(
+							// 			'input',
+							// 			{
+							// 				Placeholder: 'Etablissement',
+							// 				class: 'PopUpInput',
+							// 				style: {
+							// 					border: 'none'
+							// 				}
+							// 			},
+							// 			'Titre'
+							// 		)
+							// 	)
+							// ),
+							// app.createElement(
+							// 	'div',
+							// 	{
+							// 		style: {
+							// 			display: 'flex',
+							// 			flexDirection: 'column'
+							// 		}
+							// 	},
+							// 	app.createElement('label', {}, 'Promotion'),
+							// 	app.createElement(
+							// 		'div',
+							// 		{
+							// 			style: {
+							// 				display: 'flex',
+							// 				border: '3px solid #85D3FF',
+							// 				borderRadius: '10px',
+							// 				overflow: 'hidden',
+							// 				height: '40px'
+							// 			}
+							// 		},
+							// 		app.createElement(
+							// 			'img',
+							// 			{
+							// 				src: '//static.projet-web.fr/public/img/users.svg'
+							// 			},
+							// 			'Titre'
+							// 		),
+							// 		app.createElement(
+							// 			'input',
+							// 			{
+							// 				Placeholder: 'Promotion',
+							// 				class: 'PopUpInput',
+							// 				style: {
+							// 					border: 'none'
+							// 				}
+							// 			},
+							// 			'Titre'
+							// 		)
+							// 	)
+							// )
+							
+							app.createComponent(
+								'textarea',
+								{
+									placeholder: 'Établissement',
+									label: 'Établissement',
+									icon: 'apartment'
+								},
+								{}
+							).element,
+							app.createComponent(
+								'textarea',
+								{
+									placeholder: 'Promotion',
+									label: 'Promotion',
+									icon: 'group'
+								},
+								{}
+							).element,
 						)
 					)
 				],
@@ -346,11 +401,14 @@ app.onload(function () {
 							app.dialog
 								.confirm({
 									title: 'Supprimer un utilisateur',
-									content: ['Voulez vous vraiment supprimer cet utilisateur ?']
+									content: ['Voulez vous vraiment supprimer cet utilisateur ?'],
+									onConfirm() {
+										close();
+									}
 								})
-								.then(() => close())
-								.catch(() => {});
-						}
+								.show();
+						},
+						align: 'left'
 					},
 
 					{ text: 'Annuler', action: 'close' },
@@ -362,28 +420,28 @@ app.onload(function () {
 							app.dialog
 								.confirm({
 									title: 'Ajouter un utilisateur',
-									content: ['Voulez vous vraiment ajouter cet utilisateur ?']
-								})
-								.then(() => {
-									var userData = {
-										Firstname: 'John',
-										Lastname: 'Doe',
-										Account: 123
-									};
+									content: ['Voulez vous vraiment ajouter cet utilisateur ?'],
+									onConfirm: () => {
+										var userData = {
+											Firstname: 'John',
+											Lastname: 'Doe',
+											Account: 123
+										};
 
-									// AJAX request
-									var xhr = new XMLHttpRequest();
-									xhr.open('POST', 'http://www.projet-web.fr/user', true);
-									xhr.setRequestHeader('Content-Type', 'application/json');
-									xhr.onreadystatechange = function () {
-										if (xhr.readyState === 4 && xhr.status === 200) {
-											console.log(xhr.responseText);
-										}
-									};
-									xhr.send(JSON.stringify(userData));
-									console.log(userData);
+										// AJAX request
+										var xhr = new XMLHttpRequest();
+										xhr.open('POST', 'http://projet-web.fr/user', true);
+										xhr.setRequestHeader('Content-Type', 'application/json');
+										xhr.onreadystatechange = function () {
+											if (xhr.readyState === 4 && xhr.status === 200) {
+												console.log(xhr.responseText);
+											}
+										};
+										xhr.send(JSON.stringify(userData));
+										console.log(userData);
+									}
 								})
-								.catch(() => {});
+								.show();
 						}
 					}
 				]

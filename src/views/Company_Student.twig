@@ -1,0 +1,156 @@
+{# 
+======================================== 
+				 Imports
+========================================
+#}
+{% extends "base.twig" %}
+
+{# 
+======================================== 
+				 Assets
+========================================
+#}
+{% block assets %}
+	{{ parent() }}
+	{{ setName('Company_Student') }}
+	{{ addCSS('css/Company_Student.css') }}
+	{#{{ addJS('js/Company_Student.js') }}#}
+{% endblock %}
+
+{# 
+======================================== 
+				 Metas
+========================================
+#}
+{% block title %}Company-Student{% endblock %}
+
+{# 
+======================================== 
+			      Body
+========================================
+#}
+
+{% block content %}
+	
+
+<div>
+
+    <div id="background" class="wrapper" >
+    <div class="background">
+                    <img src="//static.projet-web.fr/public/img/BackgroundShape.svg">
+                    <img src="//static.projet-web.fr/public/img/BackgroundShape.svg">
+                    <img src="//static.projet-web.fr/public/img/BackgroundShape.svg">
+    </div>
+        <div class="one">
+        <div class="box">
+        <img src="./entreprise.jpg" alt="entreprise">
+            <div class="infos">
+                <h3>Nom de l'entreprise</h3>
+                <h4>Localisation</h4>
+                <h5>Secteur d'activité</h5>
+        </div>
+            </div>
+        </div>
+
+        <div class="two">
+
+
+
+  {% include "rating/rating.twig" %}
+
+
+
+{# 
+
+
+
+            <ul>
+
+
+
+                  <fieldset class="rating">
+                  <i class="fas fa-star star-light mr-1 main_star"></i>
+                    <input type="radio" id="star5" name="rating" value="5" />
+                    <label for="star5">5 stars</label>
+                    <input type="radio" id="star4" name="rating" value="4" />
+                    <label for="star4">4 stars</label>
+                    <input type="radio" id="star3" name="rating" value="3" />
+                    <label for="star3">3 stars</label>
+                    <input type="radio" id="star2" name="rating" value="2" />
+                    <label for="star2">2 stars</label>
+                    <input type="radio" id="star1" name="rating" value="1" />
+                    <label for="star1">1 star</label>
+                </fieldset>
+            </ul>
+            <p>2.5/5</p> #}
+        </div>
+</div>
+<div class="wrapper2">
+        <div class="three">
+            <div class="statistiques">
+                <h3>Statistiques</h3>
+                <p>Nombre de candidatures: 20</p>
+                <p>Nombre de candidatures: 40</p>
+                <p>Nombre de candidatures: 2 ans </p>
+            </div>
+
+            <div>
+                <h3>Information de l'entreprise</h3>
+                <p>Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.</p>
+            </div>
+        </div>
+
+        <div class="four">
+            <h3>Offres proposées</h3>
+            <div class="offre">
+                <img src="./entreprise.jpg" alt="offre 1">
+                <div class="infos">
+                    <h3>CS 24 - Stage - BAC+5 - Chargé / Chargée de 
+						missions pilote d'études Superstructure (H/F)</h3>
+                    <h4>Boulogne BillancourtB - Governance</h4>
+                </div>
+            </div>
+            <div class="offre">
+                <img src="./entreprise.jpg" alt="offre 1">
+                <div class="infos">
+                    <h3>CS 24 - Stage - BAC+5 - Chargé / Chargée de 
+						missions pilote d'études Superstructure (H/F)</h3>
+                    <h4>Boulogne BillancourtB - Governance</h4>
+                </div>
+            </div>
+			<div class="offre">
+                <img src="./entreprise.jpg" alt="offre 1">
+                <div class="infos">
+                    <h3>CS 24 - Stage - BAC+5 - Chargé / Chargée de 
+						missions pilote d'études Superstructure (H/F)</h3>
+                    <h4>Boulogne BillancourtB - Governance</h4>
+                </div>
+            </div>
+			<div class="offre">
+                <img src="./entreprise.jpg" alt="offre 1">
+                <div class="infos">
+                    <h3>CS 24 - Stage - BAC+5 - Chargé / Chargée de 
+						missions pilote d'études Superstructure (H/F)</h3>
+                    <h4>Boulogne BillancourtB - Governance</h4>
+                </div>
+            </div>
+			<div class="pagination">
+				<a href="#" class="prev">&laquo; </a>
+				<a href="#" class="active">1</a>
+				<a href="#">2</a>
+				<a href="#">3</a>
+				<a href="#">4</a>
+				<a href="#">5</a>
+				<a href="#" class="next"> &raquo;</a>
+			</div>
+            </div>
+        </div>
+
+
+   
+</div>
+</main>
+
+{% endblock %}
+
+{% block templates append %}

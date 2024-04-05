@@ -20,7 +20,7 @@ return [
     [ // API : Search
         'pattern' => '\/api\/search',
         'controller' => '/api/Search.php',
-        'methods' => ['GET']
+        'methods' => ['GET'],
     ],
     [ // Professor_Profile
         'pattern' => '\/Professor_Profile|\/pilote',
@@ -65,6 +65,16 @@ return [
     [ // API : Classes
         'pattern' => '\/api\/classes',
         'controller' => '/api/classes.php',
+        'methods' => ['GET']
+    ],
+    [ // Profil_Student
+        'pattern' => '\/Profil_Student', 
+        'controller' => '/Profil_Student.php',
+        'methods' => ['GET']
+    ],
+    [ // company_profile
+        'pattern' => '\/company_student', 
+        'controller' => '/Company_Student.php',
         'methods' => ['GET'],
     ]
 ];

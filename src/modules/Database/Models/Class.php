@@ -2,12 +2,6 @@
 
 require_once '../src/modules/Database/Model.php';
 
-const schema = array(
-    'ID_Class' => array('type' => 'int', 'readonly' => true),
-    'Name' => array('type' => 'string', 'required' => true),
-    'ID_Address' => array('type' => 'int', )
-);
-
 class Classes extends Model {
     public function __construct(
         int $ID_Class,
@@ -20,9 +14,18 @@ class Classes extends Model {
                 'Name' => $Name,
                 'ID_Address' => $ID_Address,
             ),
-            schema
+            array(
+                'ID_Class' => array('type' => 'int', 'readonly' => true),
+                'Name' => array('type' => 'string', 'required' => true),
+                'ID_Address' => array('type' => 'int', )
+            )
         );
     }
+
+    public function getID() {
+        return $this->get('ID_Class');
+    }
+
     static public function getByIDAccount(int $ID): Classes {
         $data = Database::getInstance()->fetch(
             'SELECT 
@@ -77,5 +80,25 @@ class Classes extends Model {
             $data['ID_Address'],
         );
     }
+
+    static public function getByPiloteID(int $ID): array {
+        $data = Database::getInstance()->fetchAll(
+            'SELECT 
+                ID_Class, 
+                Name,
+                ID_Address
+            FROM classes
+            WHERE ID_Address = :ID',
+            array(':ID' => $ID)
+        );
+        $classes = array();
+        foreach ($data as $class) {
+            $classes[] = new Classes(
+                $class['ID_Class'],
+                $class['Name'],
+                $class['ID_Address'],
+            );
+        }
+        return $classes;
+    }
 }
-?>

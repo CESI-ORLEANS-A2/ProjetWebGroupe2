@@ -33,9 +33,7 @@
 			}
 
 			return true;
-		},
-		// Utiliser la capture pour que le ripple soit créé avant que l'événement ne se propage.
-		{ passive: true }
+		}
 	);
 
 	document.addEventListener(

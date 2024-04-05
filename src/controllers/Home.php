@@ -20,34 +20,10 @@ class Controller extends ControllerBase {
             $this->config->get('DB_PASS')
         );
 
-        $offer = Offer::getByID(2);
-
-        $content .= 'Title : ' . $offer->get('Title') . "</br>";
-        $content .= 'Description : ' . $offer->get('Description') . '</br>';
-
-        $content .= 'Study Levels : ' . $offer->getStudyLevels() . '</br>';
-
-        $offer->addStudyLevel('Test');
-
-        $content .= 'Study Levels : ' . $offer->getStudyLevels() . '</br>';
-
-        $offer->removeStudyLevel('Test');
-
-        $content .= 'Study Levels : ' . $offer->getStudyLevels() . '</br>';
-
-        $offer->addStudyLevel('Test3');
-        $offer->save();
-
-        $content .= 'Study Levels : ' . $offer->getStudyLevels() . '</br>';
-
-        $content .= 'Skills : ' . $offer->getSkills() . '</br>';
-
-        $offer->addSkill('Test');
-
-        $content .= 'Skills : ' . $offer->getSkills() . '</br>';
+        $offers = Offer::getRandom(5);
 
         return $this->render('home.twig', array(
-            'content' => $content . "</div>"
+            'offers' => $offers
         ));
     }
 };

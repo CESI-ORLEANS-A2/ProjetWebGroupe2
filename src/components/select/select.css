@@ -74,7 +74,7 @@
 
 		display: none;
 		height: fit-content;
-		overflow: hidden;
+		overflow: hidden auto;
 
 		background-color: var(--accent-color);
 		padding: 0.5rem 0;
@@ -84,7 +84,6 @@
 
 		transition: height var(--transition), opacity var(--transition);
 
-		z-index: -1;
 		box-shadow: 0px 0px 5px 0px var(--shadow-color);
 
 		&:empty:after {
@@ -93,6 +92,8 @@
 		}
 
 		.c-select_option {
+			min-height: 40px;
+
 			cursor: pointer;
 			padding: 0.5rem 1rem;
 			display: flex;

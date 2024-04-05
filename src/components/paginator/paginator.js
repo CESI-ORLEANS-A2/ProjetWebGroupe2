@@ -59,41 +59,6 @@ app &&
 			};
 
 			const updateButtons = () => {
-				// if (data.current <= 2) {
-				// 	el.hide(firstNumber);
-				// }
-				// if (data.current <= 1) {
-				// 	el.disable(firstPage);
-				// 	el.disable(previousPage);
-				// } else {
-				// 	el.enable(firstPage);
-				// 	el.enable(previousPage);
-				// 	el.show(firstNumber);
-				// }
-				// if (data.current >= data.max) {
-				// 	el.disable(nextPage);
-				// 	el.disable(lastPage);
-				// 	el.hide(lastNumber);
-				// } else {
-				// 	el.enable(nextPage);
-				// 	el.enable(lastPage);
-				// 	el.show(lastNumber);
-				// }
-				// if (data.current < 2) {
-				// 	el.hide(dotsPrevious);
-				// 	el.hide(previousNumber);
-				// } else {
-				// 	el.show(dotsPrevious);
-				// 	el.show(previousNumber);
-				// }
-				// if (data.current >= data.max - 1) {
-				// 	el.hide(dotsNext);
-				// 	el.hide(nextNumber);
-				// } else {
-				// 	el.show(dotsNext);
-				// 	el.show(nextNumber);
-				// }
-
 				if (data.current <= 1) {
 					el.disable(firstPage);
 					el.disable(previousPage);

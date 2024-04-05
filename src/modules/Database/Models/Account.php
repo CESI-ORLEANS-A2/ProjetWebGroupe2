@@ -32,25 +32,26 @@ class Account extends Model {
         );
     }
 
-    function checkPassword(string $Password): bool {
+    public function checkPassword(string $Password): bool {
         return true;
         // return password_verify($Password, $this->get('Password'));
     }
 
-    static public function getByID(int $ID): Account {
+    static public function getByID(int $ID): Account|null {
         $data = Database::getInstance()->fetch(
             'SELECT 
-                ID_Account, 
-                Creation_Date,
-                Username, 
-                Password, 
+                accounts.ID_Account, 
+                accounts.Creation_Date,
+                accounts.Username, 
+                accounts.Password, 
                 AccountTypes.Name AS Type, 
                 ID_Class as Class
             FROM accounts 
             JOIN AccountTypes ON accounts.ID_Type = AccountTypes.ID_Type
-            WHERE ID_Account = :ID',
+            WHERE accounts.ID_Account = :ID',
             array(':ID' => $ID)
         );
+        if (!$data) return null;
         return new Account(
             $data['ID_Account'],
             new DateTime($data['Creation_Date']),
@@ -61,20 +62,22 @@ class Account extends Model {
         );
     }
 
-    static public function getByUsername(string $Username): Account {
+    static public function getByUsername(string $Username): Account|null {
         $data = Database::getInstance()->fetch(
             'SELECT 
-                ID_Account, 
-                Creation_Date,
-                Username, 
-                Password, 
+                accounts.ID_Account, 
+                accounts.Creation_Date,
+                accounts.Username, 
+                accounts.Password, 
                 AccountTypes.Name AS Type, 
                 ID_Class as Class
             FROM accounts
             JOIN AccountTypes ON accounts.ID_Type = AccountTypes.ID_Type
-            WHERE Username = :Username',
+            WHERE accounts.Username = :Username',
             array(':Username' => $Username)
         );
+
+        if (!$data) return null;
         return new Account(
             $data['ID_Account'],
             new DateTime($data['Creation_Date']),
@@ -88,12 +91,12 @@ class Account extends Model {
     static public function getAll(int $limit = 1000): array {
         $data = Database::getInstance()->fetchAll(
             'SELECT 
-                ID_Account as ID, 
-                Creation_Date,
-                Username, 
-                Password, 
+                accounts.ID_Account as ID, 
+                accounts.Creation_Date,
+                accounts.Username, 
+                accounts.Password, 
                 AccountTypes.Name AS Type, 
-                ID_Class
+                ID_Class as Class
             FROM accounts
             JOIN AccountTypes ON accounts.ID_Type = AccountTypes.ID_Type
             LIMIT :limit',
@@ -117,15 +120,15 @@ class Account extends Model {
     static public function getByType(int $Type): array {
         $datas = Database::getInstance()->fetch(
             'SELECT 
-                ID_Account, 
-                Creation_Date,
-                Username, 
-                Password, 
+                accounts.ID_Account, 
+                accounts.Creation_Date,
+                accounts.Username, 
+                accounts.Password, 
                 AccountTypes.Name AS Type, 
                 ID_Class as Class
             FROM accounts 
             JOIN AccountTypes ON accounts.ID_Type = AccountTypes.ID_Type
-            WHERE ID_Type = :Type',
+            WHERE accounts.ID_Type = :Type',
             array(':Type' => $Type)
         );
         $accounts = [];
@@ -175,6 +178,17 @@ class Account extends Model {
                 throw new Exception("Invalid class");
         }
 
+        if ($this->isDefined('City')) {
+            $cityID = $dbh->fetchColumn(
+                'SELECT ID_City 
+                    FROM Cities
+                    WHERE ID_City = :ID',
+                array(':ID' => $this->get('City'))
+            );
+            if (!$cityID)
+                throw new Exception("Invalid city");
+        }
+
         $typeID = $dbh->fetchColumn(
             'SELECT ID_Type 
                     FROM AccountTypes
@@ -193,14 +207,16 @@ class Account extends Model {
                     Creation_Date, 
                     Username, 
                     Password, 
-                    ID_Type'
-                . ($classID ? ', ID_Class' : '') .
+                    ID_Type' .
+                ($classID ? ', ID_Class' : '') .
+                ($cityID ? ', ID_City' : '') .
                 ') VALUES (
                     :Creation_Date, 
                     :Username, 
                     :Password, 
-                    :ID_Type,'
-                . ($classID ? ' :ID_Class' : '') .
+                    :ID_Type,' .
+                ($classID ? ' :ID_Class' : '') .
+                ($cityID ? ' :ID_City' : '') .
                 ')';
         } else {
             $query =
@@ -208,8 +224,9 @@ class Account extends Model {
                 Creation_Date = :Creation_Date, 
                 Username = :Username, 
                 Password = :Password, 
-                ID_Type = :ID_Type'
-                . ($classID ? ', ID_Class = :ID_Class' : '') .
+                ID_Type = :ID_Type' .
+                ($classID ? ', ID_Class = :ID_Class' : '') .
+                ($cityID ? ', ID_City = :ID_City' : '') .
                 ' WHERE ID_Account = :ID';
         }
 
@@ -222,6 +239,9 @@ class Account extends Model {
 
         if ($classID)
             $params[':ID_Class'] = $classID;
+
+        if ($cityID)
+            $params[':ID_City'] = $cityID;
 
         if ($this->getID() != null)
             $params[':ID'] = $this->getID();

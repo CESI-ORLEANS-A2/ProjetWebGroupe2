@@ -20,14 +20,14 @@ return [
     [ // API : Search
         'pattern' => '\/api\/search',
         'controller' => '/api/Search.php',
-        'methods' => ['GET']
+        'methods' => ['GET'],
     ],
     [ // Professor_Profile
-        'pattern' => '\/Professor_Profile',
+        'pattern' => '\/Professor_Profile|\/pilote',
         'controller' => '/professor_profile.php',
         'methods' => ['GET'],
     ],
-    [ // User
+    [ // User // FIXME le contrôleur n'est pas bon
         'pattern' => '\/user', 
         'controller' => '/../../modules/database/Models/User.php',
         'methods' => ['GET', 'POST'], // Adjust methods as needed
@@ -45,6 +45,36 @@ return [
     [ // Logout
         'pattern' => '\/logout',
         'controller' => '/Logout.php',
+        'methods' => ['GET'],
+    ],
+    [ // Offer
+        'pattern' => '\/offer',
+        'controller' => '/Offer.php',
+        'methods' => ['GET'],
+    ],
+    [ // API : WishList
+        'pattern' => '\/api\/wishlist',
+        'controller' => '/api/WishList.php',
+        'methods' => ['POST'],
+    ],
+    [ // API : Apply
+        'pattern' => '\/api\/apply',
+        'controller' => '/api/Apply.php',
+        'methods' => ['POST'],
+    ],
+    [ // API : Classes
+        'pattern' => '\/api\/classes',
+        'controller' => '/api/classes.php',
+        'methods' => ['GET']
+    ],
+    [ // Profil_Student
+        'pattern' => '\/Profil_Student', 
+        'controller' => '/Profil_Student.php',
+        'methods' => ['GET']
+    ],
+    [ // company_profile
+        'pattern' => '\/company_student', 
+        'controller' => '/Company_Student.php',
         'methods' => ['GET'],
     ]
 ];

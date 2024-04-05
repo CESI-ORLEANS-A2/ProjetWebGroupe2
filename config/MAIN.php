@@ -2,6 +2,9 @@
 
 return [
     'APP_NAME' => 'MonStage.fr',
+    'APP_VERSION' => '1.0.0',
+    'APP_DESC' => 'MonStage.fr est une plateforme de recherche de stage pour les étudiants et les entreprises.',
+
     'DOMAIN' => 'projet-web.fr',
     'STATIC_DOMAIN' => 'static.projet-web.fr',
 
@@ -19,7 +22,7 @@ return [
     'LOGGER' => include __DIR__ . '/LOGGER.php',
 
     'HEADERS' => [
-        'Access-Control-Allow-Origin' => 'http://projet-web.fr',
+        'Access-Control-Allow-Origin' => '*', 
         'Access-Control-Allow-Methods' => 'GET, POST',
         'Access-Control-Allow-Headers' => 'Content-Type, Authorization, X-Requested-With',
         'Access-Control-Allow-Credentials' => 'true',

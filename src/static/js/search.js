@@ -9,6 +9,9 @@ const $searchButton = document.querySelector('.c-button#submit');
 const $locationInput = document.querySelector('.c-textarea#location');
 const $clearButton = document.querySelector('.c-button#clear');
 const $form = document.querySelector('form.search-header');
+const $type = document.querySelector('.c-select#type');
+const $skills = document.querySelector('.c-select#skills');
+const $studyLevel = document.querySelector('.c-select#study-level');
 
 /**
  * Rendre un élément en fonction de son type.
@@ -19,115 +22,57 @@ const $form = document.querySelector('form.search-header');
  * @returns {HTMLElement} L'élément rendu.
  */
 function renderItem(item) {
+	let link, icon;
 	switch (item.Type) {
-		case 'student':
-			return app.createElement(
-				'a',
-				{
-					class: 'student',
-					href: `/student?id=${item.ID}`,
-					style: {
-						height: '7rem',
-						width: '100%',
-						backgroundColor: 'var(--background-primary-color)',
-						marginBottom: '1rem',
-						textDecoration: 'none',
-						color: 'black',
-						display: 'block'
-					}
-				},
-				app.createElement('div', {
-					style: {
-						height: '100%',
-						width: '7rem',
-						backgroundColor: 'var(--background-secondary-color)',
-						borderRadius: '50%',
-						marginRight: '1rem',
-						float: 'left'
-					}
-				}),
-				app.createElement(
-					'div',
-					{ class: 'name', style: { marginTop: '1rem' } },
-					item.name
-				),
-				app.createElement('div', { class: 'class' }, item.class),
-				app.createElement('div', { class: 'location' }, item.location)
-			);
-		case 'compagny':
-			return app.createElement(
-				'a',
-				{
-					class: 'compagny',
-					href: `/compagny?id=${item.ID}`,
-					style: {
-						height: '7rem',
-						width: '100%',
-						backgroundColor: 'var(--background-primary-color)',
-						marginBottom: '1rem',
-						textDecoration: 'none',
-						color: 'black',
-						display: 'block'
-					}
-				},
-				app.createElement('div', {
-					style: {
-						height: '100%',
-						width: '7rem',
-						backgroundColor: 'var(--background-secondary-color)',
-						borderRadius: '50%',
-						marginRight: '1rem',
-						float: 'left'
-					}
-				}),
-				app.createElement(
-					'div',
-					{ class: 'name', style: { marginTop: '1rem' } },
-					item.name
-				),
-				app.createElement('div', { class: 'description' }, item.description),
-				app.createElement('div', { class: 'location' }, item.location)
-			);
 		case 'offer':
-			return app.createElement(
-				'a',
-				{
-					class: 'offer',
-					href: `/offer?id=${item.ID}`,
-					style: {
-						height: '7rem',
-						width: '100%',
-						backgroundColor: 'var(--background-primary-color)',
-						marginBottom: '1rem',
-						textDecoration: 'none',
-						color: 'black',
-						display: 'block'
-					}
-				},
-				app.createElement('div', {
-					style: {
-						height: '100%',
-						width: '7rem',
-						backgroundColor: 'var(--background-secondary-color)',
-						borderRadius: '50%',
-						marginRight: '1rem',
-						float: 'left'
-					}
-				}),
-				app.createElement(
-					'div',
-					{ class: 'name', style: { marginTop: '1rem' } },
-					item.Title
-				),
-				app.createElement(
-					'div',
-					{ class: 'descript', style: { marginTop: '1rem' } },
-					item.Description
-				),
-				app.createElement('div', { class: 'published' }, item.Creation_Date),
-				app.createElement('div', { class: 'location' }, item.Location)
-			);
+			link = `/offer?id=${item.ID}`;
+			icon = 'work';
+			break;
+		case 'company':
+			link = `/company?id=${item.ID}`;
+			icon = 'apartment';
+			break;
+		case 'student':
+			link = `/student?id=${item.ID}`;
+			icon = 'person';
+			break;
+		case 'pilote':
+			link = `/pilote?id=${item.ID}`;
+			icon = 'school';
+			break;
+		default:
+			link = '#';
+			break;
 	}
+	return app.createElement(
+		'a',
+		{
+			class: 'card',
+			href: link
+		},
+		app.createElement(
+			'div',
+			{
+				class: 'icon'
+			},
+			app.createIcon(icon)
+		),
+		app.createElement('div', { class: 'name' }, item.Title),
+		app.createElement(
+			'div',
+			{
+				class: 'description'
+			},
+			item.Description
+		),
+		app.createElement(
+			'div',
+			{
+				class: 'published'
+			},
+			item.Creation_Date
+		)
+	);
 }
 
 // Exécuter le code lorsque le DOM est chargé et que les modules ont fini de charger
@@ -138,7 +83,12 @@ app.onload(function () {
 		const response = await app.request.get('/api/search', {
 			query: {
 				limit: data.shownCount,
-				offset: (data.current - 1) * data.shownCount
+				offset: (data.current - 1) * data.shownCount,
+				query: $searchInput.__component.data.value || '',
+				location: $locationInput.__component.data.value || '',
+				type: $type.__component.data.selectedOptions[0] || '',
+				skills: $skills.__component.data.selectedOptions || '',
+				studyLevel: $studyLevel.__component.data.selectedOptions || ''
 			}
 		});
 
@@ -153,34 +103,16 @@ app.onload(function () {
 	// Mettre à jour le nombre total de résultats au chargement de la page
 	app.request
 		.get('/api/search', {
-			query: { limit: 0, offset: 0 }
+			query: {
+				limit: 0,
+				offset: 0
+			}
 		})
 		.then(async function (response) {
 			$paginator.__component.setCount(response.body.total_count);
 		});
 
-	// Mettre à jour les résultats de la recherche en fonction de la recherche
-	$form.addEventListener('submit', function (event) {
-		event.preventDefault();
-		event.stopPropagation();
-
-		// Récupérer la valeur de la recherche
-		let value = $searchInput.__component.data.value || '';
-		const location = $locationInput.__component.data.value || '';
-
-		// Ajouter la recherche par localisation si elle est spécifiée
-		if (location.length > 3) {
-			value += ` location:${location}`;
-		}
-
-		// Mettre à jour les résultats de la recherche
-		if (value.length === 0) {
-			$paginator.__component.go.first();
-			return;
-		}
-		// Ne pas effectuer de recherche si la valeur est trop courte
-		if (value.length < 3) return;
-
+	function submitted() {
 		// Revient à la première page et affiche l'indicateur de chargement
 		$paginator.__component.data.current = 1;
 		$paginator.__component.showLoading();
@@ -193,12 +125,16 @@ app.onload(function () {
 					offset:
 						($paginator.__component.data.current - 1) *
 						$paginator.__component.data.shownCount,
-					query: value
+					query: $searchInput.__component.data.value || '',
+					location: $locationInput.__component.data.value || '',
+					type: $type.__component.data.selectedOptions[0] || '',
+					skills: $skills.__component.data.selectedOptions || '',
+					studyLevel: $studyLevel.__component.data.selectedOptions || ''
 				}
 			})
 			.then(async function (response) {
 				// Mettre à jour les statistiques de la recherche
-				$resultCount.textContent = response.body.count;
+				$resultCount.textContent = response.body.match_count;
 				$resultTotal.textContent = response.body.total_count;
 
 				// Mettre à jour les résultats de la recherche
@@ -207,12 +143,55 @@ app.onload(function () {
 					response.body.data.map(renderItem)
 				);
 			});
+	}
+
+	// Mettre à jour les résultats de la recherche en fonction de la recherche
+	$form.addEventListener('submit', function (event) {
+		event.preventDefault();
+		event.stopPropagation();
+
+		submitted();
 	});
+
+	const params = new URLSearchParams(location.search);
+	let edited = false;
+
+	if (params.has('query')) {
+		$searchInput.__component.data.value = params.get('query');
+		(t = $searchInput.querySelector('input, textarea')) && (t.value = params.get('query'));
+		edited = true;
+	}
+	if (params.has('type')) {
+		$type.__component.data.selectedOptions = [params.get('type')];
+		edited = true;
+	}
+	if (params.has('skills')) {
+		$skills.__component.data.selectedOptions = params.get('skills').split(',');
+		edited = true;
+	}
+	if (params.has('studyLevel')) {
+		$studyLevel.__component.data.selectedOptions = params.get('studyLevel').split(',');
+		edited = true;
+	}
+	if (params.has('location')) {
+		$locationInput.__component.data.value = params.get('location');
+		edited = true;
+	}
+
+	if (edited) {
+		submitted();
+	}
 });
 
 // Effacer les champs de recherche
 $clearButton.addEventListener('click', function () {
 	$searchInput.__component.data.value = '';
+	(t = $searchInput.querySelector('input, textarea')) && (t.value = '');
+
 	$locationInput.__component.data.value = '';
+	(t = $locationInput.querySelector('input, textarea')) && (t.value = '');
+
 	$paginator.__component.go.first();
+
+	submitted();
 });

@@ -5,7 +5,7 @@
 }
 
 .c-paginator_container:empty:after {
-	content: "Aucun résultat";
+	content: 'Aucun résultat';
 	display: block;
 	text-align: center;
 	padding: 1rem;
@@ -94,9 +94,9 @@
 }
 
 .c-paginator .hidden {
-    display: none;
+	display: none;
 }
 .c-paginator .disabled {
-    pointer-events: none;
-    opacity: 0.5;
+	pointer-events: none;
+	opacity: 0.5;
 }

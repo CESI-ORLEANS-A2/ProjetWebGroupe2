@@ -15,6 +15,12 @@
 	{{ setName('Profil_student') }}
 	{{ addCSS('css/Profil_Student.css') }}
 	{{ addJS('js/Profil_Student.js') }}
+
+	{{ addCSS('select/select.css') }}
+	{{ addJS('select/select.js') }}
+
+	{{ addCSS('textarea/textarea.css') }}
+	{{ addJS('textarea/textarea.js') }}
 {% endblock %}
 
 {# 
@@ -22,7 +28,8 @@
 				 Metas
 ========================================
 #}
-{% block title %}Profil-Student{% endblock %}
+{% block title %}Profil-Student
+{% endblock %}
 
 {# 
 ======================================== 
@@ -31,54 +38,63 @@
 #}
 
 {% block content %}
-	<div class="all">
-            <div class="upBody">
-                <div class="background">
-                    <img src="//static.projet-web.fr/public/img/BackgroundShape.svg">
-                    <img src="//static.projet-web.fr/public/img/BackgroundShape.svg">
-                    <img src="//static.projet-web.fr/public/img/BackgroundShape.svg">
-                </div>
-                <div class="information">
-                <img src="//static.projet-web.fr/public/img/avatar.svg">
-                    <ul>
-                        <li class="text">{{lastName}} {{firstName}}</li>
+	<div class="upBody">
+		<div class="background">
+			<img src="//static.projet-web.fr/public/img/BackgroundShape.svg">
+			<img src="//static.projet-web.fr/public/img/BackgroundShape.svg">
+			<img src="//static.projet-web.fr/public/img/BackgroundShape.svg">
+		</div>
+		<div class="information">
+			<div class="avatar">
+					{% include 'icon/icon.twig' with {
+						__icon: "person",
+					} %}
+				</div>
+			<ul>
+				<li class="text">{{lastName}}
+					{{firstName}}</li>
 
-                        <li class="text">{{centre}}</li>
-                        <li class="text">{{classe}}</li>
-                        <li>Compétences : <a href="#">voir plus</a></li>
-                    </ul>
-                </div>
-                <div class="UpdateButton">
-                    <button type="button" id="update">Modifier</button>
-                </div>
-            </div>
-            <div class="statistique">
-                <div class="updatePopUp">
-                    <div class="PopupHeader"></div>
-                    <div class="PopUpFooter"></div>
-                </div>
-                <h3>Statistiques</h3>
-                <ul>
-                    <li>Nombre de candidatures :</li>
-                    <li>Offres visitées :</li>
-                    <li>Ancienneté sur le site :</li>
-                </ul>
-            </div>
-            <div class="liste">
-                <div class="wish-list">
-                    <h3>Wish-list</h3>
-                     {% include 'paginator/paginator.twig' with {
+				<li class="text">{{centre}}</li>
+				<li class="text">{{classe}}</li>
+				<li>Compétences :
+					<a href="#">voir plus</a>
+				</li>
+			</ul>
+		</div>
+		<div class="UpdateButton">
+			{# <button type="button" id="update">Modifier</button> #}
+            {% include 'button/button.twig' with {
+                __id: 'update',
+                __text: 'Modifier',  
+            } %}
+		</div>
+	</div>
+	<div class="statistique">
+		<div class="updatePopUp">
+			<div class="PopupHeader"></div>
+			<div class="PopUpFooter"></div>
+		</div>
+		<h3>Statistiques</h3>
+		<ul>
+			<li>Nombre de candidatures :</li>
+			<li>Offres visitées :</li>
+			<li>Ancienneté sur le site :</li>
+		</ul>
+	</div>
+	<div class="liste">
+		<div class="wish-list">
+			<h3>Wish-list</h3>
+			{% include 'paginator/paginator.twig' with {
 				__maxCanChange: true
 			         } %}
-                </div>
-                <div class="offer">
-                    <h3>Offres candidatées</h3>
-                      {% include 'paginator/paginator.twig' with {
+		</div>
+		<div class="offer">
+			<h3>Offres candidatées</h3>
+			{% include 'paginator/paginator.twig' with {
 				        __maxCanChange: true
 			            } %}
-                </div>
-            </div>
-        </div>
+		</div>
+	</div>
 {% endblock %}
 
 {% block templates append %}

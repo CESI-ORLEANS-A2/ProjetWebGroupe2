@@ -22,7 +22,7 @@ return [
     'LOGGER' => include __DIR__ . '/LOGGER.php',
 
     'HEADERS' => [
-        'Access-Control-Allow-Origin' => 'http://projet-web.fr',
+        'Access-Control-Allow-Origin' => '*', 
         'Access-Control-Allow-Methods' => 'GET, POST',
         'Access-Control-Allow-Headers' => 'Content-Type, Authorization, X-Requested-With',
         'Access-Control-Allow-Credentials' => 'true',

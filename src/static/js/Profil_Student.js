@@ -1,5 +1,3 @@
-
-
 document.getElementById('update').addEventListener('click', function () {
 	app.dialog.create({
 		title: "Modifier l'utilisateur",
@@ -206,34 +204,7 @@ document.getElementById('update').addEventListener('click', function () {
 			},
 
 			{ text: 'Annuler', action: 'close' },
-			{
-				text: 'Valider', color: 'var(--color-blue-600)', filled: true, action: (close) => {
-					app.dialog.confirm({
-						title: "Ajouter un utilisateur",
-						content: [
-							'Voulez vous vraiment ajouter cet utilisateur ?'
-						],
-					}).then(() =>{var userData = {
-						Firstname: 'John',
-						Lastname: 'Doe',
-						Account: 123
-					};
-				
-					// AJAX request
-					var xhr = new XMLHttpRequest();
-					xhr.open('POST','http://www.projet-web.fr/user', true);
-					xhr.setRequestHeader('Content-Type', 'application/json');
-					xhr.onreadystatechange = function() {
-						if (xhr.readyState === 4 && xhr.status === 200) {
-							console.log(xhr.responseText); 
-						}
-					};
-					xhr.send(JSON.stringify(userData));
-					console.log(userData); 
-				}).catch(() => { })
-				}
-			},
-			
+			{ text: 'Valider',color : 'var(--color-blue-600)',filled: true, action: (close) => { close(); } }
 		]
 	}).show();
 });

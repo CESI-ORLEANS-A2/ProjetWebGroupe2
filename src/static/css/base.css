@@ -36,6 +36,14 @@ main {
 	min-height: calc(100vh - 5rem);
 }
 
+body {
+	/* padding-right: 16px; */
+}
+
+main {
+	min-height: calc(100vh - 5rem);
+}
+
 [c-ripple] {
 	position: relative;
 	overflow: hidden;

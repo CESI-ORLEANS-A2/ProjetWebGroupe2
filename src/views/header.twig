@@ -3,7 +3,7 @@
 
 <header>
 	<a class="logo" href="/">
-		<img src="//static.projet-web.fr/public/img/logo.svg" alt="Logo"/>
+		<img src="//{{config.get('STATIC_DOMAIN')}}/public/img/logo.svg" alt="Logo"/>
 		<span>{{ config.get("APP_NAME") }}</span>
 	</a>
 	<div class="hamburger" c-ripple>
@@ -17,11 +17,11 @@
 	<nav>
 		<a href="/">Home</a>
 		<a href="/search">Recherche</a>
-		{% if isAuthenticated and user %}
-			{% if user.type == 'admin' %}
+		{% if isAuthenticated and connectedAccount %}
+			{% if connectedAccount.get('Type') == 'admin' %}
 				<a href="/users">Gestion des utilisateurs</a>
 			{% endif %}
-			{% if user.type == 'admin' or user.type == 'professor' %}
+			{% if connectedAccount.get('Type') == 'admin' or connectedAccount.get('Type') == 'professor' %}
 				<a href="/companies">Gestion des entreprises</a>
 			{% endif %}
 		{% endif %}

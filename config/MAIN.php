@@ -1,7 +1,12 @@
 <?php
 
 return [
-    'APP_NAME' => 'projet_web',
+    'APP_NAME' => 'MonStage.fr',
+    'APP_VERSION' => '1.0.0',
+    'APP_DESC' => 'MonStage.fr est une plateforme de recherche de stage pour les étudiants et les entreprises.',
+
+    'DOMAIN' => 'projet-web.fr',
+    'STATIC_DOMAIN' => 'static.projet-web.fr',
 
     // Path
     'TEMPLATE_PATH' => __DIR__ . '/../src/views/',

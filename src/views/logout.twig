@@ -1,0 +1,45 @@
+{# 
+======================================== 
+				 Imports
+========================================
+#}
+{% extends "base.twig" %}
+
+{# 
+======================================== 
+				 Assets
+========================================
+#}
+{% block assets %}
+	{{ parent() }}
+	{{ setName('logout') }}
+	{{ addCSS('css/logout.css') }}
+	{{ addJS('js/logout.js') }}
+{% endblock %}
+
+{# 
+======================================== 
+				 Metas
+========================================
+#}
+{% block title %}Connexion
+{% endblock %}
+
+{# 
+======================================== 
+			      Body
+========================================
+#}
+{% block content %}
+    <span>Vous êtes déconnecté !</span>
+<a href="/">
+    {% include 'button/button.twig' with {
+        __text: "Retourner à la page d'accueil"
+    } %}
+</a>
+<span>
+    Vous serez rediriger vers la page d'accueil automatiquement dans
+    <span class="seconds">5</span>
+    secondes
+</span>
+{% endblock %}

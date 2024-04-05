@@ -156,32 +156,6 @@
 		}
 
 		/**
-		 * Fonction qui crée un proxy pour surveiller les modifications d'une variable et exécuter un rappel à chaque modification.
-		 *
-		 * => fonction non indispensable
-		 *
-		 * @param {any} variable - La variable à surveiller.
-		 * @param {Function} callback - La fonction de rappel à exécuter lorsqu'une modification est détectée.
-		 * @returns {Proxy} - Le proxy qui surveille les modifications de la variable.
-		 */
-		watchVariable(variable, callback) {
-			// Crée un proxy pour surveiller les modifications de la variable
-			// Un proxy est un objet qui intercepte les opérations fondamentales d'un objet cible :
-			// - get : intercepte l'accès à une propriété de l'objet cible
-			// - set : intercepte la modification d'une propriété de l'objet cible
-			// ...
-			// (Plus https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
-
-			return new Proxy(variable, {
-				set: (obj, prop, value) => {
-					callback.call(obj, prop, obj[prop], value, obj);
-					obj[prop] = value;
-					return true;
-				}
-			});
-		}
-
-		/**
 		 * Crée un élément HTML avec les attributs et les enfants spécifiés.
 		 *
 		 * Exemple :
@@ -422,6 +396,19 @@
 		 */
 		onload(callback) {
 			this.callbacks.onload.push(callback);
+		}
+
+		click(element, callback) {
+			if (!element || element instanceof HTMLElement)
+				throw new Error('Invalid element provided');
+
+			if (!callback || typeof callback !== 'function') {
+				element.click();
+			} else {
+				element.addEventListener('click', callback);
+			}
+
+			return element;
 		}
 	}
 

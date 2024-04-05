@@ -1,69 +1,142 @@
 .c-select {
 	position: relative;
 	user-select: none;
-}
 
-.c-select_button {
-	background: var(--accent-color);
-	color: var(--accent-text-color);
-	padding: 0.5rem 1rem;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	vertical-align: middle;
-	align-items: center;
-	border-radius: 0.25rem;
-	cursor: pointer;
-	user-select: none;
-	transition: background-color var(--transition);
-}
+	.c-select_button {
+		background: var(--accent-color);
+		color: var(--accent-text-color);
+		padding: 0.5rem 1rem;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		vertical-align: middle;
+		align-items: center;
+		border-radius: 0.25rem;
+		cursor: pointer;
+		user-select: none;
+		transition: background-color var(--transition);
 
-.c-select[data-opened] .c-select_button,
-.c-select_button:hover {
-	background: var(--accent-hover-color);
-}
+		.c-select_prefix {
+			align-self: center;
+			text-wrap: nowrap;
+		}
 
-.c-select_prefix {
-	align-self: center;
-}
+		.c-select_current {
+			margin-left: 0.5rem;
+			display: flex;
+			flex-direction: row;
+			gap: 0.5rem;
+			overflow: hidden;
+			/* width: 80%; */
+			/* position: absolute; */
+			flex-wrap: wrap;
 
-.c-select_current {
-	margin-left: 0.5rem;
-}
+			&:empty::before {
+				content: '∅';
+			}
 
-.c-select_current:empty::before {
-	content: '∅';
-}
+			.c-select_chip {
+				background-color: var(--background-secondary-color);
+				color: var(--primary-text-color);
+				padding: 0.25rem 0.5rem;
+				border-radius: 1rem;
+				display: inline-flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				gap: 0.5rem;
+				transition: background-color var(--transition);
 
-.c-select_options {
-	position: absolute;
-	flex-direction: column;
+				&:hover {
+					background-color: var(--accent-color);
+				}
 
-	display: none;
-	height: fit-content;
-	overflow: hidden;
+				.material-icons {
+					font-size: 1rem;
+					width: fit-content;
+				}
+			}
+		}
 
-	top: calc(100% + 0.5rem);
-	background-color: var(--accent-color);
-	padding: 0.5rem 0;
-	border-radius: 0.25rem;
-	left: 0;
-	flex-direction: column;
-	/* gap: 0.25rem; */
+		.material-icons {
+			margin-left: auto;
+		}
+	}
 
-	transition: height var(--transition), opacity var(--transition);
+	&[data-opened] .c-select_button,
+	.c-select_button:hover {
+		background: var(--accent-hover-color);
+	}
 
-	z-index: -1;
-	box-shadow: 0px 0px 5px 0px var(--shadow-color);
+	.c-select_options {
+		min-width: 100%;
+		flex-direction: column;
 
-	min-width: 100%;
-}
+		display: none;
+		height: fit-content;
+		overflow: hidden auto;
 
-.c-select[data-opened] .c-select_options {
-	z-index: 100;
-	display: flex;
+		background-color: var(--accent-color);
+		padding: 0.5rem 0;
+		border-radius: 0.25rem;
+		flex-direction: column;
+		/* gap: 0.25rem; */
 
-	animation: select-slide-down 250ms forwards ease-in-out;
+		transition: height var(--transition), opacity var(--transition);
+
+		box-shadow: 0px 0px 5px 0px var(--shadow-color);
+
+		&:empty:after {
+			content: 'Aucune option disponible';
+			padding: 0.5rem 1rem;
+		}
+
+		.c-select_option {
+			min-height: 40px;
+
+			cursor: pointer;
+			padding: 0.5rem 1rem;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+			gap: 0.5rem;
+
+			transition: background-color var(--transition);
+
+			&:hover {
+				background-color: var(--accent-hover-color);
+			}
+
+			&:before {
+				content: 'check_box_outline_blank';
+				font-family: 'Material Icons';
+				font-weight: normal;
+				font-style: normal;
+				font-size: 24px;
+				line-height: 1;
+				letter-spacing: normal;
+				text-transform: none;
+				display: inline-block;
+				white-space: nowrap;
+				word-wrap: normal;
+				direction: ltr;
+				font-feature-settings: 'liga';
+				-webkit-font-feature-settings: 'liga';
+				-webkit-font-smoothing: antialiased;
+				width: 24px;
+			}
+
+			&[data-selected]:before {
+				content: 'check_box';
+			}
+		}
+	}
+
+	.c-tooltip .c-select_options {
+		display: flex;
+		animation: select-slide-down 250ms forwards ease-in-out;
+	}
 }
 
 @keyframes select-slide-down {
@@ -78,48 +151,4 @@
 		/* opacity: 1; */
 		max-height: min(100vh, 20rem);
 	}
-}
-
-.c-select_options:empty:after {
-	content: 'Aucune option disponible';
-	padding: 0.5rem 1rem;
-}
-
-.c-select_option {
-	cursor: pointer;
-	padding: 0.5rem 1rem;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: center;
-	gap: 0.5rem;
-
-	transition: background-color var(--transition);
-}
-
-.c-select_option:hover {
-	background-color: var(--accent-hover-color);
-}
-
-.c-select_option:before {
-	content: 'check_box_outline_blank';
-	font-family: 'Material Icons';
-	font-weight: normal;
-	font-style: normal;
-	font-size: 24px;
-	line-height: 1;
-	letter-spacing: normal;
-	text-transform: none;
-	display: inline-block;
-	white-space: nowrap;
-	word-wrap: normal;
-	direction: ltr;
-	font-feature-settings: 'liga';
-	-webkit-font-feature-settings: 'liga';
-	-webkit-font-smoothing: antialiased;
-	width: 24px;
-}
-
-.c-select_option[data-selected]:before {
-	content: 'check_box';
 }

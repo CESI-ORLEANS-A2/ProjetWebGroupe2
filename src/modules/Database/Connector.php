@@ -7,7 +7,8 @@ require_once '../src/modules/Logger.php';
  * 
  * Cette classe représente une connexion à la base de données.
  */
-class Database {
+class Database
+{
     private string $host;
     private string $database;
     private string $user;
@@ -16,7 +17,7 @@ class Database {
     private Logger $logger;
     private mixed $dbh = null;
 
-    private static Database $instance;
+    private static Database|null $instance = null;
 
     /**
      * Constructeur de la classe Connector.
@@ -26,16 +27,22 @@ class Database {
      * @param string $user Le nom d'utilisateur pour se connecter à la base de données.
      * @param string $password Le mot de passe pour se connecter à la base de données.
      */
-    function __construct(string $host, string $database, string $user, string $password) {
+    function __construct(string $host, string $database, string $user, string $password)
+    {
         $this->host = $host;
         $this->database = $database;
         $this->user = $user;
         $this->password = $password;
 
         $this->logger = new Logger($this, 'Database');
-        $this->dbh = $this->connect();
 
-        Database::$instance = $this;
+        if (!Database::$instance) {
+            $this->dbh = $this->connect();
+
+            Database::$instance = $this;
+        } else {
+            $this->dbh = Database::$instance->dbh;
+        }
     }
 
     /**
@@ -44,7 +51,8 @@ class Database {
      * @return Database L'instance de la classe Database.
      * @throws Error Si la base de données n'est pas initialisée.
      */
-    public static function getInstance(): Database {
+    public static function getInstance(): Database
+    {
         if (Database::$instance == null)
             throw new Error('Database not initialized');
         return Database::$instance;
@@ -55,7 +63,8 @@ class Database {
      *
      * @return bool Retourne true si la base de données est initialisée, sinon false.
      */
-    public static function isInitialized(): bool {
+    public static function isInitialized(): bool
+    {
         return Database::$instance != null;
     }
 
@@ -65,7 +74,8 @@ class Database {
      * @return PDO L'objet PDO représentant la connexion à la base de données.
      * @throws Error Si la connexion à la base de données échoue.
      */
-    private function connect(): PDO {
+    private function connect(): PDO
+    {
         if ($this->dbh != null)
             return $this->dbh;
 
@@ -90,7 +100,8 @@ class Database {
      * Cette méthode est appelée automatiquement lorsque l'objet est détruit.
      * Elle ferme la connexion à la base de données en appelant la méthode close().
      */
-    public function __destruct() {
+    public function __destruct()
+    {
         $this->close();
     }
 
@@ -101,7 +112,8 @@ class Database {
      *
      * @return void
      */
-    public function close(): void {
+    private function close(): void
+    {
         $this->dbh = null;
     }
 
@@ -112,7 +124,8 @@ class Database {
      * @param array $params Les paramètres à lier à la requête (facultatif).
      * @return PDOStatement L'objet PDOStatement résultant de l'exécution de la requête.
      */
-    public function query(string $query, array $params = array()): PDOStatement {
+    public function query(string $query, array $params = array()): PDOStatement
+    {
         $stmt = $this->dbh->prepare($query);
 
         $rawParams = $params;
@@ -122,10 +135,7 @@ class Database {
                 $value = $value->format('Y-m-d H:i:s');
             }
 
-            if (str_starts_with($k, ':'))
-                $params[$k] = htmlspecialchars($value);
-            else
-                $params[':' + $k] = htmlspecialchars($value);
+            $params[str_starts_with($k, ':') ? $k : ':' . $k] = htmlspecialchars($value ?? '');
         }
 
         $stmt->execute($params);
@@ -139,7 +149,8 @@ class Database {
      * @param array $params Les paramètres de la requête (facultatif).
      * @return array Le résultat de la requête sous forme de tableau associatif.
      */
-    public function fetch(string $query, array $params = array()): array | false{
+    public function fetch(string $query, array $params = array()): array|false
+    {
         $stmt = $this->query($query, $params);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -151,7 +162,8 @@ class Database {
      * @param array $params Les paramètres de la requête SQL (optionnel).
      * @return array Les lignes résultantes de la requête SQL.
      */
-    public function fetchAll(string $query, array $params = array()): array | false {
+    public function fetchAll(string $query, array $params = array()): array
+    {
         $stmt = $this->query($query, $params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -163,7 +175,8 @@ class Database {
      * @param array $params Les paramètres de la requête (optionnel).
      * @return mixed La valeur de la première colonne du résultat.
      */
-    public function fetchColumn(string $query, array $params = array()): mixed {
+    public function fetchColumn(string $query, array $params = array()): mixed
+    {
         $stmt = $this->query($query, $params);
         return $stmt->fetchColumn();
     }
@@ -175,14 +188,15 @@ class Database {
      * @param array $data Les données à insérer dans la table.
      * @return void
      */
-    public function insert(string $table, array $data): void {
+    public function insert(string $table, array $data): void
+    {
         $rawData = $data;
         $data = [];
         foreach ($rawData as $k => $value) {
             if (str_starts_with($k, ':'))
                 $data[$k] = htmlspecialchars($value);
             else
-                $data[':' + $k] = htmlspecialchars($value);
+                $data[':' . $k] = htmlspecialchars($value);
         }
 
         $columns = implode(', ', array_keys($rawData));
@@ -201,14 +215,18 @@ class Database {
      * @param array $whereParams Les paramètres de la clause WHERE, sous forme de tableau associatif.
      * @return void
      */
-    public function update(string $table, array $data, string $where, array $whereParams = array()): void {
+    public function update(string $table, array $data, string $where, array $whereParams = array()): void
+    {
         $rawData = $data;
         $data = [];
         foreach ($rawData as $k => $value) {
+            if ($value instanceof DateTime) {
+                $value = $value->format('Y-m-d H:i:s');
+            }
             if (str_starts_with($k, ':'))
                 $data[$k] = htmlspecialchars($value);
             else
-                $data[':' + $k] = htmlspecialchars($value);
+                $data[':' . $k] = htmlspecialchars((string) $value);
         }
 
         $set = [];
@@ -229,7 +247,8 @@ class Database {
      * @param array $whereParams Les paramètres de la condition WHERE (facultatif).
      * @return void
      */
-    public function delete(string $table, string $where, array $whereParams = array()): void {
+    public function delete(string $table, string $where, array $whereParams = array()): void
+    {
         $query = "DELETE FROM $table WHERE $where";
         $this->query($query, $whereParams);
     }
@@ -239,7 +258,8 @@ class Database {
      *
      * @return string L'identifiant de la dernière ligne insérée.
      */
-    public function lastInsertId(): string {
+    public function lastInsertId(): string
+    {
         return $this->dbh->lastInsertId();
     }
 
@@ -252,7 +272,8 @@ class Database {
      * @param array $whereParams Les paramètres de la condition (facultatif).
      * @return int Le nombre de lignes qui satisfont la condition.
      */
-    public function count(string $table, string $column, string $where, array $whereParams = array()): int {
+    public function count(string $table, string $column, string $where, array $whereParams = array()): int
+    {
         $query = "SELECT COUNT($column) FROM $table WHERE $where";
         $stmt = $this->query($query, $whereParams);
         return $stmt->fetchColumn();

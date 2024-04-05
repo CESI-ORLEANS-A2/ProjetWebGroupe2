@@ -1,0 +1,134 @@
+{# 
+======================================== 
+				 Imports
+========================================
+#}
+{% extends "base.twig" %}
+
+{# 
+======================================== 
+				 Assets
+========================================
+#}
+{% block assets %}
+	{{ parent() }}
+	{{ setName('offer') }}
+	{{ addCSS('css/offer.css') }}
+	{{ addJS('js/offer.js') }}
+{% endblock %}
+
+{# 
+======================================== 
+				 Metas
+========================================
+#}
+{% block title %}Home
+{% endblock %}
+
+{# 
+======================================== 
+			      Body
+========================================
+#}
+{% block content %}
+	<div class="header">
+		<div class="infos">
+			<div class="icon">
+				{% include 'icon/icon.twig' with {
+					__icon: 'work',
+				} %}
+			</div>
+			<div class="infos">
+				<div class="offer-title">{{offer.get('Title')}}</div>
+				<div class="published-at">{{offer.get('Creation_Date').format('d/m/Y h:m')}}</div>
+				<div class="location">{{offer.getLocation().getAddresses()[0]}}</div>
+			</div>
+		</div>
+		{% if isAuthenticated and connectedAccount.get('Type') == 'student' %}
+			<div class="actions">
+				<div 
+					class="wish-list {{offer.isInterested(connectedAccount.getID()) ? 'active' : ''}}" 
+					c-ripple
+					c-tooltip="Ajouter/Supprimer de ma liste de souhaits"
+					c-tooltip-position="left"
+				>
+					{% include 'icon/icon.twig' with {
+					__icon: 'favorite',
+				} %}
+				</div>
+				<div 
+					class="apply" 
+					c-tooltip="Postuler à une offre ou annuler une candidature" 
+					c-tooltip-position="left"
+				>
+					{% include 'button/button.twig' with {
+					__text: offer.isApplied(connectedAccount.getID()) ? 'Retirer ma candidature' : 'Postuler'
+				} %}
+				</div>
+			</div>
+		{% endif %}
+	</div>
+	<div class="body">
+		<div class="infos">
+			<div class="statistics">
+				<span class="title">Statistiques</span>
+				<div class="applications">
+					Nombre de candidatures :
+					<span>{{applicationsCount}}</span>
+				</div>
+				<div class="wish-list">
+					Nombre de personnes intéressées :
+					<span>{{offer.getInterstedCount() ?? 'Aucune	'}}</span>
+				</div>
+				<div class="old">
+					Ancienneté de l'offre :
+					<span>{{offer.getAge()}}</span>
+				</div>
+			</div>
+			<div class="description">
+				<span class="title">Information de l'offre</span>
+				{{offer.get('Description')}}
+			</div>
+		</div>
+		<div class="sidebar">
+			<div class="company">
+				<span class="title">Rappel de l'entreprise</span>
+				<div class="list">
+					<a class="card" href="/company?id={{company.getID()}}">
+						<div class="icon">
+							{% include 'icon/icon.twig' with {
+									__icon: 'apartment',
+								} %}
+						</div>
+						<div class="infos">
+							<span class="name">{{company.get('Name')}}</span>
+							{% if headquarters %}
+								<span class="location">{{headquerters.getAddress()}}</span>
+							{% endif %}
+							<span class="activities">{{activities|join(', ')}}</span>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="others">
+				<span class="title">Autres offres</span>
+				<div class="list">
+					{% for otherOffer in others %}
+						<a class="card" href="/offer?id={{otherOffer.getID()}}">
+							<div class="icon">
+								{% include 'icon/icon.twig' with {
+									__icon: 'work',
+								} %}
+							</div>
+							<div class="infos">
+								<span class="offer-title">{{otherOffer.get('Title')}}</span>
+								<span class="location">{{otherOffer.getLocation().getAddresses()[0]}}</span>
+								<span class="published-at">{{otherOffer.get('Creation_Date').format('d/m/Y h:m')}}</span>
+							</div>
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

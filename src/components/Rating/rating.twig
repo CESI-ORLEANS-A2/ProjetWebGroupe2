@@ -1,12 +1,7 @@
 {{ addCSS('rating/rating.css') }}
 {{ addJS('rating/rating.js') }}
-
-<div class="star-rating c-rating">
+<div class="star-rating">
     {% for i in 1..5 %}
-        <span class="star c-rating_star c-rating_star-{{i}}">
-            {% include 'icon/icon.twig' with {
-                __icon: "star",
-            } %}
-        </span>
+        <span class="star">&#9733;</span>
     {% endfor %}
 </div>

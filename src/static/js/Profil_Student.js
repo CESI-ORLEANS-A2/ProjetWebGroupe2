@@ -1,210 +1,205 @@
-document.getElementById('update').addEventListener('click', function () {
-	app.dialog.create({
-		title: "Modifier l'utilisateur",
-		content: [
-			app.createElement('div', {
-				id: 'container',
-				style: {
-					display: 'flex',
-					flexDirection: 'column',
-					gap: '20px',
-					fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-				}
-			},
-				app.createElement('div', {
-					style: {
-						display: 'flex',
-						flexDirection: 'column'
-					}
-				},
-					app.createElement('label', {}, "Nom d'utilisateur"),
-					app.createElement('div', {
-						style: {
-							display: 'flex',
-							border: '3px solid #85D3FF',
-							borderRadius: '10px',
-							overflow: 'hidden',
-							height: '40px'
-						}
-					},
-						app.createElement('img', {
-							src: '//static.projet-web.fr/public/img/users.svg'
-						}, 'Titre'),
+app.onload(function () {
+	const $editButton = document.getElementById('update');
 
-						app.createElement('input', {
-							Placeholder: "Nom d'utilisateur",
-							class: 'PopUpInput',
-							style: {
-								border: 'none'
-							}
-						},))),
-				app.createElement('div', {
-					style: {
-						display: 'flex',
-						flexDirection: 'column'
-					}
-				},
-					app.createElement('label', {}, "Mot de passe"),
-					app.createElement('div', {
-						style: {
-							display: 'flex',
-							border: '3px solid #85D3FF',
-							borderRadius: '10px',
-							overflow: 'hidden',
-							height: '40px'
-						}
-					},
-						app.createElement('img', {
-							src: '//static.projet-web.fr/public/img/key.svg'
-						}, 'Titre'),
-
-						app.createElement('input', {
-							Placeholder: 'Mot de passe',
-							class: 'PopUpInput',
-							style: {
-								border: 'none'
-							}
-						}, 'Titre'))),
-				app.createElement('div', {
-					style: {
-						display: 'flex',
-						flexDirection: 'row',
-						gap: '20px'
-					}
-
-				},
-					app.createElement('div', {
-						style: {
-							display: 'flex',
-							flexDirection: 'column'
-						}
-					},
-						app.createElement('label', {}, "Prénom"),
-
-						app.createElement('div', {
+	$editButton?.addEventListener('click', function () {
+		app.dialog
+			.create({
+				title: "Modifier l'utilisateur",
+				content: [
+					app.createElement(
+						'div',
+						{
+							id: 'container',
 							style: {
 								display: 'flex',
-								border: '3px solid #85D3FF',
-								borderRadius: '10px',
-								overflow: 'hidden',
-								height: '40px'
+								flexDirection: 'column',
+								gap: '20px',
+								fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
 							}
 						},
-							app.createElement('img', {
-								src: '//static.projet-web.fr/public/img/users.svg'
-							}, 'Titre'),
+						// 	{
+						// 		style: {
+						// 			display: 'flex',
+						// 			flexDirection: 'column'
+						// 		}
+						// 	},
+						// 	app.createElement('label', {}, "Nom d'utilisateur"),
+						// 	app.createElement(
+						// 		'div',
+						// 		{
+						// 			style: {
+						// 				display: 'flex',
+						// 				border: '3px solid #85D3FF',
+						// 				borderRadius: '10px',
+						// 				overflow: 'hidden',
+						// 				height: '40px'
+						// 			}
+						// 		},
+						// 		app.createElement(
+						// 			'img',
+						// 			{
+						// 				src: '//static.projet-web.fr/public/img/users.svg'
+						// 			},
+						// 			'Titre'
+						// 		),
 
-							app.createElement('input', {
-								Placeholder: "Prénom",
-								class: 'PopUpInput',
+						// 		app.createElement('input', {
+						// 			Placeholder: "Nom d'utilisateur",
+						// 			class: 'PopUpInput',
+						// 			style: {
+						// 				border: 'none'
+						// 			}
+						// 		})
+						// 	)
+						// ),
+						// app.createElement(
+						// 	'div',
+						// 	{
+						// 		style: {
+						// 			display: 'flex',
+						// 			flexDirection: 'column'
+						// 		}
+						// 	},
+						// 	app.createElement('label', {}, 'Mot de passe'),
+						// 	app.createElement(
+						// 		'div',
+						// 		{
+						// 			style: {
+						// 				display: 'flex',
+						// 				border: '3px solid #85D3FF',
+						// 				borderRadius: '10px',
+						// 				overflow: 'hidden',
+						// 				height: '40px'
+						// 			}
+						// 		},
+						// 		app.createElement(
+						// 			'img',
+						// 			{
+						// 				src: '//static.projet-web.fr/public/img/key.svg'
+						// 			},
+						// 			'Titre'
+						// 		),
+
+						// 		app.createElement(
+						// 			'input',
+						// 			{
+						// 				Placeholder: 'Mot de passe',
+						// 				class: 'PopUpInput',
+						// 				style: {
+						// 					border: 'none'
+						// 				}
+						// 			},
+						// 			'Titre'
+						// 		)
+						// 	)
+						// ),
+						app.createComponent(
+							'textarea',
+							{
+								placeholder: "Nom d'utilisateur",
+								label: "Nom d'utilisateur",
+								icon: 'person'
+							},
+							{}
+						).element,
+						app.createComponent(
+							'textarea',
+							{
+								placeholder: 'Mot de passe',
+								label: 'Mot de passe',
+								icon: 'lock'
+							},
+							{}
+						).element,
+						app.createElement(
+							'div',
+							{
 								style: {
-									border: 'none',
+									display: 'flex',
+									flexDirection: 'row',
+									gap: '20px'
 								}
-							}, 'Titre'))),
-					app.createElement('div', {
-						style: {
-							display: 'flex',
-							flexDirection: 'column'
-						}
+							},
+							app.createComponent(
+								'textarea',
+								{
+									placeholder: 'Prénom',
+									label: 'Prénom',
+									icon: 'person'
+								},
+								{}
+							).element,
+							app.createComponent(
+								'textarea',
+								{
+									placeholder: 'Nom',
+									label: 'Nom',
+									icon: 'person'
+								},
+								{}
+							).element,
+						),
+
+						app.createElement(
+							'div',
+							{
+								style: {
+									display: 'flex',
+									flexDirection: 'row',
+									gap: '20px'
+								}
+							},
+							app.createComponent(
+								'textarea',
+								{
+									placeholder: 'Établissement',
+									label: 'Établissement',
+									icon: 'apartment'
+								},
+								{}
+							).element,
+							app.createComponent(
+								'textarea',
+								{
+									placeholder: 'Promotion',
+									label: 'Promotion',
+									icon: 'group'
+								},
+								{}
+							).element,
+						)
+					)
+				],
+				buttons: [
+					{
+						text: 'Supprimer le compte',
+						color: '#FF6262',
+						filled: true,
+						action: (close) => {
+							app.dialog
+								.confirm({
+									title: 'Supprimer un utilisateur',
+									content: ['Voulez vous vraiment supprimer cet utilisateur ?'],
+									onConfirm() {
+										close();
+									}
+								})
+								.show();
+						},
+						align: 'left'
 					},
-						app.createElement('label', {}, "Nom"),
-						app.createElement('div', {
-							style: {
-								display: 'flex',
-								border: '3px solid #85D3FF',
-								borderRadius: '10px',
-								overflow: 'hidden',
-								height: '40px'
-							}
-						},
-							app.createElement('img', {
-								src: '//static.projet-web.fr/public/img/users.svg'
-							}, 'Titre'),
-							app.createElement('input', {
-								Placeholder: "Nom",
-								class: 'PopUpInput',
-								style: {
-									border: 'none',
-								}
-							}, 'Titre')))),
 
-				app.createElement('div', {
-					style: {
-						display: 'flex',
-						flexDirection: 'row',
-						gap: '20px'
+					{ text: 'Annuler', action: 'close' },
+					{
+						text: 'Valider',
+						color: 'var(--color-blue-600)',
+						filled: true,
+						action: (close) => {
+							close();
+						}
 					}
-
-				},
-					app.createElement('div', {
-						style: {
-							display: 'flex',
-							flexDirection: 'column'
-						}
-					},
-						app.createElement('label', {}, "Etablissement"),
-						app.createElement('div', {
-							style: {
-								display: 'flex',
-								border: '3px solid #85D3FF',
-								borderRadius: '10px',
-								overflow: 'hidden',
-								height: '40px'
-							}
-						},
-							app.createElement('img', {
-								src: '//static.projet-web.fr/public/img/users.svg'
-							}, 'Titre'),
-
-							app.createElement('input', {
-								Placeholder: "Etablissement",
-								class: 'PopUpInput',
-								style: {
-									border: 'none',
-								}
-							}, 'Titre'))),
-					app.createElement('div', {
-						style: {
-							display: 'flex',
-							flexDirection: 'column'
-						}
-					},
-						app.createElement('label', {}, "Promotion"),
-						app.createElement('div', {
-							style: {
-								display: 'flex',
-								border: '3px solid #85D3FF',
-								borderRadius: '10px',
-								overflow: 'hidden',
-								height: '40px'
-							}
-						},
-							app.createElement('img', {
-								src: '//static.projet-web.fr/public/img/users.svg'
-							}, 'Titre'),
-							app.createElement('input', {
-								Placeholder: "Promotion",
-								class: 'PopUpInput',
-								style: {
-									border: 'none',
-								}
-							}, 'Titre')))),
-			),
-		],
-		buttons: [
-			{
-				text: 'Supprimer le compte', color: '#FF6262', filled: true, action: (close) => {
-					app.dialog.confirm({
-						title: "Supprimer un utilisateur",
-						content: [
-							'Voulez vous vraiment supprimer cet utilisateur ?'
-						]
-					}).then(() => close()).catch(() => { })
-				}
-			},
-
-			{ text: 'Annuler', action: 'close' },
-			{ text: 'Valider',color : 'var(--color-blue-600)',filled: true, action: (close) => { close(); } }
-		]
-	}).show();
+				]
+			})
+			.show();
+	});
 });

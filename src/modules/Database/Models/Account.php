@@ -33,7 +33,7 @@ class Account extends Model {
     }
 
     public function checkPassword(string $Password): bool {
-        return true;
+        return $Password === $this->get('Password');
         // return password_verify($Password, $this->get('Password'));
     }
 

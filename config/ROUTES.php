@@ -76,5 +76,15 @@ return [
         'pattern' => '\/company_student', 
         'controller' => '/Company_Student.php',
         'methods' => ['GET'],
+    ],
+    [
+        'pattern' => '\/register',
+        'controller' => '/Register.php',
+        'methods' => ['GET'],
+    ],
+    [
+        'pattern' => '\/api\/register',
+        'controller' => '/api/Register.php',
+        'methods' => ['POST'],
     ]
 ];

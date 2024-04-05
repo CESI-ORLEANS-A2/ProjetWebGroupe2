@@ -1,0 +1,64 @@
+{# 
+======================================== 
+				 Imports
+========================================
+#}
+{% extends "base.twig" %}
+
+{# 
+======================================== 
+				 Assets
+========================================
+#}
+{% block assets %}
+	{{ parent() }}
+	{{ setName('register') }}
+	{{ addCSS('css/register.css') }}
+	{{ addJS('js/register.js') }}
+{% endblock %}
+
+{# 
+======================================== 
+				 Metas
+========================================
+#}
+{% block title %}Register{% endblock %}
+
+{# 
+======================================== 
+			      Body
+========================================
+#}
+{% block content %}
+	<div class="container">
+            <div class="form">
+                <h1 class="text-centered" id="police_audiowide">S'inscrire</h1>
+                <p class="text-centered" id="sous_titre_inscription">Pour les entreprises, veuillez contactez l’administration du site.</p>
+                <form>
+                    <div class="formulaire_inscription">
+                        <div class="flex_center" id="input_1">
+                            <label class="text-left width_100">Nom d'utilisateur<br><input id="username" class="blue-border_1 width_97" name="username" type="text" value="" required placeholder="Nom d'utilisateur" ></label>
+                        </div>
+                        <div class="flex_center" id="input_2">
+                            <label class="text-left width_100">Mot de passe<br><input id="password" class="blue-border_1 width_97" name="password" type="password" value="" minlength="8" required placeholder="Mot de passe"></label>
+                        </div>
+                        <div class="flex_center" id="input_3">
+                            <label class="text-left width_100">Prénom<br><input id="firstname" class="blue-border_2 width_94" name="firstname" type="text" value="" required placeholder="Prénom"></label>
+                        </div>
+                        <div class="flex_center" id="input_4">
+                            <label class="text-left width_100">Nom<br><input id="name" class="blue-border_2 width_94" name="lastname" type="text" value="" required placeholder="Nom"></label>
+                        </div>
+                        <div class="flex_center" id="input_5">
+                            <label class="text-left width_100">Etablissement<br><input id="school" class="blue-border_2 width_94" name="establishment" type="text" value="" required placeholder="Etablissement"></label>
+                        </div>
+                        <div class="flex_center" id="input_6">
+                            <label class="text-left width_100">Promotion<br><input id="class" class="blue-border_2 width_94" name="promotion" type="text" value="" required placeholder="Promotion"></label>
+                        </div>
+                        <div class="flex_center" id="input_7">
+                            <button type="submit" class="valider width_70">Valider</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+{% endblock %}

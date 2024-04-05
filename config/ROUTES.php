@@ -76,5 +76,10 @@ return [
         'pattern' => '\/company_student', 
         'controller' => '/Company_Student.php',
         'methods' => ['GET'],
-    ]
+    ],
+    [ // mentions_légales
+        'pattern' => '\/about', 
+        'controller' => '/mentions_légales.php',
+        'methods' => ['GET'],
+    ],
 ];

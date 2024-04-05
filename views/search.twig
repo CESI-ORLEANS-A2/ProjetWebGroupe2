@@ -1,0 +1,160 @@
+{# 
+======================================== 
+				 Imports
+========================================
+#}
+{% extends "base.twig" %}
+
+{# 
+======================================== 
+				 Assets
+========================================
+#}
+{% block assets %}
+	{{ parent() }}
+	{{ setName('search') }}
+	{{ addCSS('css/search.css') }}
+	{{ addJS('js/search.js') }}
+{% endblock %}
+
+{# 
+======================================== 
+				 Metas
+========================================
+#}
+{% block title %}Search{% endblock %}
+
+{# 
+======================================== 
+			      Body
+========================================
+#}
+
+{% block content %}
+	<form class="search-header">
+		<div class="search-bar">
+			{% include 'textarea/textarea.twig' with {
+				__placeholder: 'Métier, mot-clé, compétence, ...',
+				__icon: "work",
+				__id: "job"
+			} %}
+			{% include 'textarea/textarea.twig' with {
+				__placeholder: 'Lieu de recherche ...',
+				__icon: "location_on",
+				__id: "location"
+			} %}
+			{% include 'button/button.twig' with {
+				__text: 'Rechercher',
+				__icon: 'search',
+				__id: 'submit',
+				__type: 'submit'
+			} %}
+			{% include 'button/button.twig' with {
+				__text: 'Effacer',
+				__icon: 'close',
+				__id: 'clear'
+			} %}
+		</div>
+		<div class="filter-bar">
+			{% include 'select/select.twig' with {
+				__prefix: 'Compétences',
+				__id: 'skills',
+				__noCurrentValue: true,
+				__multiple: true,
+				__allowEmpty: true,
+				__options: skills
+			} %}
+			{% include 'select/select.twig' with {
+				__prefix: 'Niveau d\'études',
+				__id: 'study-level',
+				__noCurrentValue: true,
+				__allowEmpty: true,
+				__multiple: true,
+				__options: studyLevels
+			} %}
+			{% include 'select/select.twig' with {
+				__prefix: 'Type',
+				__id: 'type',
+				__multiple: false,
+				__options: [
+					{ value: 'stage', text: 'Stage', selected: true },
+					{ value: 'pilote', text: 'Pilotes', selected: false },
+					{ value: 'student', text: 'Étudiants', selected: false },
+					{ value: 'company', text: 'Entreprises', selected: false },
+				],
+				__noCurrentValue: true
+			} %}
+			{# {% include 'select/select.twig' with {
+				__prefix: 'Autres critères',
+				__id: 'other',
+				__multiple: true,
+				__options: [
+					{ value: 'paid', text: 'Rémunéré', selected: true },
+					{ value: 'not_paid', text: 'Non rémunéré', selected: true },
+				],
+				__noCurrentValue: true,
+				__allowEmpty: true
+			} %} #}
+		</div>
+	</form>
+	<div class="search-body">
+		<div class="search-sort">
+			{% include 'select/select.twig' with {
+				__prefix: 'Trier par :',
+				__id: 'sort',
+				__options: [
+					{ value: 'date', text: 'Date', selected: true },
+					{ value: 'popularity', text: 'Popularité' },
+				]
+			} %}
+			<span class="result-counter">
+				<span class="result-count">0</span>
+				/
+				<span class="result-total">0</span>
+				Résulats trouvés
+			</span>
+		</div>
+		<div class="search-results">
+			{# {% include "search/result-company.twig" with {
+				__name: "Company Name",
+				__icon: "apartment"
+			} %}
+			{% include "search/result-user.twig" with {
+				__name: "Jean Broche",
+				__icon: "person"
+			} %}
+			{% include "search/result-offer.twig" with {
+				__title: "CS 24 - Stage - BAC+5 - Chargé / Chargée de missions pilote d'études Superstructure (H/F)",
+				__icon: "work",
+				__date: "Publié hier",
+				__location: "Location",
+			} %}
+			{% include "search/result-company.twig" with {
+				__name: "Company Name"
+			} %}
+			{% include "search/result-offer.twig" with {
+				__title: "CS 24 - Stage - BAC+5 - Chargé / Chargée de missions pilote d'études Superstructure (H/F)",
+				__icon: "work",
+				__date: "Publié hier",
+				__location: "Location",
+			} %}
+			{% include "search/result-user.twig" with {
+				__name: "Jean Broche",
+				__icon: "person"
+			} %}
+			{% include "search/result-company.twig" with {
+				__name: "Company Name",
+				__icon: ""
+			} %}
+			{% include "search/result-user.twig" with {
+				__name: "Jean Broche",
+				__icon: "person"
+			} %} #}
+			{% include 'paginator/paginator.twig' with {
+				__maxCanChange: true
+			} %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block templates append %}

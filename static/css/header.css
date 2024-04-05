@@ -1,0 +1,270 @@
+header {
+	display: flex;
+	align-items: center;
+	padding: 0 2rem 0 1rem;
+	background-color: var(--background-primary-accent-color);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	gap: 1rem;
+	height: 5rem;
+	user-select: none;
+
+	a {
+		text-decoration: none;
+		color: var(--text-primary-color);
+	}
+
+	.logo {
+		padding: 0.5rem 0;
+		height: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		img {
+			height: 100%;
+		}
+
+		span {
+			display: none;
+			font-size: 1.5rem;
+			font-weight: bold;
+			margin-left: 0.5rem;
+		}
+	}
+
+	.hamburger {
+		margin-left: auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+		padding: 1rem;
+		border-radius: 50%;
+	}
+
+	.backdrop {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 110;
+		display: none;
+
+		&.visible {
+			display: block;
+		}
+	}
+
+	nav {
+		position: fixed;
+		display: none;
+		height: 100vh;
+		width: min(100vw, 300px);
+		top: 0;
+		left: 0;
+		background-color: var(--background-primary-color);
+		z-index: 120;
+		padding: 3rem 1rem;
+		flex-direction: column;
+
+		&.visible {
+			display: flex;
+			animation: showNav var(--transition);
+		}
+
+		> :not(.close) {
+			padding: 1rem 2rem;
+			transition: background-color var(--transition);
+
+			&:hover {
+				background-color: var(--background-primary-accent-color);
+			}
+		}
+
+		> .close {
+			position: absolute;
+			top: 0.5rem;
+			right: 1rem;
+			cursor: pointer;
+			font-size: 2rem;
+			color: var(--text-primary-color);
+		}
+	}
+
+	.account {
+		display: flex;
+		flex-direction: row;
+		gap: 0.5rem;
+
+		.avatar {
+			height: 4rem;
+			width: 4rem;
+			border-radius: 50%;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: var(--accent-color);
+
+			.material-icons {
+				width: auto;
+				font-size: 2rem;
+				color: var(--primary-text-color);
+			}
+		}
+
+		.arrow {
+			position: absolute;
+			bottom: -0.75rem;
+			right: 0;
+			pointer-events: none;
+
+			.material-icons {
+				font-size: 2rem;
+			}
+		}
+
+		.dropdown {
+			display: none;
+			position: absolute;
+			top: 110%;
+			right: 1rem;
+			overflow: hidden;
+			background-color: var(--accent-color);
+			padding: 0.5rem 0;
+			border-radius: 0.25rem;
+			flex-direction: column;
+			transition: height var(--transition), opacity var(--transition);
+			box-shadow: 0px 0px 5px 0px var(--shadow-color);
+			height: fit-content;
+
+			> * {
+				cursor: pointer;
+				padding: 0.5rem 1rem;
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start;
+				align-items: center;
+				gap: 0.5rem;
+				transition: background-color var(--transition);
+
+				&:hover {
+					background-color: var(--accent-hover-color);
+				}
+			}
+
+			&.visible {
+				display: flex;
+				animation: showDropdown var(--transition);
+			}
+		}
+
+		#register {
+			display: none;
+		}
+	}
+}
+
+@keyframes showDropdown {
+	0% {
+		opacity: 0;
+		max-height: 0rem;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		max-height: 100vh;
+	}
+}
+
+@keyframes showNav {
+	0% {
+		opacity: 0;
+		left: -100%;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		left: 0;
+	}
+}
+
+html[is-authenticated='true'] header nav {
+	:nth-child(3),
+	:nth-child(4) {
+		display: inline;
+	}
+}
+
+@media screen and (min-width: 750px) {
+	header {
+		.hamburger,
+		.close,
+		.backdrop {
+			display: none;
+
+			&.visible {
+				display: none;
+			}
+		}
+
+		nav {
+			position: relative;
+			display: block;
+			height: fit-content;
+			width: fit-content;
+			background-color: unset;
+			z-index: unset;
+			padding: unset;
+			margin-left: auto;
+
+			&.visible {
+				display: block;
+				animation: none;
+			}
+
+			> :not(.close) {
+				padding: 0rem 0.5rem;
+				transition: none;
+
+				&:hover {
+					background-color: unset;
+				}
+			}
+		}
+
+		#register {
+			display: block;
+		}
+	}
+
+	html[is-authenticated='true'] header nav {
+		:nth-child(3),
+		:nth-child(4) {
+			display: none;
+		}
+	}
+}
+
+@media screen and (min-width: 360px) {
+	header .logo span {
+		display: block;
+	}
+}
+
+@media screen and (min-width: 940px) {
+	html[is-authenticated='true'] header nav a {
+		&:nth-child(3),
+		&:nth-child(4) {
+			display: inline;
+		}
+	}
+}
